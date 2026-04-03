@@ -1,0 +1,48 @@
+name: PS Verificacion - Cruce GA4 + DGR
+
+on:
+  schedule:
+    # Lunes a viernes a las 12:00 hora Argentina (UTC-3 = 15:00 UTC)
+    - cron: '0 15 * * 1-5'
+  workflow_dispatch: # Permite ejecución manual
+
+permissions:
+  contents: write
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependencias
+        run: pip install -r requirements_ps.txt
+
+      - name: Escribir credenciales GA4
+        run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > sa_credentials.json
+
+      - name: Ejecutar PS Verificacion (incremental)
+        run: |
+          python ps_verificacion.py \
+            -c sa_credentials.json \
+            -u "${{ secrets.DGR_USERNAME }}" \
+            -p "${{ secrets.DGR_PASSWORD }}" \
+            --hasta "$(date +%Y-%m-%d)" \
+            --incremental
+
+      - name: Limpiar credenciales
+        if: always()
+        run: rm -f sa_credentials.json
+
+      - name: Commit y push de resultados
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add ps_verificacion.csv ps_verificacion.html ps_verificacion_charts.json
+          git diff --staged --quiet || git commit -m "Actualizar verificacion PS $(date +%Y-%m-%d)"
+          git push

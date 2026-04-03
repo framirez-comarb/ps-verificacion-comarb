@@ -1,0 +1,14 @@
+# Claude Code local config
+.claude/
+
+# Service account credentials
+comarb-analytics-*.json
+sa_credentials.json
+
+# Debug HTML files from DGR
+debug_dgr_*.html
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
