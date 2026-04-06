@@ -27,11 +27,14 @@ jobs:
         run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > sa_credentials.json
 
       - name: Ejecutar PS Verificacion (incremental)
+        env:
+          DGR_USERNAME: ${{ secrets.DGR_USERNAME }}
+          DGR_PASSWORD: ${{ secrets.DGR_PASSWORD }}
         run: |
           python ps_verificacion.py \
             -c sa_credentials.json \
-            -u "${{ secrets.DGR_USERNAME }}" \
-            -p "${{ secrets.DGR_PASSWORD }}" \
+            -u "$DGR_USERNAME" \
+            -p "$DGR_PASSWORD" \
             --hasta "$(date +%Y-%m-%d)" \
             --incremental
 
