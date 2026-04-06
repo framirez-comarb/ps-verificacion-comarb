@@ -1368,7 +1368,9 @@ def load_previous_verifications(csv_path: str) -> dict:
         return {}
 
     df_prev["verificada_dgr"] = df_prev["verificada_dgr"].fillna("")
-    mask = (df_prev["duplicado"] == "No") & (df_prev["verificada_dgr"] != "")
+    # No reutilizar filas en estado de error: deben reverificarse en la próxima corrida
+    error_states = {"", "Error", "Error login"}
+    mask = (df_prev["duplicado"] == "No") & (~df_prev["verificada_dgr"].isin(error_states))
     result = {}
     for _, row in df_prev[mask].iterrows():
         key = (str(row["cuit"]), str(row["fecha"]))
