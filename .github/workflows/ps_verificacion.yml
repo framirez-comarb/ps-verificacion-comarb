@@ -39,10 +39,13 @@ jobs:
         if: always()
         run: rm -f sa_credentials.json
 
+      - name: Copiar reporte a index.html (GitHub Pages)
+        run: cp ps_verificacion.html index.html
+
       - name: Commit y push de resultados
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add ps_verificacion.csv ps_verificacion.html ps_verificacion_charts.json
+          git add ps_verificacion.csv ps_verificacion.html ps_verificacion_charts.json index.html
           git diff --staged --quiet || git commit -m "Actualizar verificacion PS $(date +%Y-%m-%d)"
           git push

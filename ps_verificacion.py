@@ -389,21 +389,44 @@ class DGRTableParser(HTMLParser):
 
 def dgr_login(session: requests.Session, username: str, password: str) -> bool:
     """Login en DGR Gestión. Retorna True si fue exitoso."""
+    print(f"  [dgr_login] user='{username}' pass_len={len(password) if password else 0}")
+
     # Acceder al login para obtener cookies
-    session.get(f"{DGR_BASE}/login.jsp", timeout=30)
+    try:
+        r0 = session.get(f"{DGR_BASE}/login.jsp", timeout=30)
+        print(f"  [dgr_login] GET login.jsp -> status={r0.status_code} url={r0.url}")
+        print(f"  [dgr_login] cookies tras GET: {dict(session.cookies)}")
+    except Exception as e:
+        print(f"  [dgr_login] EXCEPCION en GET login.jsp: {type(e).__name__}: {e}")
+        return False
 
     # POST de autenticación
-    resp = session.post(
-        DGR_LOGIN_URL,
-        data={"j_username": username, "j_password": password},
-        timeout=30,
-        allow_redirects=True,
-    )
+    try:
+        resp = session.post(
+            DGR_LOGIN_URL,
+            data={"j_username": username, "j_password": password},
+            timeout=30,
+            allow_redirects=True,
+        )
+    except Exception as e:
+        print(f"  [dgr_login] EXCEPCION en POST j_security_check: {type(e).__name__}: {e}")
+        return False
+
+    print(f"  [dgr_login] POST j_security_check -> status={resp.status_code} final_url={resp.url}")
+    print(f"  [dgr_login] historial redirects: {[(h.status_code, h.url) for h in resp.history]}")
+    print(f"  [dgr_login] cookies tras POST: {dict(session.cookies)}")
+    snippet = (resp.text or "")[:600].replace("\n", " ")
+    print(f"  [dgr_login] body[:600]: {snippet}")
 
     # Si redirige de vuelta al login, falló
     if "login.jsp" in resp.url or "j_security_check" in resp.url:
+        print("  [dgr_login] FALLO: la URL final indica vuelta al login")
         return False
-    return resp.status_code == 200
+    if resp.status_code != 200:
+        print("  [dgr_login] FALLO: status_code != 200")
+        return False
+    print("  [dgr_login] OK")
+    return True
 
 
 def dgr_init_search_form(session: requests.Session) -> bool:
