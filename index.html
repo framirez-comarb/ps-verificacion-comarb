@@ -233,7 +233,7 @@
 <header>
     <h1>📋 Presentación Simplificada — Verificación</h1>
     <div class="meta">
-        Propiedad: 485388348 · Generado: 07/04/2026 02:00
+        Propiedad: 485388348 · Generado: 07/04/2026 02:14
     </div>
     <div class="period-filter">
         <label>Período:</label>
@@ -247,24 +247,24 @@
 <div class="kpis">
     <div class="kpi">
         <div class="label">Total registros</div>
-        <div class="value v1">2158</div>
+        <div class="value v1" id="kpi-total">2158</div>
     </div>
     <div class="kpi">
         <div class="label">CUITs únicos</div>
-        <div class="value v2">972</div>
+        <div class="value v2" id="kpi-cuits">972</div>
     </div>
     <div class="kpi">
         <div class="label">No duplicados</div>
-        <div class="value v3">1847</div>
+        <div class="value v3" id="kpi-no-dup">1847</div>
     </div>
     <div class="kpi">
         <div class="label">Duplicados</div>
-        <div class="value v4">311</div>
+        <div class="value v4" id="kpi-dup">311</div>
     </div>
     
         <div class="kpi">
             <div class="label">No encontradas DGR</div>
-            <div class="value v6">38</div>
+            <div class="value v6" id="kpi-dgr-no">38</div>
         </div>
 </div>
 
@@ -298,8 +298,8 @@
 
 <div class="section">
     <div class="tabs">
-        <div class="tab active" onclick="switchTab('no-dup')">Sin duplicados (1847)</div>
-        <div class="tab" onclick="switchTab('all')">Con duplicados (2158)</div>
+        <div class="tab active" onclick="switchTab('no-dup')">Sin duplicados (<span id="tab-count-no-dup">1847</span>)</div>
+        <div class="tab" onclick="switchTab('all')">Con duplicados (<span id="tab-count-all">2158</span>)</div>
     </div>
 
     <div id="tab-no-dup" class="tab-content active">
@@ -44483,10 +44483,13 @@ function applyFiltersAll() {
     });
 }
 
+function onFiltersChanged() {
+    applyFiltersAll();
+    recomputeKPIsAndCharts();
+}
+
 document.querySelectorAll('.col-filter').forEach(input => {
-    input.addEventListener('input', function() {
-        applyFilters(this.closest('table'));
-    });
+    input.addEventListener('input', onFiltersChanged);
 });
 
 /* Inputs del rango de fechas */
@@ -44496,12 +44499,12 @@ const periodResetEl = document.getElementById('period-reset');
 const defaultDesde = fechaDesdeEl.value;
 const defaultHasta = fechaHastaEl.value;
 
-fechaDesdeEl.addEventListener('change', applyFiltersAll);
-fechaHastaEl.addEventListener('change', applyFiltersAll);
+fechaDesdeEl.addEventListener('change', onFiltersChanged);
+fechaHastaEl.addEventListener('change', onFiltersChanged);
 periodResetEl.addEventListener('click', () => {
     fechaDesdeEl.value = defaultDesde;
     fechaHastaEl.value = defaultHasta;
-    applyFiltersAll();
+    onFiltersChanged();
 });
 
 /* Ordenamiento por columna */
@@ -44554,28 +44557,33 @@ document.querySelectorAll('thead tr:first-child th[data-col]').forEach(th => {
 Chart.defaults.color = '#8b90a5';
 Chart.defaults.font.family = "'DM Sans', sans-serif";
 
-/* Tabla con barras horizontales (estilo Looker) */
-const fechas = ["2026-01-01", "2026-01-02", "2026-01-03", "2026-01-05", "2026-01-06", "2026-01-07", "2026-01-08", "2026-01-09", "2026-01-10", "2026-01-11", "2026-01-12", "2026-01-13", "2026-01-14", "2026-01-15", "2026-01-16", "2026-01-17", "2026-01-18", "2026-01-19", "2026-01-20", "2026-01-21", "2026-01-22", "2026-01-23", "2026-01-27", "2026-01-29", "2026-02-01", "2026-02-02", "2026-02-03", "2026-02-04", "2026-02-05", "2026-02-06", "2026-02-07", "2026-02-08", "2026-02-09", "2026-02-10", "2026-02-11", "2026-02-12", "2026-02-13", "2026-02-14", "2026-02-15", "2026-02-16", "2026-02-17", "2026-02-18", "2026-02-19", "2026-02-20", "2026-02-21", "2026-02-22", "2026-02-23", "2026-02-24", "2026-02-25", "2026-02-27", "2026-03-01", "2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05", "2026-03-06", "2026-03-07", "2026-03-09", "2026-03-10", "2026-03-11", "2026-03-12", "2026-03-13", "2026-03-14", "2026-03-15", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20", "2026-03-25", "2026-03-26", "2026-03-28", "2026-04-01", "2026-04-02", "2026-04-03", "2026-04-04", "2026-04-05", "2026-04-06"];
-const pres = [1, 9, 1, 18, 8, 6, 22, 18, 12, 7, 63, 74, 93, 84, 38, 5, 6, 33, 20, 9, 2, 6, 2, 0, 2, 5, 10, 6, 10, 14, 10, 6, 37, 44, 45, 77, 78, 16, 6, 22, 38, 73, 44, 33, 3, 2, 6, 4, 7, 6, 5, 10, 7, 9, 16, 12, 5, 39, 54, 88, 108, 90, 15, 15, 102, 57, 29, 8, 9, 6, 2, 1, 5, 6, 3, 2, 2, 14];
-const env = [1, 6, 0, 14, 3, 4, 14, 9, 10, 3, 45, 40, 60, 63, 23, 5, 5, 23, 14, 8, 2, 6, 1, 0, 1, 3, 7, 4, 6, 9, 9, 5, 18, 30, 28, 50, 50, 14, 4, 17, 25, 50, 30, 26, 1, 3, 2, 3, 7, 3, 0, 5, 6, 7, 10, 6, 4, 28, 30, 55, 65, 60, 7, 10, 78, 43, 21, 8, 8, 6, 2, 1, 2, 7, 3, 1, 1, 10];
-const cerr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 72, 72, 31, 2, 6, 32, 15, 7, 0, 0, 2, 3, 0, 0, 0, 0, 3, 4, 1, 1, 11, 9, 11, 24, 21, 1, 2, 3, 7, 13, 12, 5, 1, 0, 2, 0, 0, 1, 4, 3, 1, 1, 4, 4, 0, 6, 19, 21, 26, 20, 8, 0, 19, 6, 6, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 4];
-const dif = [0, -3, -1, -4, -5, -2, -8, -9, -2, -4, -18, -2, 39, 51, 16, 2, 5, 22, 9, 6, 0, 0, 1, 3, -1, -2, -3, -2, -1, -1, 0, 0, -8, -5, -6, -3, -7, -1, 0, -2, -6, -10, -2, -2, -1, 1, -2, -1, 0, -2, -1, -2, 0, -1, -2, -2, -1, -5, -5, -12, -17, -10, 0, -5, -5, -8, -2, 0, 0, 0, 0, 0, -2, 1, 1, 0, -1, 0];
+/* Datos base (período completo) */
+const RAW_FECHAS = ["2026-01-01", "2026-01-02", "2026-01-03", "2026-01-05", "2026-01-06", "2026-01-07", "2026-01-08", "2026-01-09", "2026-01-10", "2026-01-11", "2026-01-12", "2026-01-13", "2026-01-14", "2026-01-15", "2026-01-16", "2026-01-17", "2026-01-18", "2026-01-19", "2026-01-20", "2026-01-21", "2026-01-22", "2026-01-23", "2026-01-27", "2026-01-29", "2026-02-01", "2026-02-02", "2026-02-03", "2026-02-04", "2026-02-05", "2026-02-06", "2026-02-07", "2026-02-08", "2026-02-09", "2026-02-10", "2026-02-11", "2026-02-12", "2026-02-13", "2026-02-14", "2026-02-15", "2026-02-16", "2026-02-17", "2026-02-18", "2026-02-19", "2026-02-20", "2026-02-21", "2026-02-22", "2026-02-23", "2026-02-24", "2026-02-25", "2026-02-27", "2026-03-01", "2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05", "2026-03-06", "2026-03-07", "2026-03-09", "2026-03-10", "2026-03-11", "2026-03-12", "2026-03-13", "2026-03-14", "2026-03-15", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20", "2026-03-25", "2026-03-26", "2026-03-28", "2026-04-01", "2026-04-02", "2026-04-03", "2026-04-04", "2026-04-05", "2026-04-06"];
+const RAW_PRES = [1, 9, 1, 18, 8, 6, 22, 18, 12, 7, 63, 74, 93, 84, 38, 5, 6, 33, 20, 9, 2, 6, 2, 0, 2, 5, 10, 6, 10, 14, 10, 6, 37, 44, 45, 77, 78, 16, 6, 22, 38, 73, 44, 33, 3, 2, 6, 4, 7, 6, 5, 10, 7, 9, 16, 12, 5, 39, 54, 88, 108, 90, 15, 15, 102, 57, 29, 8, 9, 6, 2, 1, 5, 6, 3, 2, 2, 14];
+const RAW_ENV = [1, 6, 0, 14, 3, 4, 14, 9, 10, 3, 45, 40, 60, 63, 23, 5, 5, 23, 14, 8, 2, 6, 1, 0, 1, 3, 7, 4, 6, 9, 9, 5, 18, 30, 28, 50, 50, 14, 4, 17, 25, 50, 30, 26, 1, 3, 2, 3, 7, 3, 0, 5, 6, 7, 10, 6, 4, 28, 30, 55, 65, 60, 7, 10, 78, 43, 21, 8, 8, 6, 2, 1, 2, 7, 3, 1, 1, 10];
+const RAW_CERR = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 72, 72, 31, 2, 6, 32, 15, 7, 0, 0, 2, 3, 0, 0, 0, 0, 3, 4, 1, 1, 11, 9, 11, 24, 21, 1, 2, 3, 7, 13, 12, 5, 1, 0, 2, 0, 0, 1, 4, 3, 1, 1, 4, 4, 0, 6, 19, 21, 26, 20, 8, 0, 19, 6, 6, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 4];
+const STOPWORDS = new Set(["a", "al", "algunos", "ante", "antes", "bien", "como", "con", "contra", "cual", "cuando", "de", "del", "desde", "donde", "durante", "e", "el", "ella", "ellos", "en", "entre", "es", "esa", "ese", "eso", "esta", "este", "esto", "estos", "est\u00e1", "fue", "ha", "haber", "hacer", "hasta", "hay", "la", "las", "le", "les", "lo", "los", "me", "mi", "mucho", "muchos", "muy", "m\u00e1s", "nada", "ni", "no", "nos", "o", "otra", "otras", "otro", "otros", "para", "pero", "poco", "poder", "por", "porque", "que", "quien", "quienes", "qu\u00e9", "se", "ser", "si", "sin", "sobre", "son", "su", "sus", "tambi\u00e9n", "tanto", "tengo", "tiene", "todo", "todos", "un", "una", "uno", "unos", "y", "ya", "yo", "\u00e9l"]);
 
-if (fechas.length > 0) {
-    const maxVal = Math.max(...pres, ...env, ...cerr, 1);
+/* Instancias de Chart.js */
+let _chartEstrellas = null;
+let _chartProporcion = null;
+
+const cloudEl = document.getElementById('wordCloud');
+
+function renderBarTable(fechas, pres, env, cerr) {
     const tbody = document.getElementById('barTableBody');
-
-    /* Recorrer en orden descendente (fecha más reciente primero) */
+    tbody.innerHTML = '';
+    if (fechas.length === 0) return;
+    const maxVal = Math.max(...pres, ...env, ...cerr, 1);
+    const barPct = v => Math.max(0, (v / maxVal) * 100);
+    const barHtml = (val, color) =>
+        '<div class="bar-cell"><span class="bar-val">' + val +
+        '</span><span class="bar" style="width:' + barPct(val) +
+        '%;background:' + color + '"></span></div>';
     for (let i = fechas.length - 1; i >= 0; i--) {
         const tr = document.createElement('tr');
-        const barPct = v => Math.max(0, (v / maxVal) * 100);
-        const barHtml = (val, color) =>
-            '<div class="bar-cell"><span class="bar-val">' + val +
-            '</span><span class="bar" style="width:' + barPct(val) +
-            '%;background:' + color + '"></span></div>';
-        const difVal = dif[i];
+        const difVal = (env[i] + cerr[i]) - pres[i];
         const difClass = difVal < 0 ? 'dif-neg' : 'dif-pos';
-
         tr.innerHTML =
             '<td style="font-family:JetBrains Mono,monospace;font-size:.75rem">' + fechas[i] + '</td>' +
             '<td>' + barHtml(pres[i], '#6c8aff') + '</td>' +
@@ -44586,22 +44594,26 @@ if (fechas.length > 0) {
     }
 }
 
-/* Gráfico de barras: Valoraciones (sin vacio) */
-const estLabels = ["5", "4", "3", "2", "1"];
-if (estLabels.length > 0) {
-    const estColors = estLabels.map(l => ({
-        '1': '#ef5678', '2': '#f59e42', '3': '#f59e42',
-        '4': '#45d9a8', '5': '#6c8aff',
-    })[l] || '#8b90a5');
-
-    new Chart(document.getElementById('chartEstrellas'), {
+function renderEstrellasChart(countsByLabel) {
+    /* countsByLabel: {'5': n, '4': n, '3': n, '2': n, '1': n} */
+    if (_chartEstrellas) { _chartEstrellas.destroy(); _chartEstrellas = null; }
+    const allLabels = ['5', '4', '3', '2', '1'];
+    const labels = [];
+    const values = [];
+    allLabels.forEach(l => {
+        if ((countsByLabel[l] || 0) > 0) { labels.push(l); values.push(countsByLabel[l]); }
+    });
+    if (labels.length === 0) return;
+    const colorMap = {'1': '#ef5678', '2': '#f59e42', '3': '#f59e42', '4': '#45d9a8', '5': '#6c8aff'};
+    const colors = labels.map(l => colorMap[l] || '#8b90a5');
+    _chartEstrellas = new Chart(document.getElementById('chartEstrellas'), {
         type: 'bar',
         data: {
-            labels: estLabels.map(l => l + ' ★'),
+            labels: labels.map(l => l + ' ★'),
             datasets: [{
-                data: [917, 99, 19, 3, 9],
-                backgroundColor: estColors.map(c => c + 'cc'),
-                borderColor: estColors,
+                data: values,
+                backgroundColor: colors.map(c => c + 'cc'),
+                borderColor: colors,
                 borderWidth: 1,
                 borderRadius: 6,
             }],
@@ -44617,11 +44629,10 @@ if (estLabels.length > 0) {
     });
 }
 
-/* Gráfico de proporción: 5★ vs Resto */
-const cinco = 917;
-const resto = 130;
-if (cinco + resto > 0) {
-    new Chart(document.getElementById('chartProporcion'), {
+function renderProporcionChart(cinco, resto) {
+    if (_chartProporcion) { _chartProporcion.destroy(); _chartProporcion = null; }
+    if (cinco + resto === 0) return;
+    _chartProporcion = new Chart(document.getElementById('chartProporcion'), {
         type: 'doughnut',
         data: {
             labels: ['5 ★', 'Resto (1-4 ★)'],
@@ -44651,16 +44662,33 @@ if (cinco + resto > 0) {
     });
 }
 
-/* Nube de palabras — layout espiral compacto */
-const wordData = [{"text": "excelente", "size": 55, "count": 14}, {"text": "simple", "size": 27, "count": 7}, {"text": "facil", "size": 23, "count": 6}, {"text": "agil", "size": 23, "count": 6}, {"text": "deducciones", "size": 19, "count": 5}, {"text": "sencillo", "size": 19, "count": 5}, {"text": "retenciones", "size": 19, "count": 5}, {"text": "genial", "size": 15, "count": 4}, {"text": "versi\u00f3n", "size": 14, "count": 3}, {"text": "practico", "size": 14, "count": 3}, {"text": "bueno", "size": 14, "count": 3}, {"text": "percepciones", "size": 14, "count": 3}, {"text": "super", "size": 14, "count": 3}, {"text": "inconvenientes", "size": 14, "count": 3}, {"text": "sencilla", "size": 14, "count": 2}, {"text": "ojala", "size": 14, "count": 2}, {"text": "contribuyentes", "size": 14, "count": 2}, {"text": "simplificado", "size": 14, "count": 2}, {"text": "actualizar", "size": 14, "count": 2}, {"text": "cargar", "size": 14, "count": 2}, {"text": "deberian", "size": 14, "count": 2}, {"text": "pr\u00e1ctico", "size": 14, "count": 2}, {"text": "clara", "size": 14, "count": 2}, {"text": "r\u00e1pido", "size": 14, "count": 2}, {"text": "\u00e1gil", "size": 14, "count": 2}, {"text": "r\u00e1pida", "size": 14, "count": 2}, {"text": "buena", "size": 14, "count": 2}, {"text": "bastante", "size": 14, "count": 2}, {"text": "practica", "size": 14, "count": 2}, {"text": "usar", "size": 14, "count": 2}, {"text": "rapida", "size": 14, "count": 2}, {"text": "llenar", "size": 14, "count": 1}, {"text": "fabuloso", "size": 14, "count": 1}, {"text": "deja", "size": 14, "count": 1}, {"text": "editar", "size": 14, "count": 1}, {"text": "paso", "size": 14, "count": 1}, {"text": "aparecen", "size": 14, "count": 1}, {"text": "autom\u00e1ticamente", "size": 14, "count": 1}, {"text": "original", "size": 14, "count": 1}, {"text": "cargu", "size": 14, "count": 1}, {"text": "pongan", "size": 14, "count": 1}, {"text": "sistema", "size": 14, "count": 1}, {"text": "ahorraria", "size": 14, "count": 1}, {"text": "tiempo", "size": 14, "count": 1}, {"text": "veloz", "size": 14, "count": 1}];
-const cloudEl = document.getElementById('wordCloud');
-if (wordData.length > 0) {
+function renderWordCloud(feedbackTexts) {
+    cloudEl.innerHTML = '';
+    const wordCount = {};
+    const re = /\b[a-záéíóúñü]{3,}\b/g;
+    feedbackTexts.forEach(t => {
+        const words = (t || '').toLowerCase().match(re) || [];
+        words.forEach(w => {
+            if (!STOPWORDS.has(w)) wordCount[w] = (wordCount[w] || 0) + 1;
+        });
+    });
+    const entries = Object.entries(wordCount).sort((a, b) => b[1] - a[1]).slice(0, 45);
+    if (entries.length === 0) {
+        cloudEl.innerHTML = '<span style="color:#8b90a5;font-size:.85rem;position:relative">Sin datos de feedback</span>';
+        return;
+    }
+    const maxCount = entries[0][1];
+    const wordData = entries.map(([w, c]) => ({
+        text: w,
+        size: Math.max(14, Math.floor(55 * c / maxCount)),
+        count: c,
+    }));
+
     const colors = ['#6c8aff','#45d9a8','#a78bfa','#38bdf8','#f59e42','#ef5678','#e4e6f0'];
     const W = cloudEl.clientWidth || 1200;
     const H = 380;
     const placed = [];
 
-    /* Medir tamaño de texto con canvas offscreen */
     const measureCanvas = document.createElement('canvas').getContext('2d');
     function measure(text, size) {
         measureCanvas.font = '500 ' + size + 'px DM Sans, sans-serif';
@@ -44675,13 +44703,11 @@ if (wordData.length > 0) {
         return false;
     }
 
-    /* Mezclar para variedad visual */
     const shuffled = [...wordData].sort(() => Math.random() - 0.5);
     const cx = W / 2, cy = H / 2;
 
     shuffled.forEach((w, i) => {
         const dim = measure(w.text, w.size);
-        /* Intentar en espiral desde el centro */
         let ok = false;
         for (let r = 0; r < Math.max(W, H) && !ok; r += 3) {
             for (let a = 0; a < 6.28 && !ok; a += 0.3) {
@@ -44699,9 +44725,77 @@ if (wordData.length > 0) {
             }
         }
     });
-} else {
-    cloudEl.innerHTML = '<span style="color:#8b90a5;font-size:.85rem;position:relative">Sin datos de feedback</span>';
 }
+
+function getVisibleRows(tableId) {
+    return Array.from(document.querySelectorAll('#' + tableId + ' tbody tr')).filter(r => r.style.display !== 'none');
+}
+
+function recomputeKPIsAndCharts() {
+    /* KPIs desde tbl-all visible */
+    const allRows = getVisibleRows('tbl-all');
+    const total = allRows.length;
+    let noDupCount = 0, dupCount = 0;
+    const cuitsSet = new Set();
+    allRows.forEach(r => {
+        const cells = r.querySelectorAll('td');
+        cuitsSet.add((cells[0]?.textContent || '').trim());
+        const d = (cells[8]?.textContent || '').trim();
+        if (d === 'No') noDupCount++; else if (d === 'Sí') dupCount++;
+    });
+    document.getElementById('kpi-total').textContent = total;
+    document.getElementById('kpi-cuits').textContent = cuitsSet.size;
+    document.getElementById('kpi-no-dup').textContent = noDupCount;
+    document.getElementById('kpi-dup').textContent = dupCount;
+    document.getElementById('tab-count-no-dup').textContent = noDupCount;
+    document.getElementById('tab-count-all').textContent = total;
+
+    /* KPI DGR no (desde tbl-no-dup visible) */
+    const noDupRows = getVisibleRows('tbl-no-dup');
+    const dgrKpi = document.getElementById('kpi-dgr-no');
+    if (dgrKpi) {
+        let dgrNo = 0;
+        noDupRows.forEach(r => {
+            const cells = r.querySelectorAll('td');
+            if ((cells[9]?.textContent || '').trim() === 'No') dgrNo++;
+        });
+        dgrKpi.textContent = dgrNo;
+    }
+
+    /* Bar table: filtrar RAW_* por rango de fecha actual */
+    const desde = document.getElementById('fecha-desde').value;
+    const hasta = document.getElementById('fecha-hasta').value;
+    const fechas = [];
+    const pres = [];
+    const env = [];
+    const cerr = [];
+    RAW_FECHAS.forEach((f, i) => {
+        if ((!desde || f >= desde) && (!hasta || f <= hasta)) {
+            fechas.push(f);
+            pres.push(RAW_PRES[i] || 0);
+            env.push(RAW_ENV[i] || 0);
+            cerr.push(RAW_CERR[i] || 0);
+        }
+    });
+    renderBarTable(fechas, pres, env, cerr);
+
+    /* Estrellas y feedback: derivar de filas visibles de tbl-no-dup */
+    const estCounts = {'1': 0, '2': 0, '3': 0, '4': 0, '5': 0};
+    const feedbackTexts = [];
+    noDupRows.forEach(r => {
+        const cells = r.querySelectorAll('td');
+        const est = (cells[6]?.textContent || '').trim();
+        if (estCounts.hasOwnProperty(est)) estCounts[est]++;
+        const fb = (cells[7]?.textContent || '').trim();
+        if (fb) feedbackTexts.push(fb);
+    });
+    renderEstrellasChart(estCounts);
+    renderProporcionChart(estCounts['5'], estCounts['1'] + estCounts['2'] + estCounts['3'] + estCounts['4']);
+    renderWordCloud(feedbackTexts);
+}
+
+/* Render inicial (usa el período completo por defecto) */
+recomputeKPIsAndCharts();
 </script>
 </body>
 </html>
