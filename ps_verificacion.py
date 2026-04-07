@@ -699,7 +699,7 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
         dgr_kpi_html = f"""
         <div class="kpi">
             <div class="label">No encontradas DGR</div>
-            <div class="value v6">{dgr_no}</div>
+            <div class="value v6" id="kpi-dgr-no">{dgr_no}</div>
         </div>"""
 
     # ── Datos para gráficos ──
@@ -752,6 +752,7 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
             "mucho", "quienes", "nada", "muchos", "cual", "poco", "ella",
             "bien", "tengo", "tiene", "hacer", "haber", "poder", "ese",
         }
+        stopwords_json = _json.dumps(sorted(stopwords))
         word_counts = Counter()
         for text in chart_data.get("feedback", []):
             words = re.findall(r'\b[a-záéíóúñü]{3,}\b', text.lower())
@@ -777,6 +778,7 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
         prop_cinco_json = "0"
         prop_resto_json = "0"
         word_cloud_data = "[]"
+        stopwords_json = "[]"
 
     html = f"""<!DOCTYPE html>
 <html lang="es">
@@ -1027,19 +1029,19 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
 <div class="kpis">
     <div class="kpi">
         <div class="label">Total registros</div>
-        <div class="value v1">{total_registros}</div>
+        <div class="value v1" id="kpi-total">{total_registros}</div>
     </div>
     <div class="kpi">
         <div class="label">CUITs únicos</div>
-        <div class="value v2">{cuits_unicos}</div>
+        <div class="value v2" id="kpi-cuits">{cuits_unicos}</div>
     </div>
     <div class="kpi">
         <div class="label">No duplicados</div>
-        <div class="value v3">{total_no_dup}</div>
+        <div class="value v3" id="kpi-no-dup">{total_no_dup}</div>
     </div>
     <div class="kpi">
         <div class="label">Duplicados</div>
-        <div class="value v4">{total_dup}</div>
+        <div class="value v4" id="kpi-dup">{total_dup}</div>
     </div>
     {dgr_kpi_html}
 </div>
@@ -1074,8 +1076,8 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
 
 <div class="section">
     <div class="tabs">
-        <div class="tab active" onclick="switchTab('no-dup')">Sin duplicados ({total_no_dup})</div>
-        <div class="tab" onclick="switchTab('all')">Con duplicados ({total_registros})</div>
+        <div class="tab active" onclick="switchTab('no-dup')">Sin duplicados (<span id="tab-count-no-dup">{total_no_dup}</span>)</div>
+        <div class="tab" onclick="switchTab('all')">Con duplicados (<span id="tab-count-all">{total_registros}</span>)</div>
     </div>
 
     <div id="tab-no-dup" class="tab-content active">
@@ -1196,10 +1198,13 @@ function applyFiltersAll() {{
     }});
 }}
 
+function onFiltersChanged() {{
+    applyFiltersAll();
+    recomputeKPIsAndCharts();
+}}
+
 document.querySelectorAll('.col-filter').forEach(input => {{
-    input.addEventListener('input', function() {{
-        applyFilters(this.closest('table'));
-    }});
+    input.addEventListener('input', onFiltersChanged);
 }});
 
 /* Inputs del rango de fechas */
@@ -1209,12 +1214,12 @@ const periodResetEl = document.getElementById('period-reset');
 const defaultDesde = fechaDesdeEl.value;
 const defaultHasta = fechaHastaEl.value;
 
-fechaDesdeEl.addEventListener('change', applyFiltersAll);
-fechaHastaEl.addEventListener('change', applyFiltersAll);
+fechaDesdeEl.addEventListener('change', onFiltersChanged);
+fechaHastaEl.addEventListener('change', onFiltersChanged);
 periodResetEl.addEventListener('click', () => {{
     fechaDesdeEl.value = defaultDesde;
     fechaHastaEl.value = defaultHasta;
-    applyFiltersAll();
+    onFiltersChanged();
 }});
 
 /* Ordenamiento por columna */
@@ -1267,28 +1272,33 @@ document.querySelectorAll('thead tr:first-child th[data-col]').forEach(th => {{
 Chart.defaults.color = '#8b90a5';
 Chart.defaults.font.family = "'DM Sans', sans-serif";
 
-/* Tabla con barras horizontales (estilo Looker) */
-const fechas = {chart_fechas_json};
-const pres = {chart_presentadas_no_dup_json};
-const env = {chart_enviadas_json};
-const cerr = {chart_cerradas_json};
-const dif = {chart_diferencia_json};
+/* Datos base (período completo) */
+const RAW_FECHAS = {chart_fechas_json};
+const RAW_PRES = {chart_presentadas_no_dup_json};
+const RAW_ENV = {chart_enviadas_json};
+const RAW_CERR = {chart_cerradas_json};
+const STOPWORDS = new Set({stopwords_json});
 
-if (fechas.length > 0) {{
-    const maxVal = Math.max(...pres, ...env, ...cerr, 1);
+/* Instancias de Chart.js */
+let _chartEstrellas = null;
+let _chartProporcion = null;
+
+const cloudEl = document.getElementById('wordCloud');
+
+function renderBarTable(fechas, pres, env, cerr) {{
     const tbody = document.getElementById('barTableBody');
-
-    /* Recorrer en orden descendente (fecha más reciente primero) */
+    tbody.innerHTML = '';
+    if (fechas.length === 0) return;
+    const maxVal = Math.max(...pres, ...env, ...cerr, 1);
+    const barPct = v => Math.max(0, (v / maxVal) * 100);
+    const barHtml = (val, color) =>
+        '<div class="bar-cell"><span class="bar-val">' + val +
+        '</span><span class="bar" style="width:' + barPct(val) +
+        '%;background:' + color + '"></span></div>';
     for (let i = fechas.length - 1; i >= 0; i--) {{
         const tr = document.createElement('tr');
-        const barPct = v => Math.max(0, (v / maxVal) * 100);
-        const barHtml = (val, color) =>
-            '<div class="bar-cell"><span class="bar-val">' + val +
-            '</span><span class="bar" style="width:' + barPct(val) +
-            '%;background:' + color + '"></span></div>';
-        const difVal = dif[i];
+        const difVal = (env[i] + cerr[i]) - pres[i];
         const difClass = difVal < 0 ? 'dif-neg' : 'dif-pos';
-
         tr.innerHTML =
             '<td style="font-family:JetBrains Mono,monospace;font-size:.75rem">' + fechas[i] + '</td>' +
             '<td>' + barHtml(pres[i], '#6c8aff') + '</td>' +
@@ -1299,22 +1309,26 @@ if (fechas.length > 0) {{
     }}
 }}
 
-/* Gráfico de barras: Valoraciones (sin vacio) */
-const estLabels = {est_labels_json};
-if (estLabels.length > 0) {{
-    const estColors = estLabels.map(l => ({{
-        '1': '#ef5678', '2': '#f59e42', '3': '#f59e42',
-        '4': '#45d9a8', '5': '#6c8aff',
-    }})[l] || '#8b90a5');
-
-    new Chart(document.getElementById('chartEstrellas'), {{
+function renderEstrellasChart(countsByLabel) {{
+    /* countsByLabel: {{'5': n, '4': n, '3': n, '2': n, '1': n}} */
+    if (_chartEstrellas) {{ _chartEstrellas.destroy(); _chartEstrellas = null; }}
+    const allLabels = ['5', '4', '3', '2', '1'];
+    const labels = [];
+    const values = [];
+    allLabels.forEach(l => {{
+        if ((countsByLabel[l] || 0) > 0) {{ labels.push(l); values.push(countsByLabel[l]); }}
+    }});
+    if (labels.length === 0) return;
+    const colorMap = {{'1': '#ef5678', '2': '#f59e42', '3': '#f59e42', '4': '#45d9a8', '5': '#6c8aff'}};
+    const colors = labels.map(l => colorMap[l] || '#8b90a5');
+    _chartEstrellas = new Chart(document.getElementById('chartEstrellas'), {{
         type: 'bar',
         data: {{
-            labels: estLabels.map(l => l + ' ★'),
+            labels: labels.map(l => l + ' ★'),
             datasets: [{{
-                data: {est_values_json},
-                backgroundColor: estColors.map(c => c + 'cc'),
-                borderColor: estColors,
+                data: values,
+                backgroundColor: colors.map(c => c + 'cc'),
+                borderColor: colors,
                 borderWidth: 1,
                 borderRadius: 6,
             }}],
@@ -1330,11 +1344,10 @@ if (estLabels.length > 0) {{
     }});
 }}
 
-/* Gráfico de proporción: 5★ vs Resto */
-const cinco = {prop_cinco_json};
-const resto = {prop_resto_json};
-if (cinco + resto > 0) {{
-    new Chart(document.getElementById('chartProporcion'), {{
+function renderProporcionChart(cinco, resto) {{
+    if (_chartProporcion) {{ _chartProporcion.destroy(); _chartProporcion = null; }}
+    if (cinco + resto === 0) return;
+    _chartProporcion = new Chart(document.getElementById('chartProporcion'), {{
         type: 'doughnut',
         data: {{
             labels: ['5 ★', 'Resto (1-4 ★)'],
@@ -1364,16 +1377,33 @@ if (cinco + resto > 0) {{
     }});
 }}
 
-/* Nube de palabras — layout espiral compacto */
-const wordData = {word_cloud_data};
-const cloudEl = document.getElementById('wordCloud');
-if (wordData.length > 0) {{
+function renderWordCloud(feedbackTexts) {{
+    cloudEl.innerHTML = '';
+    const wordCount = {{}};
+    const re = /\\b[a-záéíóúñü]{{3,}}\\b/g;
+    feedbackTexts.forEach(t => {{
+        const words = (t || '').toLowerCase().match(re) || [];
+        words.forEach(w => {{
+            if (!STOPWORDS.has(w)) wordCount[w] = (wordCount[w] || 0) + 1;
+        }});
+    }});
+    const entries = Object.entries(wordCount).sort((a, b) => b[1] - a[1]).slice(0, 45);
+    if (entries.length === 0) {{
+        cloudEl.innerHTML = '<span style="color:#8b90a5;font-size:.85rem;position:relative">Sin datos de feedback</span>';
+        return;
+    }}
+    const maxCount = entries[0][1];
+    const wordData = entries.map(([w, c]) => ({{
+        text: w,
+        size: Math.max(14, Math.floor(55 * c / maxCount)),
+        count: c,
+    }}));
+
     const colors = ['#6c8aff','#45d9a8','#a78bfa','#38bdf8','#f59e42','#ef5678','#e4e6f0'];
     const W = cloudEl.clientWidth || 1200;
     const H = 380;
     const placed = [];
 
-    /* Medir tamaño de texto con canvas offscreen */
     const measureCanvas = document.createElement('canvas').getContext('2d');
     function measure(text, size) {{
         measureCanvas.font = '500 ' + size + 'px DM Sans, sans-serif';
@@ -1388,13 +1418,11 @@ if (wordData.length > 0) {{
         return false;
     }}
 
-    /* Mezclar para variedad visual */
     const shuffled = [...wordData].sort(() => Math.random() - 0.5);
     const cx = W / 2, cy = H / 2;
 
     shuffled.forEach((w, i) => {{
         const dim = measure(w.text, w.size);
-        /* Intentar en espiral desde el centro */
         let ok = false;
         for (let r = 0; r < Math.max(W, H) && !ok; r += 3) {{
             for (let a = 0; a < 6.28 && !ok; a += 0.3) {{
@@ -1412,9 +1440,77 @@ if (wordData.length > 0) {{
             }}
         }}
     }});
-}} else {{
-    cloudEl.innerHTML = '<span style="color:#8b90a5;font-size:.85rem;position:relative">Sin datos de feedback</span>';
 }}
+
+function getVisibleRows(tableId) {{
+    return Array.from(document.querySelectorAll('#' + tableId + ' tbody tr')).filter(r => r.style.display !== 'none');
+}}
+
+function recomputeKPIsAndCharts() {{
+    /* KPIs desde tbl-all visible */
+    const allRows = getVisibleRows('tbl-all');
+    const total = allRows.length;
+    let noDupCount = 0, dupCount = 0;
+    const cuitsSet = new Set();
+    allRows.forEach(r => {{
+        const cells = r.querySelectorAll('td');
+        cuitsSet.add((cells[0]?.textContent || '').trim());
+        const d = (cells[8]?.textContent || '').trim();
+        if (d === 'No') noDupCount++; else if (d === 'Sí') dupCount++;
+    }});
+    document.getElementById('kpi-total').textContent = total;
+    document.getElementById('kpi-cuits').textContent = cuitsSet.size;
+    document.getElementById('kpi-no-dup').textContent = noDupCount;
+    document.getElementById('kpi-dup').textContent = dupCount;
+    document.getElementById('tab-count-no-dup').textContent = noDupCount;
+    document.getElementById('tab-count-all').textContent = total;
+
+    /* KPI DGR no (desde tbl-no-dup visible) */
+    const noDupRows = getVisibleRows('tbl-no-dup');
+    const dgrKpi = document.getElementById('kpi-dgr-no');
+    if (dgrKpi) {{
+        let dgrNo = 0;
+        noDupRows.forEach(r => {{
+            const cells = r.querySelectorAll('td');
+            if ((cells[9]?.textContent || '').trim() === 'No') dgrNo++;
+        }});
+        dgrKpi.textContent = dgrNo;
+    }}
+
+    /* Bar table: filtrar RAW_* por rango de fecha actual */
+    const desde = document.getElementById('fecha-desde').value;
+    const hasta = document.getElementById('fecha-hasta').value;
+    const fechas = [];
+    const pres = [];
+    const env = [];
+    const cerr = [];
+    RAW_FECHAS.forEach((f, i) => {{
+        if ((!desde || f >= desde) && (!hasta || f <= hasta)) {{
+            fechas.push(f);
+            pres.push(RAW_PRES[i] || 0);
+            env.push(RAW_ENV[i] || 0);
+            cerr.push(RAW_CERR[i] || 0);
+        }}
+    }});
+    renderBarTable(fechas, pres, env, cerr);
+
+    /* Estrellas y feedback: derivar de filas visibles de tbl-no-dup */
+    const estCounts = {{'1': 0, '2': 0, '3': 0, '4': 0, '5': 0}};
+    const feedbackTexts = [];
+    noDupRows.forEach(r => {{
+        const cells = r.querySelectorAll('td');
+        const est = (cells[6]?.textContent || '').trim();
+        if (estCounts.hasOwnProperty(est)) estCounts[est]++;
+        const fb = (cells[7]?.textContent || '').trim();
+        if (fb) feedbackTexts.push(fb);
+    }});
+    renderEstrellasChart(estCounts);
+    renderProporcionChart(estCounts['5'], estCounts['1'] + estCounts['2'] + estCounts['3'] + estCounts['4']);
+    renderWordCloud(feedbackTexts);
+}}
+
+/* Render inicial (usa el período completo por defecto) */
+recomputeKPIsAndCharts();
 </script>
 </body>
 </html>"""
