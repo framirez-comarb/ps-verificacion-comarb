@@ -806,6 +806,28 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
     }}
     header h1 {{ font-size: 1.5rem; font-weight: 700; color: var(--accent); margin-bottom: .2rem; }}
     header .meta {{ font-size: .8rem; color: var(--text-dim); }}
+    .period-filter {{
+        display: flex; align-items: center; gap: .6rem;
+        margin-top: .8rem; font-size: .85rem; color: var(--text-dim);
+        flex-wrap: wrap;
+    }}
+    .period-filter label {{ font-weight: 600; color: var(--text); }}
+    .period-filter input[type="date"] {{
+        background: var(--surface); color: var(--text);
+        border: 1px solid var(--border); border-radius: 6px;
+        padding: .35rem .6rem; font-family: inherit; font-size: .85rem;
+        color-scheme: dark;
+    }}
+    .period-filter input[type="date"]:focus {{
+        outline: none; border-color: var(--accent);
+    }}
+    .period-filter button {{
+        background: var(--surface); color: var(--text-dim);
+        border: 1px solid var(--border); border-radius: 6px;
+        padding: .35rem .65rem; cursor: pointer; font-size: 1rem;
+        line-height: 1;
+    }}
+    .period-filter button:hover {{ color: var(--accent); border-color: var(--accent); }}
 
     .kpis {{
         display: grid;
@@ -991,7 +1013,14 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
 <header>
     <h1>📋 Presentación Simplificada — Verificación</h1>
     <div class="meta">
-        Propiedad: {PROPERTY_ID} · Período: {start_date} a {end_date} · Generado: {generated}
+        Propiedad: {PROPERTY_ID} · Generado: {generated}
+    </div>
+    <div class="period-filter">
+        <label>Período:</label>
+        <input type="date" id="fecha-desde" value="{start_date}" min="{start_date}" max="{end_date}">
+        <span>a</span>
+        <input type="date" id="fecha-hasta" value="{end_date}" min="{start_date}" max="{end_date}">
+        <button type="button" id="period-reset" title="Restablecer período completo">↺</button>
     </div>
 </header>
 
@@ -1129,27 +1158,63 @@ function switchTab(id) {{
     event.target.classList.add('active');
 }}
 
+/* ── Filtrado combinado (columnas + rango de fechas) ── */
+function applyFilters(table) {{
+    const tbody = table.querySelector('tbody');
+    const filters = table.querySelectorAll('.col-filter');
+    const desde = document.getElementById('fecha-desde').value;
+    const hasta = document.getElementById('fecha-hasta').value;
+
+    tbody.querySelectorAll('tr').forEach(row => {{
+        const cells = row.querySelectorAll('td');
+        let show = true;
+
+        /* Filtros por columna */
+        filters.forEach(f => {{
+            const col = parseInt(f.dataset.col);
+            const val = f.value.toLowerCase();
+            if (val && cells[col]) {{
+                const text = cells[col].textContent.toLowerCase();
+                if (!text.includes(val)) show = false;
+            }}
+        }});
+
+        /* Filtro por rango de fechas (col 1 = Timestamp, primeros 10 chars = YYYY-MM-DD) */
+        if (show && cells[1]) {{
+            const fechaRow = cells[1].textContent.trim().slice(0, 10);
+            if (desde && fechaRow < desde) show = false;
+            if (hasta && fechaRow > hasta) show = false;
+        }}
+
+        row.style.display = show ? '' : 'none';
+    }});
+}}
+
+function applyFiltersAll() {{
+    document.querySelectorAll('table').forEach(t => {{
+        if (t.querySelector('.col-filter')) applyFilters(t);
+    }});
+}}
+
 document.querySelectorAll('.col-filter').forEach(input => {{
     input.addEventListener('input', function() {{
-        const table = this.closest('table');
-        const tbody = table.querySelector('tbody');
-        const filters = table.querySelectorAll('.col-filter');
-        const rows = tbody.querySelectorAll('tr');
-
-        rows.forEach(row => {{
-            const cells = row.querySelectorAll('td');
-            let show = true;
-            filters.forEach(f => {{
-                const col = parseInt(f.dataset.col);
-                const val = f.value.toLowerCase();
-                if (val && cells[col]) {{
-                    const text = cells[col].textContent.toLowerCase();
-                    if (!text.includes(val)) show = false;
-                }}
-            }});
-            row.style.display = show ? '' : 'none';
-        }});
+        applyFilters(this.closest('table'));
     }});
+}});
+
+/* Inputs del rango de fechas */
+const fechaDesdeEl = document.getElementById('fecha-desde');
+const fechaHastaEl = document.getElementById('fecha-hasta');
+const periodResetEl = document.getElementById('period-reset');
+const defaultDesde = fechaDesdeEl.value;
+const defaultHasta = fechaHastaEl.value;
+
+fechaDesdeEl.addEventListener('change', applyFiltersAll);
+fechaHastaEl.addEventListener('change', applyFiltersAll);
+periodResetEl.addEventListener('click', () => {{
+    fechaDesdeEl.value = defaultDesde;
+    fechaHastaEl.value = defaultHasta;
+    applyFiltersAll();
 }});
 
 /* Ordenamiento por columna */
