@@ -984,8 +984,8 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
     .bar-table .bar-cell .bar {{
         height: 12px; border-radius: 2px; min-width: 0;
     }}
-    .bar-table .dif-pos {{ color: var(--text-dim); }}
-    .bar-table .dif-neg {{ color: var(--red); }}
+    .bar-table .dif-pos {{ color: var(--text); font-weight: 600; }}
+    .bar-table .dif-neg {{ color: var(--red); font-weight: 600; }}
     .bar-table-wrap {{
         max-height: 520px; overflow-y: auto;
     }}
