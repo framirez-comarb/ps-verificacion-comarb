@@ -1260,10 +1260,12 @@ document.querySelectorAll('thead tr:first-child th[data-col]').forEach(th => {{
         rows.sort((a, b) => {{
             const aText = a.querySelectorAll('td')[col]?.textContent.trim() || '';
             const bText = b.querySelectorAll('td')[col]?.textContent.trim() || '';
-            const aNum = parseFloat(aText);
-            const bNum = parseFloat(bText);
+            const aNum = Number(aText);
+            const bNum = Number(bText);
+            const aIsNum = aText !== '' && !isNaN(aNum);
+            const bIsNum = bText !== '' && !isNaN(bNum);
             let cmp;
-            if (!isNaN(aNum) && !isNaN(bNum)) {{
+            if (aIsNum && bIsNum) {{
                 cmp = aNum - bNum;
             }} else {{
                 cmp = aText.localeCompare(bText, 'es');
