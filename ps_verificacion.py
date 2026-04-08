@@ -716,12 +716,12 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
         chart_enviadas_json = _json.dumps(chart_data["enc_enviadas"])
         chart_cerradas_json = _json.dumps(chart_data["enc_cerradas"])
 
-        # Diferencia: (enc_enviadas + enc_cerradas) - presentadas_no_dup
+        # Diferencia: presentadas_no_dup - (enc_enviadas + enc_cerradas)
         no_dup = chart_data.get("presentadas_no_dup", [])
         env = chart_data["enc_enviadas"]
         cer = chart_data["enc_cerradas"]
         diferencia = [
-            (env[i] + cer[i]) - no_dup[i] if i < len(no_dup) else 0
+            no_dup[i] - (env[i] + cer[i]) if i < len(no_dup) else 0
             for i in range(len(chart_data["fechas"]))
         ]
         chart_diferencia_json = _json.dumps(diferencia)
@@ -1303,7 +1303,7 @@ function renderBarTable(fechas, pres, env, cerr) {{
         '%;background:' + color + '"></span></div>';
     for (let i = fechas.length - 1; i >= 0; i--) {{
         const tr = document.createElement('tr');
-        const difVal = (env[i] + cerr[i]) - pres[i];
+        const difVal = pres[i] - (env[i] + cerr[i]);
         const difClass = difVal < 0 ? 'dif-neg' : 'dif-pos';
         tr.innerHTML =
             '<td style="font-family:JetBrains Mono,monospace;font-size:.75rem">' + fechas[i] + '</td>' +
@@ -1505,9 +1505,9 @@ function recomputeKPIsAndCharts() {{
     const feedbackTexts = [];
     noDupRows.forEach(r => {{
         const cells = r.querySelectorAll('td');
-        const est = (cells[6]?.textContent || '').trim();
+        const est = (cells[5]?.textContent || '').trim();
         if (estCounts.hasOwnProperty(est)) estCounts[est]++;
-        const fb = (cells[7]?.textContent || '').trim();
+        const fb = (cells[6]?.textContent || '').trim();
         if (fb) feedbackTexts.push(fb);
     }});
     renderEstrellasChart(estCounts);
