@@ -113,6 +113,7 @@ def extract_ga4_data(creds_path: str, start_date: str, end_date: str) -> tuple[p
             Dimension(name="eventName"),
             Dimension(name="region"),
             Dimension(name="customEvent:Total"),
+            Dimension(name="customEvent:texto_del_error"),
         ],
         metrics=[
             Metric(name="eventCount"),
@@ -125,7 +126,7 @@ def extract_ga4_data(creds_path: str, start_date: str, end_date: str) -> tuple[p
     print("  📡 Consultando GA4 (presentaciones)...")
     response = client.run_report(request)
 
-    dim_names = ["cuit", "exact_timestamp", "nombre_evento", "region", "total"]
+    dim_names = ["cuit", "exact_timestamp", "nombre_evento", "region", "total", "texto_del_error"]
     rows = []
     for row in response.rows:
         record = {}
@@ -141,6 +142,10 @@ def extract_ga4_data(creds_path: str, start_date: str, end_date: str) -> tuple[p
         return df, {}
 
     df["numero_eventos"] = pd.to_numeric(df["numero_eventos"], errors="coerce")
+
+    # Limpiar (not set) en texto_del_error
+    if "texto_del_error" in df.columns:
+        df["texto_del_error"] = df["texto_del_error"].replace("(not set)", "")
 
     # Limpiar (not set) y vacíos
     df = df[~df["cuit"].isin(["(not set)", ""])].copy()
@@ -671,16 +676,17 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
             evento_label = EVENT_LABELS.get(r['nombre_evento'], r['nombre_evento'])
             estrellas = r.get('estrellas_valor', '') or ''
             feedback = r.get('texto_feedback', '') or ''
+            texto_error = r.get('texto_del_error', '') or ''
 
             rows_html += f"""<tr{dup_class}>
                 <td class="mono">{r['cuit']}</td>
                 <td>{r['exact_timestamp']}</td>
-                <td>{int(r['numero_eventos'])}</td>
                 <td><code>{evento_label}</code></td>
                 <td>{r['region']}</td>
                 <td>{r['total']}</td>
                 <td>{estrellas}</td>
                 <td>{feedback}</td>
+                <td>{texto_error}</td>
                 <td>{r['duplicado']}</td>
                 {dgr_cell}
             </tr>"""
@@ -1087,12 +1093,12 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
                     <tr>
                         <th data-col="0">CUIT <span class="sort-arrow">&#x25B2;</span></th>
                         <th data-col="1" class="sort-active" data-dir="desc">Timestamp <span class="sort-arrow">&#x25BC;</span></th>
-                        <th data-col="2">Nº Eventos <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="3">Evento <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="4">Región <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="5">Total <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="6">Estrellas <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="7">Feedback <span class="sort-arrow">&#x25B2;</span></th>
+                        <th data-col="2">Evento <span class="sort-arrow">&#x25B2;</span></th>
+                        <th data-col="3">Región <span class="sort-arrow">&#x25B2;</span></th>
+                        <th data-col="4">Total <span class="sort-arrow">&#x25B2;</span></th>
+                        <th data-col="5">Estrellas <span class="sort-arrow">&#x25B2;</span></th>
+                        <th data-col="6">Feedback <span class="sort-arrow">&#x25B2;</span></th>
+                        <th data-col="7">Texto del Error <span class="sort-arrow">&#x25B2;</span></th>
                         <th data-col="8">Duplicado <span class="sort-arrow">&#x25B2;</span></th>
                         {('<th data-col="9">Verificada DGR <span class="sort-arrow">&#x25B2;</span></th>' if con_dgr else '')}
                     </tr>
@@ -1121,12 +1127,12 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
                     <tr>
                         <th data-col="0">CUIT <span class="sort-arrow">&#x25B2;</span></th>
                         <th data-col="1" class="sort-active" data-dir="desc">Timestamp <span class="sort-arrow">&#x25BC;</span></th>
-                        <th data-col="2">Nº Eventos <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="3">Evento <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="4">Región <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="5">Total <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="6">Estrellas <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="7">Feedback <span class="sort-arrow">&#x25B2;</span></th>
+                        <th data-col="2">Evento <span class="sort-arrow">&#x25B2;</span></th>
+                        <th data-col="3">Región <span class="sort-arrow">&#x25B2;</span></th>
+                        <th data-col="4">Total <span class="sort-arrow">&#x25B2;</span></th>
+                        <th data-col="5">Estrellas <span class="sort-arrow">&#x25B2;</span></th>
+                        <th data-col="6">Feedback <span class="sort-arrow">&#x25B2;</span></th>
+                        <th data-col="7">Texto del Error <span class="sort-arrow">&#x25B2;</span></th>
                         <th data-col="8">Duplicado <span class="sort-arrow">&#x25B2;</span></th>
                     </tr>
                     <tr class="filter-row">
@@ -1641,9 +1647,11 @@ def main():
 
         df = pd.read_csv(args.desde_csv, encoding="utf-8-sig")
         df["numero_eventos"] = pd.to_numeric(df["numero_eventos"], errors="coerce")
-        for col in ["estrellas_valor", "texto_feedback"]:
+        for col in ["estrellas_valor", "texto_feedback", "texto_del_error"]:
             if col in df.columns:
                 df[col] = df[col].fillna("")
+        if "texto_del_error" not in df.columns:
+            df["texto_del_error"] = ""
 
         con_dgr = "verificada_dgr" in df.columns
 
