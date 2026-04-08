@@ -30,7 +30,7 @@ python ps_verificacion.py -c comarb-analytics-580ca8f5412c.json -u USER -p PASS 
 Single-file script (`ps_verificacion.py`) with 4 sequential steps:
 
 1. **GA4 Extraction** (`extract_ga4_data`): Two queries to GA4 Data API v1beta:
-   - Query 1: Presentation events (`PS_boton_presentar_y_salir`, `PS_boton_presentar_y_generar_pago`) with dimensions CUIT, exact_timestamp, eventName, region, Total
+   - Query 1: Presentation events (`PS_boton_presentar_y_salir`, `PS_boton_presentar_y_generar_pago`) with dimensions CUIT, exact_timestamp, eventName, region, Total, texto_del_error
    - Query 2: Survey event (`PS_boton_enviar_encuesta`) with dimensions CUIT, exact_timestamp, estrellas_valor, texto_feedback
    - Results are merged by CUIT + date (survey data is optional, many sessions won't have it)
 
@@ -63,3 +63,8 @@ Single-file script (`ps_verificacion.py`) with 4 sequential steps:
 - **Added --debug mode**: Saves raw DGR HTML response for a specific CUIT for troubleshooting
 - **Added survey data**: Second GA4 query for `PS_boton_enviar_encuesta` event, merged by CUIT+date into main DataFrame (estrellas_valor, texto_feedback columns)
 - **HTML improvements**: Added column filters (text input per column), sortable headers (click to toggle asc/desc, Timestamp defaults to desc), removed event count and "Verificadas DGR Si" KPIs, reordered columns (N Eventos to 3rd position), renamed events to readable labels ("Presentar y Salir" / "Presentar y Generar Pago")
+
+### Session 2026-04-08
+- **Replaced "Nº Eventos" column with "Texto del Error"**: Removed the event count column from both report tables (con/sin duplicados) and added a new column showing the `customEvent:texto_del_error` GA4 parameter. `numero_eventos` is still extracted internally because it feeds the daily presentations chart, but it's no longer rendered in the HTML tables. Column indices were re-assigned so Estrellas/Feedback/Duplicado/DGR stay at positions 5/6/7/8/9 (preserved JS references for KPI recalculation)
+- **GA4 dimension `customEvent:texto_del_error`**: Registered in the GA4 property but currently returns `(not set)` for all events because the frontend parameter was created less than 24h before this change. Cleaned to empty string at extraction time. Column will populate automatically once the frontend starts emitting values
+- **`--desde-csv` backward compat**: When loading older CSVs without `texto_del_error`, the column is created empty so the report still renders
