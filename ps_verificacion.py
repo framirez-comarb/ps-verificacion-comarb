@@ -57,6 +57,7 @@ GA4_HOSTNAME = "servicios.comarb.gob.ar"
 DGR_BASE = "https://dgrgw.comarb.gob.ar/dgr"
 DGR_LOGIN_URL = f"{DGR_BASE}/j_security_check"
 DGR_SEARCH_URL = f"{DGR_BASE}/sfrwDdjj.do"
+DGR_PADRON_URL = f"{DGR_BASE}/pwContribBlockChain.do"
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -392,11 +393,97 @@ class DGRTableParser(HTMLParser):
             self.cell += data
 
 
+class DGRJurParser(HTMLParser):
+    """Extrae los códigos de jurisdicción (prefijo antes del '-' en la 3ra
+    columna, ej '910-JUJUY' → '910') del <tbody> del <div id='jur'> del
+    Padrón Web (ARCA/BC).
+
+    Ignora filas con menos de 6 <td> (filas 'NO TIENE ...' con colspan).
+    Sólo procesa el primer <tbody> dentro de #jur para no mezclar con tabs
+    posteriores (rel, documento, telemail, etc.).
+    """
+
+    def __init__(self):
+        super().__init__()
+        self.in_jur = False       # Dentro del <div id="jur">
+        self.jur_depth = 0        # Profundidad de <div> anidados dentro de #jur
+        self.in_tbody = False
+        self.tbody_seen = False   # Ya consumimos el primer tbody de #jur
+        self.in_tr = False
+        self.td_index = 0         # Índice de <td> en la fila actual (1..6)
+        self.in_td = False
+        self.cell_buf = ""
+        self.current_code = ""    # Código extraído de la 3ra celda
+        self.codes: list[str] = []
+
+    @property
+    def count(self) -> int:
+        """Compat: cantidad de jurisdicciones (tests/uso interno)."""
+        return len(self.codes)
+
+    @property
+    def codes_str(self) -> str:
+        """Códigos de jurisdicción separados por coma, ej '910, 917'."""
+        return ", ".join(self.codes)
+
+    def handle_starttag(self, tag, attrs):
+        d = dict(attrs)
+        if tag == "div":
+            if self.in_jur:
+                self.jur_depth += 1
+            elif d.get("id") == "jur":
+                self.in_jur = True
+                self.jur_depth = 1
+        elif self.in_jur and not self.tbody_seen:
+            if tag == "tbody":
+                self.in_tbody = True
+            elif tag == "tr" and self.in_tbody:
+                self.in_tr = True
+                self.td_index = 0
+                self.current_code = ""
+            elif tag == "td" and self.in_tr:
+                self.td_index += 1
+                if self.td_index == 3:
+                    self.in_td = True
+                    self.cell_buf = ""
+
+    def handle_endtag(self, tag):
+        if tag == "div" and self.in_jur:
+            self.jur_depth -= 1
+            if self.jur_depth <= 0:
+                self.in_jur = False
+                self.in_tbody = False
+        elif self.in_jur and not self.tbody_seen:
+            if tag == "tbody" and self.in_tbody:
+                self.in_tbody = False
+                self.tbody_seen = True
+            elif tag == "tr" and self.in_tr:
+                # Aceptar fila si tuvo >= 6 <td> y tiene código válido
+                if self.td_index >= 6 and self.current_code:
+                    self.codes.append(self.current_code)
+                self.in_tr = False
+                self.td_index = 0
+                self.current_code = ""
+            elif tag == "td" and self.in_td:
+                # Cierre de la 3ra <td>: extraer código (prefijo antes del '-')
+                txt = self.cell_buf.strip()
+                code = txt.split("-", 1)[0].strip() if "-" in txt else txt
+                # Sólo aceptar códigos puramente numéricos (evita filas basura)
+                if code.isdigit():
+                    self.current_code = code
+                self.in_td = False
+                self.cell_buf = ""
+
+    def handle_data(self, data):
+        if self.in_td:
+            self.cell_buf += data
+
+
 def dgr_login(session: requests.Session, username: str, password: str) -> bool:
     """Login en DGR Gestión. Retorna True si fue exitoso."""
     print(f"  [dgr_login] user='{username}' pass_len={len(password) if password else 0}")
 
-    # Acceder al login para obtener cookies
+    # Acceder al login para obtener cookies y la URL real del form (con jsessionid)
     try:
         r0 = session.get(f"{DGR_BASE}/login.jsp", timeout=30)
         print(f"  [dgr_login] GET login.jsp -> status={r0.status_code} url={r0.url}")
@@ -405,11 +492,34 @@ def dgr_login(session: requests.Session, username: str, password: str) -> bool:
         print(f"  [dgr_login] EXCEPCION en GET login.jsp: {type(e).__name__}: {e}")
         return False
 
+    # Tomcat usa URL rewriting: el form action incluye ';jsessionid=...'.
+    # Si posteamos a /j_security_check sin ese sufijo, falla la auth.
+    m = re.search(
+        r'<form[^>]*action="([^"]*j_security_check[^"]*)"',
+        r0.text,
+        re.IGNORECASE,
+    )
+    if m:
+        action = m.group(1)
+        post_url = action if action.startswith("http") else f"https://dgrgw.comarb.gob.ar{action}"
+    else:
+        post_url = DGR_LOGIN_URL
+    print(f"  [dgr_login] form action -> {post_url}")
+
     # POST de autenticación
     try:
         resp = session.post(
-            DGR_LOGIN_URL,
-            data={"j_username": username, "j_password": password},
+            post_url,
+            data={
+                "j_username": username,
+                "j_password": password,
+                "login": "Entrar",
+            },
+            headers={
+                "Referer": f"{DGR_BASE}/login.jsp",
+                "Origin": "https://dgrgw.comarb.gob.ar",
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
             timeout=30,
             allow_redirects=True,
         )
@@ -518,6 +628,56 @@ def dgr_search_cuit(
     return results
 
 
+def dgr_init_padron_web(session: requests.Session) -> bool:
+    """
+    Carga el formulario de Padrón Web (ARCA/BC) para inicializar
+    la sesión Struts antes de buscar.
+    """
+    resp = session.get(
+        DGR_PADRON_URL, params={"method": "buscarInBc"}, timeout=30
+    )
+    return resp.status_code == 200
+
+
+def dgr_jurisdicciones_cuit(
+    session: requests.Session,
+    cuit: str,
+    debug: bool = False,
+) -> str:
+    """
+    Obtiene las jurisdicciones asociadas a un CUIT según el Padrón Web (ARCA/BC).
+    Retorna un string con los códigos separados por coma (ej: '910, 917'),
+    '' si no hay jurisdicciones, o 'Error' si la consulta falla.
+    """
+    try:
+        resp = session.get(
+            DGR_PADRON_URL,
+            params={"method": "buscar", "cuit": cuit},
+            timeout=30,
+        )
+    except Exception:
+        return "Error"
+
+    if debug:
+        debug_file = f"debug_padron_{cuit}.html"
+        try:
+            with open(debug_file, "w", encoding="utf-8") as f:
+                f.write(resp.text)
+            print(f"  🐛 Debug padrón: respuesta guardada en {debug_file}")
+        except Exception:
+            pass
+
+    if resp.status_code != 200:
+        return "Error"
+
+    parser = DGRJurParser()
+    try:
+        parser.feed(resp.text)
+    except Exception:
+        return "Error"
+    return parser.codes_str
+
+
 def verificar_en_dgr(
     df: pd.DataFrame,
     username: str,
@@ -529,12 +689,16 @@ def verificar_en_dgr(
     prev_verif: dict | None = None,
 ) -> pd.DataFrame:
     """
-    Para cada CUIT no duplicado, busca en DGR si tiene (S) en Formulario.
-    Agrega columna 'verificada_dgr'.
-    prev_verif: dict de (cuit, fecha_str) -> valor verificada_dgr de corridas previas.
+    Para cada CUIT no duplicado, busca en DGR si tiene (S) en Formulario
+    y consulta el Padrón Web (ARCA/BC) para contar jurisdicciones asociadas.
+    Agrega columnas 'verificada_dgr' y 'jurisdicciones'.
+    prev_verif: dict de (cuit, fecha_str) -> {'verificada_dgr': ..., 'jurisdicciones': ...}
+                (Acepta también el formato viejo (valor str = verificada_dgr) por
+                compatibilidad hacia atrás.)
     """
     df = df.copy()
     df["verificada_dgr"] = ""
+    df["jurisdicciones"] = ""
 
     # Pre-poblar verificaciones previas
     mask = df["duplicado"] == "No"
@@ -542,89 +706,124 @@ def verificar_en_dgr(
         for idx in df.index[mask]:
             key = (str(df.at[idx, "cuit"]), str(df.at[idx, "fecha"]))
             if key in prev_verif:
-                df.at[idx, "verificada_dgr"] = prev_verif[key]
+                val = prev_verif[key]
+                if isinstance(val, dict):
+                    df.at[idx, "verificada_dgr"] = val.get("verificada_dgr", "")
+                    df.at[idx, "jurisdicciones"] = val.get("jurisdicciones", "")
+                else:
+                    # Formato viejo: sólo verificada_dgr
+                    df.at[idx, "verificada_dgr"] = val
         carried = (df.loc[mask, "verificada_dgr"] != "").sum()
         pending = mask.sum() - carried
         print(f"  ♻️  Reutilizadas: {carried}, nuevas por verificar: {pending}")
 
-    # Solo verificar los no duplicados que aún no tienen verificación
-    mask_need = mask & (df["verificada_dgr"] == "")
-    cuits_unicos = df.loc[mask_need, "cuit"].unique()
+    # Filas que requieren consulta (alguna columna vacía)
+    mask_need_ddjj = mask & (df["verificada_dgr"] == "")
+    mask_need_jur = mask & (df["jurisdicciones"].astype(str) == "")
+    cuits_need_ddjj = df.loc[mask_need_ddjj, "cuit"].unique()
+    cuits_need_jur = df.loc[mask_need_jur, "cuit"].unique()
 
-    if len(cuits_unicos) == 0:
+    if len(cuits_need_ddjj) == 0 and len(cuits_need_jur) == 0:
         print("  ✅ No hay CUITs nuevos para verificar en DGR.")
         ok = (df.loc[mask, "verificada_dgr"] == "Sí").sum()
         no = (df.loc[mask, "verificada_dgr"] == "No").sum()
         print(f"  ✅ Verificación DGR (total): {ok} confirmadas, {no} no encontradas")
         return df
 
-    print(f"  🔍 Verificando {len(cuits_unicos)} CUITs en DGR Gestión...")
-
     session = requests.Session()
     session.headers.update({
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) COMARB-Verificacion/1.0"
     })
 
-    # Login
+    # Login (una sola vez, sirve para ambos pases)
     print("  🔑 Iniciando sesión en DGR...")
     if not dgr_login(session, username, password):
         print("  ❌ Error de autenticación en DGR. Verificá usuario/contraseña.")
         df.loc[mask, "verificada_dgr"] = "Error login"
+        df.loc[mask, "jurisdicciones"] = "Error login"
         return df
     print("  ✅ Login exitoso")
 
-    # Inicializar formulario de búsqueda (carga colecciones Struts)
-    dgr_init_search_form(session)
+    # ═════════════════════════════════════════════════════════════
+    # PASE 1: DDJJ (SIFERE WEB → sfrwDdjj.do)
+    # ═════════════════════════════════════════════════════════════
+    if len(cuits_need_ddjj) > 0:
+        print(f"  🔍 [DDJJ] Verificando {len(cuits_need_ddjj)} CUITs en SIFERE WEB...")
+        dgr_init_search_form(session)
+        errores = 0
 
-    # Cache de resultados por CUIT (un CUIT puede aparecer en varios días)
-    cache = {}
-    errores = 0
+        for i, cuit in enumerate(cuits_need_ddjj, 1):
+            if i % 10 == 0 or i == 1:
+                print(f"  ⏳ [DDJJ] Procesando {i}/{len(cuits_need_ddjj)}...")
 
-    for i, cuit in enumerate(cuits_unicos, 1):
-        if i % 10 == 0 or i == 1:
-            print(f"  ⏳ Procesando {i}/{len(cuits_unicos)}...")
-
-        try:
-            if cuit not in cache:
+            try:
                 is_debug = debug_cuit and cuit == debug_cuit
                 ddjjs = dgr_search_cuit(
                     session, cuit, start_date, end_date, debug=is_debug
                 )
-                cache[cuit] = ddjjs
-                time.sleep(delay)  # No sobrecargar el servidor
+                time.sleep(delay)
 
-            ddjjs = cache[cuit]
+                # Para cada fila de este CUIT: match por fecha + (S) en formulario
+                rows_cuit = df.index[mask_need_ddjj & (df["cuit"] == cuit)]
+                for idx in rows_cuit:
+                    fecha_ga4 = df.at[idx, "fecha"]
+                    resultado = "No"
+                    for d in ddjjs:
+                        fp = d.get("fecha_presentacion_afip", "")
+                        try:
+                            fecha_dgr = datetime.strptime(fp, "%d/%m/%Y").date()
+                        except (ValueError, TypeError):
+                            continue
+                        if fecha_dgr == fecha_ga4 and "(S)" in d.get("formulario", ""):
+                            resultado = "Sí"
+                            break
+                    df.at[idx, "verificada_dgr"] = resultado
 
-            # Verificar por fecha: para cada fila de este CUIT sin verificar,
-            # buscar en DGR una DDJJ cuya fecha_presentacion_afip coincida
-            # con la fecha del evento GA4 y tenga (S) en formulario.
-            rows_cuit = df.index[mask_need & (df["cuit"] == cuit)]
-            for idx in rows_cuit:
-                fecha_ga4 = df.at[idx, "fecha"]
-                resultado = "No"
-                for d in ddjjs:
-                    fp = d.get("fecha_presentacion_afip", "")
-                    try:
-                        fecha_dgr = datetime.strptime(fp, "%d/%m/%Y").date()
-                    except (ValueError, TypeError):
-                        continue
-                    if fecha_dgr == fecha_ga4 and "(S)" in d.get("formulario", ""):
-                        resultado = "Sí"
-                        break
-                df.at[idx, "verificada_dgr"] = resultado
+            except Exception as e:
+                errores += 1
+                # Sólo sobreescribir filas todavía vacías (defensive)
+                vacias = mask_need_ddjj & (df["cuit"] == cuit) & (df["verificada_dgr"] == "")
+                df.loc[vacias, "verificada_dgr"] = "Error"
+                if errores <= 3:
+                    print(f"  ⚠️  [DDJJ] Error consultando CUIT {cuit}: {e}")
+                elif errores == 4:
+                    print(f"  ⚠️  [DDJJ] Errores sucesivos, se omiten mensajes...")
 
-        except Exception as e:
-            errores += 1
-            df.loc[mask_need & (df["cuit"] == cuit), "verificada_dgr"] = "Error"
-            if errores <= 3:
-                print(f"  ⚠️  Error consultando CUIT {cuit}: {e}")
-            elif errores == 4:
-                print(f"  ⚠️  Errores sucesivos, se omiten mensajes...")
+        ok = (df.loc[mask, "verificada_dgr"] == "Sí").sum()
+        no = (df.loc[mask, "verificada_dgr"] == "No").sum()
+        err = df.loc[mask, "verificada_dgr"].isin(["Error", "Error login"]).sum()
+        print(f"  ✅ Verificación DGR: {ok} confirmadas, {no} no encontradas, {err} errores")
 
-    ok = (df.loc[mask, "verificada_dgr"] == "Sí").sum()
-    no = (df.loc[mask, "verificada_dgr"] == "No").sum()
-    err = df.loc[mask, "verificada_dgr"].isin(["Error", "Error login"]).sum()
-    print(f"  ✅ Verificación DGR: {ok} confirmadas, {no} no encontradas, {err} errores")
+    # ═════════════════════════════════════════════════════════════
+    # PASE 2: Padrón Web ARCA/BC (pwContribBlockChain.do)
+    # ═════════════════════════════════════════════════════════════
+    if len(cuits_need_jur) > 0:
+        print(f"  🔍 [Padrón] Consultando {len(cuits_need_jur)} CUITs en Padrón ARCA/BC...")
+        dgr_init_padron_web(session)
+        errores = 0
+
+        for i, cuit in enumerate(cuits_need_jur, 1):
+            if i % 10 == 0 or i == 1:
+                print(f"  ⏳ [Padrón] Procesando {i}/{len(cuits_need_jur)}...")
+
+            try:
+                is_debug = debug_cuit and cuit == debug_cuit
+                jur_val = dgr_jurisdicciones_cuit(session, cuit, debug=is_debug)
+                time.sleep(delay)
+                df.loc[mask_need_jur & (df["cuit"] == cuit), "jurisdicciones"] = jur_val
+            except Exception as e:
+                errores += 1
+                vacias = mask_need_jur & (df["cuit"] == cuit) & (df["jurisdicciones"].astype(str) == "")
+                df.loc[vacias, "jurisdicciones"] = "Error"
+                if errores <= 3:
+                    print(f"  ⚠️  [Padrón] Error consultando CUIT {cuit}: {e}")
+                elif errores == 4:
+                    print(f"  ⚠️  [Padrón] Errores sucesivos, se omiten mensajes...")
+
+        jur_series = df.loc[mask, "jurisdicciones"].astype(str)
+        jur_ok = ((jur_series != "") & (~jur_series.isin(["Error", "Error login"]))).sum()
+        jur_err = jur_series.isin(["Error", "Error login"]).sum()
+        print(f"  ✅ Padrón ARCA: {jur_ok} CUITs consultados, {jur_err} errores")
 
     return df
 
@@ -662,6 +861,7 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
         for _, r in subset.iterrows():
             dup_class = ' class="dup"' if r["duplicado"] == "Sí" else ""
             dgr_cell = ""
+            jur_cell = ""
             if include_dgr:
                 v = r.get("verificada_dgr", "")
                 if v == "Sí":
@@ -673,6 +873,14 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
                 else:
                     dgr_cell = '<td>—</td>'
 
+                jv = r.get("jurisdicciones", "")
+                if jv == "" or jv is None or (isinstance(jv, float) and pd.isna(jv)):
+                    jur_cell = '<td>—</td>'
+                elif jv in ("Error", "Error login"):
+                    jur_cell = f'<td class="dgr-err">{jv}</td>'
+                else:
+                    jur_cell = f'<td>{jv}</td>'
+
             evento_label = EVENT_LABELS.get(r['nombre_evento'], r['nombre_evento'])
             estrellas = r.get('estrellas_valor', '') or ''
             feedback = r.get('texto_feedback', '') or ''
@@ -683,6 +891,7 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
                 <td>{r['exact_timestamp']}</td>
                 <td><code>{evento_label}</code></td>
                 <td>{r['region']}</td>
+                {jur_cell}
                 <td>{r['total']}</td>
                 <td>{estrellas}</td>
                 <td>{feedback}</td>
@@ -698,6 +907,56 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
     df_no_dup = df_sorted[df_sorted["duplicado"] == "No"].copy()
     table_no_dup = build_table_rows(df_no_dup, include_dgr=con_dgr)
 
+    # ── Definición dinámica de columnas según con_dgr ──
+    # Si con_dgr, "Jurisdicciones" se inserta entre Región y Total (pos 4),
+    # corriendo los índices de Total..Duplicado en +1 y agregando DGR al final.
+    if con_dgr:
+        cols_no_dup = [
+            "CUIT", "Timestamp", "Evento", "Región",
+            "Jurisdicciones", "Total", "Estrellas", "Feedback",
+            "Texto del Error", "Duplicado", "Verificada DGR",
+        ]
+    else:
+        cols_no_dup = [
+            "CUIT", "Timestamp", "Evento", "Región",
+            "Total", "Estrellas", "Feedback", "Texto del Error", "Duplicado",
+        ]
+    cols_all = [
+        "CUIT", "Timestamp", "Evento", "Región",
+        "Total", "Estrellas", "Feedback", "Texto del Error", "Duplicado",
+    ]
+
+    def _build_th_rows(cols):
+        """Genera las dos <tr>: la de headers con sort arrows y la de filtros."""
+        hdrs, filts = [], []
+        for i, name in enumerate(cols):
+            if name == "Timestamp":
+                cls = ' class="sort-active" data-dir="desc"'
+                arrow = "&#x25BC;"
+            else:
+                cls = ""
+                arrow = "&#x25B2;"
+            hdrs.append(
+                f'<th data-col="{i}"{cls}>{name} <span class="sort-arrow">{arrow}</span></th>'
+            )
+            filts.append(
+                f'<th><input class="col-filter" data-col="{i}" placeholder="Filtrar..."></th>'
+            )
+        sep = "\n                        "
+        return sep.join(hdrs), sep.join(filts)
+
+    headers_no_dup_html, filters_no_dup_html = _build_th_rows(cols_no_dup)
+    headers_all_html, filters_all_html = _build_th_rows(cols_all)
+
+    # Índices para el JS (recalculados al insertar Jurisdicciones)
+    def _idx(cols, name, fallback=-1):
+        return cols.index(name) if name in cols else fallback
+
+    js_idx_estrellas_nodup = _idx(cols_no_dup, "Estrellas")
+    js_idx_feedback_nodup = _idx(cols_no_dup, "Feedback")
+    js_idx_dgr_nodup = _idx(cols_no_dup, "Verificada DGR")
+    js_idx_duplicado_all = _idx(cols_all, "Duplicado")
+    js_idx_cuit_all = _idx(cols_all, "CUIT")
 
     # ── KPI DGR extra ──
     dgr_kpi_html = ""
@@ -1091,28 +1350,10 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
             <table id="tbl-no-dup">
                 <thead>
                     <tr>
-                        <th data-col="0">CUIT <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="1" class="sort-active" data-dir="desc">Timestamp <span class="sort-arrow">&#x25BC;</span></th>
-                        <th data-col="2">Evento <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="3">Región <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="4">Total <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="5">Estrellas <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="6">Feedback <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="7">Texto del Error <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="8">Duplicado <span class="sort-arrow">&#x25B2;</span></th>
-                        {('<th data-col="9">Verificada DGR <span class="sort-arrow">&#x25B2;</span></th>' if con_dgr else '')}
+                        {headers_no_dup_html}
                     </tr>
                     <tr class="filter-row">
-                        <th><input class="col-filter" data-col="0" placeholder="Filtrar..."></th>
-                        <th><input class="col-filter" data-col="1" placeholder="Filtrar..."></th>
-                        <th><input class="col-filter" data-col="2" placeholder="Filtrar..."></th>
-                        <th><input class="col-filter" data-col="3" placeholder="Filtrar..."></th>
-                        <th><input class="col-filter" data-col="4" placeholder="Filtrar..."></th>
-                        <th><input class="col-filter" data-col="5" placeholder="Filtrar..."></th>
-                        <th><input class="col-filter" data-col="6" placeholder="Filtrar..."></th>
-                        <th><input class="col-filter" data-col="7" placeholder="Filtrar..."></th>
-                        <th><input class="col-filter" data-col="8" placeholder="Filtrar..."></th>
-                        {'<th><input class="col-filter" data-col="9" placeholder="Filtrar..."></th>' if con_dgr else ''}
+                        {filters_no_dup_html}
                     </tr>
                 </thead>
                 <tbody>{table_no_dup}</tbody>
@@ -1125,26 +1366,10 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
             <table id="tbl-all">
                 <thead>
                     <tr>
-                        <th data-col="0">CUIT <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="1" class="sort-active" data-dir="desc">Timestamp <span class="sort-arrow">&#x25BC;</span></th>
-                        <th data-col="2">Evento <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="3">Región <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="4">Total <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="5">Estrellas <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="6">Feedback <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="7">Texto del Error <span class="sort-arrow">&#x25B2;</span></th>
-                        <th data-col="8">Duplicado <span class="sort-arrow">&#x25B2;</span></th>
+                        {headers_all_html}
                     </tr>
                     <tr class="filter-row">
-                        <th><input class="col-filter" data-col="0" placeholder="Filtrar..."></th>
-                        <th><input class="col-filter" data-col="1" placeholder="Filtrar..."></th>
-                        <th><input class="col-filter" data-col="2" placeholder="Filtrar..."></th>
-                        <th><input class="col-filter" data-col="3" placeholder="Filtrar..."></th>
-                        <th><input class="col-filter" data-col="4" placeholder="Filtrar..."></th>
-                        <th><input class="col-filter" data-col="5" placeholder="Filtrar..."></th>
-                        <th><input class="col-filter" data-col="6" placeholder="Filtrar..."></th>
-                        <th><input class="col-filter" data-col="7" placeholder="Filtrar..."></th>
-                        <th><input class="col-filter" data-col="8" placeholder="Filtrar..."></th>
+                        {filters_all_html}
                     </tr>
                 </thead>
                 <tbody>{table_all}</tbody>
@@ -1462,8 +1687,8 @@ function recomputeKPIsAndCharts() {{
     const cuitsSet = new Set();
     allRows.forEach(r => {{
         const cells = r.querySelectorAll('td');
-        cuitsSet.add((cells[0]?.textContent || '').trim());
-        const d = (cells[8]?.textContent || '').trim();
+        cuitsSet.add((cells[{js_idx_cuit_all}]?.textContent || '').trim());
+        const d = (cells[{js_idx_duplicado_all}]?.textContent || '').trim();
         if (d === 'No') noDupCount++; else if (d === 'Sí') dupCount++;
     }});
     document.getElementById('kpi-total').textContent = total;
@@ -1480,7 +1705,7 @@ function recomputeKPIsAndCharts() {{
         let dgrNo = 0;
         noDupRows.forEach(r => {{
             const cells = r.querySelectorAll('td');
-            if ((cells[9]?.textContent || '').trim() === 'No') dgrNo++;
+            if ((cells[{js_idx_dgr_nodup}]?.textContent || '').trim() === 'No') dgrNo++;
         }});
         dgrKpi.textContent = dgrNo;
     }}
@@ -1507,9 +1732,9 @@ function recomputeKPIsAndCharts() {{
     const feedbackTexts = [];
     noDupRows.forEach(r => {{
         const cells = r.querySelectorAll('td');
-        const est = (cells[5]?.textContent || '').trim();
+        const est = (cells[{js_idx_estrellas_nodup}]?.textContent || '').trim();
         if (estCounts.hasOwnProperty(est)) estCounts[est]++;
-        const fb = (cells[6]?.textContent || '').trim();
+        const fb = (cells[{js_idx_feedback_nodup}]?.textContent || '').trim();
         if (fb) feedbackTexts.push(fb);
     }});
     renderEstrellasChart(estCounts);
@@ -1527,7 +1752,9 @@ recomputeKPIsAndCharts();
 
 def load_previous_verifications(csv_path: str) -> dict:
     """Carga verificaciones DGR previas desde un CSV existente.
-    Retorna dict de (cuit_str, fecha_str) -> verificada_dgr."""
+    Retorna dict de (cuit_str, fecha_str) -> {'verificada_dgr': str, 'jurisdicciones': str}.
+    Sólo se reutilizan filas donde AMBAS columnas están en estado válido
+    (no vacío y no error). Si alguna falta, se fuerza reverificación."""
     p = Path(csv_path)
     if not p.exists():
         return {}
@@ -1537,13 +1764,26 @@ def load_previous_verifications(csv_path: str) -> dict:
         return {}
 
     df_prev["verificada_dgr"] = df_prev["verificada_dgr"].fillna("")
-    # No reutilizar filas en estado de error: deben reverificarse en la próxima corrida
+    has_jur = "jurisdicciones" in df_prev.columns
+    if has_jur:
+        df_prev["jurisdicciones"] = df_prev["jurisdicciones"].fillna("").astype(str)
+
     error_states = {"", "Error", "Error login"}
-    mask = (df_prev["duplicado"] == "No") & (~df_prev["verificada_dgr"].isin(error_states))
+    mask_dgr_ok = (df_prev["duplicado"] == "No") & (~df_prev["verificada_dgr"].isin(error_states))
+    if has_jur:
+        mask_jur_ok = ~df_prev["jurisdicciones"].isin(error_states)
+        mask = mask_dgr_ok & mask_jur_ok
+    else:
+        # CSV viejo sin columna jurisdicciones: no reutilizar nada (fuerza reverificación completa)
+        return {}
+
     result = {}
     for _, row in df_prev[mask].iterrows():
         key = (str(row["cuit"]), str(row["fecha"]))
-        result[key] = row["verificada_dgr"]
+        result[key] = {
+            "verificada_dgr": row["verificada_dgr"],
+            "jurisdicciones": row["jurisdicciones"],
+        }
 
     return result
 
@@ -1654,6 +1894,8 @@ def main():
                 df[col] = df[col].fillna("")
         if "texto_del_error" not in df.columns:
             df["texto_del_error"] = ""
+        if "jurisdicciones" not in df.columns:
+            df["jurisdicciones"] = ""
 
         con_dgr = "verificada_dgr" in df.columns
 
