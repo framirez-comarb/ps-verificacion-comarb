@@ -7,6 +7,13 @@ sa_credentials.json
 
 # Debug HTML files from DGR
 debug_dgr_*.html
+debug_padron_*.html
+
+# Test/scratch report artifacts
+test_*.html
+test_*.csv
+test_*.json
+ps_verificacion_test.*
 
 # Python cache
 __pycache__/
