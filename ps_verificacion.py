@@ -1753,8 +1753,11 @@ recomputeKPIsAndCharts();
 def load_previous_verifications(csv_path: str) -> dict:
     """Carga verificaciones DGR previas desde un CSV existente.
     Retorna dict de (cuit_str, fecha_str) -> {'verificada_dgr': str, 'jurisdicciones': str}.
-    Sólo se reutilizan filas donde AMBAS columnas están en estado válido
-    (no vacío y no error). Si alguna falta, se fuerza reverificación."""
+    Cada columna se reutiliza de forma independiente: si el CSV previo
+    tiene 'verificada_dgr' válida pero no tiene 'jurisdicciones' (o tiene
+    error), se reutiliza sólo la DDJJ y el padrón se reverifica.
+    Esto evita un reverificado completo (DDJJ + Padrón) la primera vez
+    que se corre tras agregar la columna 'jurisdicciones'."""
     p = Path(csv_path)
     if not p.exists():
         return {}
@@ -1769,20 +1772,25 @@ def load_previous_verifications(csv_path: str) -> dict:
         df_prev["jurisdicciones"] = df_prev["jurisdicciones"].fillna("").astype(str)
 
     error_states = {"", "Error", "Error login"}
-    mask_dgr_ok = (df_prev["duplicado"] == "No") & (~df_prev["verificada_dgr"].isin(error_states))
-    if has_jur:
-        mask_jur_ok = ~df_prev["jurisdicciones"].isin(error_states)
-        mask = mask_dgr_ok & mask_jur_ok
-    else:
-        # CSV viejo sin columna jurisdicciones: no reutilizar nada (fuerza reverificación completa)
-        return {}
+    base_mask = df_prev["duplicado"] == "No"
 
     result = {}
-    for _, row in df_prev[mask].iterrows():
+    for _, row in df_prev[base_mask].iterrows():
         key = (str(row["cuit"]), str(row["fecha"]))
+        v_dgr = row["verificada_dgr"]
+        v_jur = row["jurisdicciones"] if has_jur else ""
+
+        # Sólo reutilizar cada columna si NO está en estado de error.
+        # Si una está mal, se deja vacía y se re-consulta en la corrida nueva.
+        carry_dgr = v_dgr if v_dgr not in error_states else ""
+        carry_jur = v_jur if v_jur not in error_states else ""
+
+        if carry_dgr == "" and carry_jur == "":
+            continue  # nada para reutilizar en esta fila
+
         result[key] = {
-            "verificada_dgr": row["verificada_dgr"],
-            "jurisdicciones": row["jurisdicciones"],
+            "verificada_dgr": carry_dgr,
+            "jurisdicciones": carry_jur,
         }
 
     return result

@@ -30,8 +30,9 @@ jobs:
         env:
           DGR_USERNAME: ${{ secrets.DGR_USERNAME }}
           DGR_PASSWORD: ${{ secrets.DGR_PASSWORD }}
+          PYTHONUNBUFFERED: '1'
         run: |
-          python ps_verificacion.py \
+          python -u ps_verificacion.py \
             -c sa_credentials.json \
             -u "$DGR_USERNAME" \
             -p "$DGR_PASSWORD" \
