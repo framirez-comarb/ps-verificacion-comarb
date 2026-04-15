@@ -19,7 +19,7 @@ import json
 import re
 import sys
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from html.parser import HTMLParser
 from pathlib import Path
@@ -58,6 +58,10 @@ DGR_BASE = "https://dgrgw.comarb.gob.ar/dgr"
 DGR_LOGIN_URL = f"{DGR_BASE}/j_security_check"
 DGR_SEARCH_URL = f"{DGR_BASE}/sfrwDdjj.do"
 DGR_PADRON_URL = f"{DGR_BASE}/pwContribBlockChain.do"
+
+# TTL del padrón ARCA/BC en días: los contribuyentes pueden modificar sus
+# jurisdicciones una vez al mes, así que revalidamos cada 30 días.
+TTL_PADRON_DIAS = 30
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -690,15 +694,27 @@ def verificar_en_dgr(
 ) -> pd.DataFrame:
     """
     Para cada CUIT no duplicado, busca en DGR si tiene (S) en Formulario
-    y consulta el Padrón Web (ARCA/BC) para contar jurisdicciones asociadas.
-    Agrega columnas 'verificada_dgr' y 'jurisdicciones'.
-    prev_verif: dict de (cuit, fecha_str) -> {'verificada_dgr': ..., 'jurisdicciones': ...}
+    y consulta el Padrón Web (ARCA/BC) para obtener las jurisdicciones
+    asociadas. Agrega columnas 'verificada_dgr', 'jurisdicciones' y
+    'jurisdicciones_check' (fecha YYYY-MM-DD de la última consulta al padrón).
+
+    El padrón se refresca si la última consulta tiene más de TTL_PADRON_DIAS
+    días, dado que los contribuyentes pueden modificar sus jurisdicciones
+    una vez al mes.
+
+    prev_verif: dict de (cuit, fecha_str) -> {'verificada_dgr': ...,
+                'jurisdicciones': ..., 'jurisdicciones_check': ...}
                 (Acepta también el formato viejo (valor str = verificada_dgr) por
                 compatibilidad hacia atrás.)
     """
     df = df.copy()
     df["verificada_dgr"] = ""
     df["jurisdicciones"] = ""
+    df["jurisdicciones_check"] = ""
+
+    today_date = datetime.now().date()
+    today_str = today_date.strftime("%Y-%m-%d")
+    ttl_cutoff = today_date - timedelta(days=TTL_PADRON_DIAS)
 
     # Pre-poblar verificaciones previas
     mask = df["duplicado"] == "No"
@@ -710,6 +726,7 @@ def verificar_en_dgr(
                 if isinstance(val, dict):
                     df.at[idx, "verificada_dgr"] = val.get("verificada_dgr", "")
                     df.at[idx, "jurisdicciones"] = val.get("jurisdicciones", "")
+                    df.at[idx, "jurisdicciones_check"] = val.get("jurisdicciones_check", "")
                 else:
                     # Formato viejo: sólo verificada_dgr
                     df.at[idx, "verificada_dgr"] = val
@@ -717,11 +734,23 @@ def verificar_en_dgr(
         pending = mask.sum() - carried
         print(f"  ♻️  Reutilizadas: {carried}, nuevas por verificar: {pending}")
 
-    # Filas que requieren consulta (alguna columna vacía)
+    # Filas que requieren consulta DDJJ (verificada_dgr vacío)
     mask_need_ddjj = mask & (df["verificada_dgr"] == "")
-    mask_need_jur = mask & (df["jurisdicciones"].astype(str) == "")
     cuits_need_ddjj = df.loc[mask_need_ddjj, "cuit"].unique()
+
+    # Filas que requieren consulta Padrón: jur vacío/en error, O check
+    # faltante, O check con más de TTL_PADRON_DIAS días de antigüedad.
+    jur_series = df["jurisdicciones"].astype(str)
+    check_series = pd.to_datetime(df["jurisdicciones_check"], errors="coerce").dt.date
+    jur_stale = jur_series.isin(["", "Error", "Error login"]) | check_series.isna() | (check_series < ttl_cutoff)
+    mask_need_jur = mask & jur_stale
     cuits_need_jur = df.loc[mask_need_jur, "cuit"].unique()
+
+    refrescos = int(
+        (mask & ~jur_series.isin(["", "Error", "Error login"]) & check_series.notna() & (check_series < ttl_cutoff)).sum()
+    )
+    if refrescos > 0:
+        print(f"  🔄 Padrón: {refrescos} filas con check > {TTL_PADRON_DIAS} días → se refrescan")
 
     if len(cuits_need_ddjj) == 0 and len(cuits_need_jur) == 0:
         print("  ✅ No hay CUITs nuevos para verificar en DGR.")
@@ -739,8 +768,9 @@ def verificar_en_dgr(
     print("  🔑 Iniciando sesión en DGR...")
     if not dgr_login(session, username, password):
         print("  ❌ Error de autenticación en DGR. Verificá usuario/contraseña.")
-        df.loc[mask, "verificada_dgr"] = "Error login"
-        df.loc[mask, "jurisdicciones"] = "Error login"
+        # Sólo marcar como Error login las filas que no tenían valor válido previo
+        df.loc[mask_need_ddjj, "verificada_dgr"] = "Error login"
+        df.loc[mask_need_jur, "jurisdicciones"] = "Error login"
         return df
     print("  ✅ Login exitoso")
 
@@ -810,7 +840,11 @@ def verificar_en_dgr(
                 is_debug = debug_cuit and cuit == debug_cuit
                 jur_val = dgr_jurisdicciones_cuit(session, cuit, debug=is_debug)
                 time.sleep(delay)
-                df.loc[mask_need_jur & (df["cuit"] == cuit), "jurisdicciones"] = jur_val
+                sel = mask_need_jur & (df["cuit"] == cuit)
+                df.loc[sel, "jurisdicciones"] = jur_val
+                # Sólo actualizar la fecha de check si la consulta fue exitosa
+                if jur_val not in ("Error", "Error login"):
+                    df.loc[sel, "jurisdicciones_check"] = today_str
             except Exception as e:
                 errores += 1
                 vacias = mask_need_jur & (df["cuit"] == cuit) & (df["jurisdicciones"].astype(str) == "")
@@ -1752,9 +1786,14 @@ recomputeKPIsAndCharts();
 
 def load_previous_verifications(csv_path: str) -> dict:
     """Carga verificaciones DGR previas desde un CSV existente.
-    Retorna dict de (cuit_str, fecha_str) -> {'verificada_dgr': str, 'jurisdicciones': str}.
-    Sólo se reutilizan filas donde AMBAS columnas están en estado válido
-    (no vacío y no error). Si alguna falta, se fuerza reverificación."""
+    Retorna dict de (cuit_str, fecha_str) -> {
+        'verificada_dgr': str, 'jurisdicciones': str, 'jurisdicciones_check': str
+    }.
+    Cada columna se reutiliza de forma independiente: si el CSV previo
+    tiene 'verificada_dgr' válida pero no tiene 'jurisdicciones' (o tiene
+    error), se reutiliza sólo la DDJJ y el padrón se reverifica.
+    'jurisdicciones_check' se arrastra tal cual; `verificar_en_dgr` decide
+    si refrescar padrón según el TTL."""
     p = Path(csv_path)
     if not p.exists():
         return {}
@@ -1767,22 +1806,34 @@ def load_previous_verifications(csv_path: str) -> dict:
     has_jur = "jurisdicciones" in df_prev.columns
     if has_jur:
         df_prev["jurisdicciones"] = df_prev["jurisdicciones"].fillna("").astype(str)
+    has_check = "jurisdicciones_check" in df_prev.columns
+    if has_check:
+        df_prev["jurisdicciones_check"] = df_prev["jurisdicciones_check"].fillna("").astype(str)
 
     error_states = {"", "Error", "Error login"}
-    mask_dgr_ok = (df_prev["duplicado"] == "No") & (~df_prev["verificada_dgr"].isin(error_states))
-    if has_jur:
-        mask_jur_ok = ~df_prev["jurisdicciones"].isin(error_states)
-        mask = mask_dgr_ok & mask_jur_ok
-    else:
-        # CSV viejo sin columna jurisdicciones: no reutilizar nada (fuerza reverificación completa)
-        return {}
+    base_mask = df_prev["duplicado"] == "No"
 
     result = {}
-    for _, row in df_prev[mask].iterrows():
+    for _, row in df_prev[base_mask].iterrows():
         key = (str(row["cuit"]), str(row["fecha"]))
+        v_dgr = row["verificada_dgr"]
+        v_jur = row["jurisdicciones"] if has_jur else ""
+        v_chk = row["jurisdicciones_check"] if has_check else ""
+
+        # Sólo reutilizar cada columna si NO está en estado de error.
+        # Si una está mal, se deja vacía y se re-consulta en la corrida nueva.
+        carry_dgr = v_dgr if v_dgr not in error_states else ""
+        carry_jur = v_jur if v_jur not in error_states else ""
+        # Si jur es inválido, el check tampoco se reutiliza (forzará refresco)
+        carry_chk = v_chk if carry_jur else ""
+
+        if carry_dgr == "" and carry_jur == "":
+            continue  # nada para reutilizar en esta fila
+
         result[key] = {
-            "verificada_dgr": row["verificada_dgr"],
-            "jurisdicciones": row["jurisdicciones"],
+            "verificada_dgr": carry_dgr,
+            "jurisdicciones": carry_jur,
+            "jurisdicciones_check": carry_chk,
         }
 
     return result
@@ -1896,6 +1947,8 @@ def main():
             df["texto_del_error"] = ""
         if "jurisdicciones" not in df.columns:
             df["jurisdicciones"] = ""
+        if "jurisdicciones_check" not in df.columns:
+            df["jurisdicciones_check"] = ""
 
         con_dgr = "verificada_dgr" in df.columns
 
