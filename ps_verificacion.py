@@ -741,13 +741,15 @@ def verificar_en_dgr(
     # Filas que requieren consulta Padrón: jur vacío/en error, O check
     # faltante, O check con más de TTL_PADRON_DIAS días de antigüedad.
     jur_series = df["jurisdicciones"].astype(str)
-    check_series = pd.to_datetime(df["jurisdicciones_check"], errors="coerce").dt.date
-    jur_stale = jur_series.isin(["", "Error", "Error login"]) | check_series.isna() | (check_series < ttl_cutoff)
+    # Usamos Timestamps (no date) para poder comparar contra la Series en pandas 3.x
+    check_series = pd.to_datetime(df["jurisdicciones_check"], errors="coerce")
+    ttl_cutoff_ts = pd.Timestamp(ttl_cutoff)
+    jur_stale = jur_series.isin(["", "Error", "Error login"]) | check_series.isna() | (check_series < ttl_cutoff_ts)
     mask_need_jur = mask & jur_stale
     cuits_need_jur = df.loc[mask_need_jur, "cuit"].unique()
 
     refrescos = int(
-        (mask & ~jur_series.isin(["", "Error", "Error login"]) & check_series.notna() & (check_series < ttl_cutoff)).sum()
+        (mask & ~jur_series.isin(["", "Error", "Error login"]) & check_series.notna() & (check_series < ttl_cutoff_ts)).sum()
     )
     if refrescos > 0:
         print(f"  🔄 Padrón: {refrescos} filas con check > {TTL_PADRON_DIAS} días → se refrescan")
