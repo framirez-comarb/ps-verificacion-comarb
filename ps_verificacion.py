@@ -2004,6 +2004,30 @@ def main():
         print("\n❌ Sin datos. Verificá el rango de fechas y los permisos.")
         sys.exit(1)
 
+    # ── Early-exit: en modo incremental, si no hay eventos nuevos respecto al CSV
+    # previo, salimos sin tocar DGR ni regenerar el reporte. ──
+    if args.incremental:
+        prev_csv_path = Path(args.output.replace(".html", ".csv"))
+        if prev_csv_path.exists():
+            try:
+                prev_df = pd.read_csv(prev_csv_path, encoding="utf-8-sig", dtype=str)
+                sig_cols = ["cuit", "exact_timestamp", "nombre_evento"]
+                if all(c in prev_df.columns for c in sig_cols):
+                    prev_sig = set(map(tuple, prev_df[sig_cols].astype(str).values))
+                    new_sig = set(map(tuple, df[sig_cols].astype(str).values))
+                    nuevos = new_sig - prev_sig
+                    if not nuevos:
+                        print(
+                            f"\n✅ Sin eventos nuevos en GA4 "
+                            f"({len(new_sig)} eventos, todos ya en {prev_csv_path.name})."
+                        )
+                        print("   Saltando verificación DGR y regeneración de reporte.\n")
+                        print(f"{'═' * 60}\n")
+                        return
+                    print(f"\n📌 {len(nuevos)} evento(s) nuevo(s) detectado(s) desde la última corrida.")
+            except Exception as exc:
+                print(f"  ⚠️  No se pudo comparar con CSV previo ({exc}). Continuando con flujo completo.")
+
     # ── Paso 2: Deduplicar ──
     print("\n🔄 PASO 2: Deduplicación")
     df = deduplicate(df)
