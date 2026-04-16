@@ -1,0 +1,57 @@
+﻿cuit,exact_timestamp,region,total,texto_del_error,numero_eventos
+20263969090,2026-04-14 19:59:36,Santa Cruz Province,,Error El total distribuido debe ser igual a la base imponible,4
+20079664953,2026-04-14 19:30:46,Cordoba Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
+20126651687,2026-04-16 09:19:10,Buenos Aires,,Error Debe seleccionar un medio de pago,2
+20161633683,2026-04-15 17:37:29,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
+20263969090,2026-04-14 19:58:56,Santa Cruz Province,,Error El total distribuido debe ser igual a la base imponible,2
+20263969090,2026-04-14 19:59:26,Santa Cruz Province,,Error El total distribuido debe ser igual a la base imponible,2
+20263969090,2026-04-14 19:59:31,Santa Cruz Province,,Error El total distribuido debe ser igual a la base imponible,2
+20263969090,2026-04-14 19:59:49,Santa Cruz Province,,Error El total distribuido debe ser igual a la base imponible,2
+20263969090,2026-04-14 19:59:57,Santa Cruz Province,,Error El total distribuido debe ser igual a la base imponible,2
+20271548711,2026-04-14 14:42:01,Cordoba Province,,Error DDJJ no se encuentra en estado BORRADOR. Imposible modificar.,2
+20271548711,2026-04-14 14:42:06,Cordoba Province,,Error DDJJ no se encuentra en estado BORRADOR. Imposible modificar.,2
+20282405564,2026-04-15 13:34:57,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
+20282405564,2026-04-15 13:35:30,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
+20282405564,2026-04-15 13:41:27,Santa Fe Province,"$53.345,45",Error Falla al intentar cerrar DDJJ. Error al validar DJ. Falla al validar datos de firmantes. El da,2
+20282405564,2026-04-15 13:45:21,Santa Fe Province,"$53.345,45",Error Falla al intentar cerrar DDJJ. Error al validar DJ. Falla al validar datos de firmantes. El da,2
+20413588104,2026-04-15 15:32:50,Buenos Aires,,Error El total distribuido debe ser igual a la base imponible,2
+20925804275,2026-04-14 20:19:51,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
+27065590579,2026-04-15 16:42:20,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
+27102738441,2026-04-15 20:02:03,Mendoza Province,,Error Debe seleccionar un medio de pago,2
+27112089174,2026-04-15 09:22:53,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
+27112089174,2026-04-15 09:23:02,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
+27171405276,2026-04-15 11:42:41,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,2
+27222370480,2026-04-15 10:20:53,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
+27222670158,2026-04-15 15:53:05,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+27222670158,2026-04-15 15:58:06,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+27248662781,2026-04-15 14:18:12,San Luis Province,,Error Debe seleccionar un medio de pago,2
+27295499279,2026-04-15 14:01:50,San Luis Province,"$0,00",Error Falla al intentar cerrar DDJJ. Error al validar DJ. Falla al validar total de Bases Imponibles,2
+27315472828,2026-04-15 17:43:15,Buenos Aires Province,,Error El total distribuido debe ser igual a la base imponible,2
+27317189481,2026-04-14 15:22:18,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
+27317189481,2026-04-14 15:22:40,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
+27317189481,2026-04-14 15:23:08,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
+27317189481,2026-04-14 15:23:09,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
+27317189481,2026-04-14 15:23:24,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
+27317189481,2026-04-14 15:23:29,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
+27317189481,2026-04-14 15:24:13,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
+27317189481,2026-04-14 15:24:14,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
+30711546568,2026-04-16 01:24:16,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+30716422050,2026-04-16 08:33:46,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+30718111613,2026-04-15 10:58:03,Salta Province,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
+30718137205,2026-04-15 17:01:45,Mendoza Province,"$0,00","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30718137205,2026-04-15 17:01:50,Mendoza Province,"$0,00","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30718137205,2026-04-15 17:03:39,Mendoza Province,"$0,00","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30718137205,2026-04-15 17:03:45,Mendoza Province,"$0,00","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30718137205,2026-04-15 17:04:32,Mendoza Province,"$0,00","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30718137205,2026-04-15 17:06:14,Mendoza Province,"$0,00","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30718294114,2026-04-15 14:35:36,Santa Cruz Province,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
+30718423135,2026-04-16 09:31:07,Cordoba Province,"$465.181,69","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30718423135,2026-04-16 09:31:39,Cordoba Province,"$465.181,69","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30718423135,2026-04-16 09:32:39,Cordoba Province,"$465.181,69","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30718785495,2026-04-15 18:17:21,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
+30718786580,2026-04-14 21:45:12,Jujuy Province,,Error El total distribuido debe ser igual a la base imponible,2
+33718997149,2026-04-16 11:07:43,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
+20282405564,2026-04-15 13:45:14,Santa Fe Province,"$53.345,45",Error Falla al intentar cerrar DDJJ. Error al validar DJ. Falla al validar datos de firmantes. El da,1
+20282405564,2026-04-15 13:45:15,Santa Fe Province,"$53.345,45",Error Falla al intentar cerrar DDJJ. Error al validar DJ. Falla al validar datos de firmantes. El da,1
+27102738441,2026-04-15 20:01:55,Mendoza Province,,Error Debe seleccionar un medio de pago,1
+27102738441,2026-04-15 20:01:56,Mendoza Province,,Error Debe seleccionar un medio de pago,1
