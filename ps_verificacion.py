@@ -19,10 +19,11 @@ import json
 import re
 import sys
 import time
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from dateutil.relativedelta import relativedelta
 from html.parser import HTMLParser
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 # Forzar UTF-8 en stdout/stderr para consolas Windows (cp1252)
 if sys.stdout.encoding != "utf-8":
@@ -52,6 +53,7 @@ GA4_EVENTS = [
     "PS_boton_presentar_y_salir",
     "PS_boton_presentar_y_generar_pago",
 ]
+GA4_EVENT_ERROR = "PS_error_validacion_dj"
 GA4_HOSTNAME = "servicios.comarb.gob.ar"
 
 DGR_BASE = "https://dgrgw.comarb.gob.ar/dgr"
@@ -144,7 +146,7 @@ def extract_ga4_data(creds_path: str, start_date: str, end_date: str) -> tuple[p
     df = pd.DataFrame(rows)
     if df.empty:
         print("  ⚠️  No se encontraron datos para el período indicado.")
-        return df, {}
+        return df, pd.DataFrame(), {}
 
     df["numero_eventos"] = pd.to_numeric(df["numero_eventos"], errors="coerce")
 
@@ -271,6 +273,70 @@ def extract_ga4_data(creds_path: str, start_date: str, end_date: str) -> tuple[p
         d = row.dimension_values[0].value  # YYYYMMDD
         cerrar_por_dia[f"{d[:4]}-{d[4:6]}-{d[6:8]}"] = int(row.metric_values[0].value)
 
+    # ── Query 4: Errores de validación (PS_error_validacion_dj) ──
+    print("  📡 Consultando GA4 (errores de validación)...")
+
+    error_filter = FilterExpression(
+        and_group=FilterExpressionList(
+            expressions=[
+                hostname_filter,
+                FilterExpression(
+                    filter=Filter(
+                        field_name="eventName",
+                        string_filter=Filter.StringFilter(
+                            value=GA4_EVENT_ERROR,
+                            match_type=Filter.StringFilter.MatchType.EXACT,
+                        ),
+                    )
+                ),
+            ]
+        )
+    )
+
+    err_request = RunReportRequest(
+        property=f"properties/{PROPERTY_ID}",
+        dimensions=[
+            Dimension(name="customEvent:CUIT"),
+            Dimension(name="customEvent:exact_timestamp"),
+            Dimension(name="region"),
+            Dimension(name="customEvent:Total"),
+            Dimension(name="customEvent:texto_del_error"),
+        ],
+        metrics=[Metric(name="eventCount")],
+        date_ranges=[DateRange(start_date=start_date, end_date=end_date)],
+        dimension_filter=error_filter,
+        limit=10000,
+    )
+
+    err_response = client.run_report(err_request)
+
+    err_dim_names = ["cuit", "exact_timestamp", "region", "total", "texto_del_error"]
+    err_rows = []
+    for row in err_response.rows:
+        record = {}
+        for i, dv in enumerate(row.dimension_values):
+            record[err_dim_names[i]] = dv.value
+        record["numero_eventos"] = int(row.metric_values[0].value)
+        err_rows.append(record)
+
+    df_err = pd.DataFrame(err_rows)
+    if not df_err.empty:
+        # Limpiar (not set) en strings
+        for col in ["region", "total", "texto_del_error"]:
+            df_err[col] = df_err[col].replace("(not set)", "")
+        df_err = df_err[~df_err["cuit"].isin(["(not set)", ""])].copy()
+        df_err = df_err[df_err["cuit"].str.strip() != ""].copy()
+        print(f"  ✅ {len(df_err)} eventos de error de validación extraídos")
+    else:
+        print("  ⚠️  No se encontraron errores de validación en el período.")
+
+    # Errores por día (para chart_data)
+    errores_por_dia = {}
+    if not df_err.empty:
+        df_err_tmp = df_err.copy()
+        df_err_tmp["_fecha_ts"] = pd.to_datetime(df_err_tmp["exact_timestamp"], errors="coerce").dt.strftime("%Y-%m-%d")
+        errores_por_dia = df_err_tmp.groupby("_fecha_ts")["numero_eventos"].sum().to_dict()
+
     # ── Construir series diarias para gráficos ──
     df["_fecha_ts"] = pd.to_datetime(df["exact_timestamp"], errors="coerce").dt.strftime("%Y-%m-%d")
     presentadas_por_dia = df.groupby("_fecha_ts")["numero_eventos"].sum().to_dict()
@@ -299,6 +365,7 @@ def extract_ga4_data(creds_path: str, start_date: str, end_date: str) -> tuple[p
         list(presentadas_por_dia.keys())
         + list(enviadas_por_dia.keys())
         + list(cerrar_por_dia.keys())
+        + list(errores_por_dia.keys())
     ))
 
     chart_data = {
@@ -306,6 +373,7 @@ def extract_ga4_data(creds_path: str, start_date: str, end_date: str) -> tuple[p
         "presentadas": [int(presentadas_por_dia.get(d, 0)) for d in all_dates],
         "enc_enviadas": [int(enviadas_por_dia.get(d, 0)) for d in all_dates],
         "enc_cerradas": [int(cerrar_por_dia.get(d, 0)) for d in all_dates],
+        "errores_por_dia": [int(errores_por_dia.get(d, 0)) for d in all_dates],
         "presentadas_no_dup": [],  # se llena después de deduplicar en main
         "estrellas": estrellas_dist,
         "feedback": feedback_textos,
@@ -313,7 +381,7 @@ def extract_ga4_data(creds_path: str, start_date: str, end_date: str) -> tuple[p
 
     print(f"  ✅ Datos de gráficos: {len(all_dates)} días, {len(feedback_textos)} textos de feedback")
 
-    return df, chart_data
+    return df, df_err, chart_data
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -868,16 +936,26 @@ def verificar_en_dgr(
 # PASO 4: Generación de reporte HTML
 # ═══════════════════════════════════════════════════════════════
 
-def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: bool, chart_data: dict | None = None) -> str:
-    """Genera reporte HTML con tablas, KPIs y gráficos."""
+def generate_report(df: pd.DataFrame, df_err: pd.DataFrame, start_date: str, end_date: str, con_dgr: bool, chart_data: dict | None = None) -> str:
+    """Genera reporte HTML con tablas, KPIs y gráficos.
 
-    generated = datetime.now().strftime("%d/%m/%Y %H:%M")
+    df: DataFrame de presentaciones (con duplicados marcados, opcional verificación DGR)
+    df_err: DataFrame de errores de validación (PS_error_validacion_dj)
+    """
 
-    # KPIs
+    # Timestamp en hora Argentina (America/Argentina/Buenos_Aires, UTC-3)
+    # para que GitHub Actions (UTC) muestre la hora local correcta.
+    generated = datetime.now(tz=ZoneInfo("America/Argentina/Buenos_Aires")).strftime("%d/%m/%Y %H:%M (ART)")
+
+    # KPIs presentaciones
     total_registros = len(df)
     total_no_dup = (df["duplicado"] == "No").sum()
     total_dup = (df["duplicado"] == "Sí").sum()
     cuits_unicos = df["cuit"].nunique()
+
+    # KPIs errores
+    total_errores = len(df_err)
+    cuits_errores = df_err["cuit"].nunique() if not df_err.empty else 0
 
     if con_dgr:
         mask_no = df["duplicado"] == "No"
@@ -943,6 +1021,28 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
     df_no_dup = df_sorted[df_sorted["duplicado"] == "No"].copy()
     table_no_dup = build_table_rows(df_no_dup, include_dgr=con_dgr)
 
+    # ── Tabla errores de validación ──
+    def build_err_rows(df_err_in: pd.DataFrame) -> str:
+        if df_err_in.empty:
+            return ""
+        rows_html = ""
+        for _, r in df_err_in.sort_values("exact_timestamp", ascending=False).iterrows():
+            cuit = r.get('cuit', '') or ''
+            ts = r.get('exact_timestamp', '') or ''
+            region = r.get('region', '') or ''
+            total = r.get('total', '') or ''
+            texto_err = r.get('texto_del_error', '') or ''
+            rows_html += f"""<tr>
+                <td class="mono">{cuit}</td>
+                <td>{ts}</td>
+                <td>{region}</td>
+                <td>{total}</td>
+                <td>{texto_err}</td>
+            </tr>"""
+        return rows_html
+
+    table_errores = build_err_rows(df_err)
+
     # ── Definición dinámica de columnas según con_dgr ──
     # Si con_dgr, "Jurisdicciones" se inserta entre Región y Total (pos 4),
     # corriendo los índices de Total..Duplicado en +1 y agregando DGR al final.
@@ -961,6 +1061,7 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
         "CUIT", "Timestamp", "Evento", "Región",
         "Total", "Estrellas", "Feedback", "Texto del Error", "Duplicado",
     ]
+    cols_err = ["CUIT", "Timestamp", "Región", "Total", "Texto del Error"]
 
     def _build_th_rows(cols):
         """Genera las dos <tr>: la de headers con sort arrows y la de filtros."""
@@ -983,6 +1084,7 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
 
     headers_no_dup_html, filters_no_dup_html = _build_th_rows(cols_no_dup)
     headers_all_html, filters_all_html = _build_th_rows(cols_all)
+    headers_err_html, filters_err_html = _build_th_rows(cols_err)
 
     # Índices para el JS (recalculados al insertar Jurisdicciones)
     def _idx(cols, name, fallback=-1):
@@ -1212,6 +1314,25 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
     .tab-content {{ display: none; }}
     .tab-content.active {{ display: block; }}
 
+    /* Tabs principales (errores / presentaciones) — estilo underline para
+       distinguir visualmente del nivel anidado de pestañas dentro de Presentaciones */
+    .main-tabs {{
+        display: flex; gap: 1.5rem; margin: 1.5rem 0 2rem;
+        border-bottom: 2px solid var(--border);
+    }}
+    .main-tab {{
+        padding: .8rem 0; cursor: pointer;
+        font-size: 1rem; font-weight: 600; color: var(--text-dim);
+        border-bottom: 3px solid transparent;
+        margin-bottom: -2px; transition: color .2s, border-color .2s;
+    }}
+    .main-tab:hover {{ color: var(--text); }}
+    .main-tab.active {{
+        color: var(--accent); border-bottom-color: var(--accent);
+    }}
+    .main-tab-content {{ display: none; }}
+    .main-tab-content.active {{ display: block; }}
+
     footer {{
         margin-top: 3rem; padding-top: 1rem;
         border-top: 1px solid var(--border);
@@ -1281,6 +1402,14 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
     }}
     .bar-table .dif-pos {{ color: var(--text); font-weight: 600; }}
     .bar-table .dif-neg {{ color: var(--red); font-weight: 600; }}
+
+    /* Anchos específicos para la tabla de errores por día:
+       día fijo y estrecho (fecha siempre tiene 10 chars),
+       cantidad ocupa la mayoría del espacio (barra), CUIT a la derecha */
+    #errBarTable {{ table-layout: fixed; }}
+    #errBarTable th:nth-child(1), #errBarTable td:nth-child(1) {{ width: 110px; }}
+    #errBarTable th:nth-child(2), #errBarTable td:nth-child(2) {{ width: auto; padding-right: 2.5rem; }}
+    #errBarTable th:nth-child(3), #errBarTable td:nth-child(3) {{ width: 220px; padding-left: 2rem; }}
     .bar-table-wrap {{
         max-height: 520px; overflow-y: auto;
     }}
@@ -1314,7 +1443,7 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
 <div class="container">
 
 <header>
-    <h1>📋 Presentación Simplificada — Verificación</h1>
+    <h1>📋 Presentación Simplificada</h1>
     <div class="meta">
         Propiedad: {PROPERTY_ID} · Generado: {generated}
     </div>
@@ -1327,6 +1456,63 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
     </div>
 </header>
 
+<div class="main-tabs">
+    <div class="main-tab active" onclick="switchMainTab('errores')">Errores de validación (<span id="main-tab-count-errores">{total_errores}</span>)</div>
+    <div class="main-tab" onclick="switchMainTab('presentaciones')">Presentaciones (<span id="main-tab-count-presentaciones">{total_registros}</span>)</div>
+</div>
+
+<div id="main-tab-errores" class="main-tab-content active">
+    <div class="kpis">
+        <div class="kpi">
+            <div class="label">Errores totales</div>
+            <div class="value v6" id="kpi-err-total">{total_errores}</div>
+        </div>
+        <div class="kpi">
+            <div class="label">CUITs con errores</div>
+            <div class="value v2" id="kpi-err-cuits">{cuits_errores}</div>
+        </div>
+    </div>
+
+    <div class="charts-grid">
+        <div class="chart-card full">
+            <h3>Errores de validación por día</h3>
+            <div class="bar-table-wrap" style="max-height:420px">
+                <table class="bar-table" id="errBarTable">
+                    <thead>
+                        <tr>
+                            <th>Día</th>
+                            <th>Cantidad</th>
+                            <th>CUIT con más errores</th>
+                        </tr>
+                    </thead>
+                    <tbody id="errBarTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="chart-card full">
+            <h3>Top textos de error</h3>
+            <div style="position:relative;height:480px;">
+                <canvas id="chartErrTop"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <table id="tbl-errores">
+            <thead>
+                <tr>
+                    {headers_err_html}
+                </tr>
+                <tr class="filter-row">
+                    {filters_err_html}
+                </tr>
+            </thead>
+            <tbody>{table_errores}</tbody>
+        </table>
+    </div>
+</div>
+
+<div id="main-tab-presentaciones" class="main-tab-content">
 <div class="kpis">
     <div class="kpi">
         <div class="label">Total registros</div>
@@ -1413,6 +1599,7 @@ def generate_report(df: pd.DataFrame, start_date: str, end_date: str, con_dgr: b
         </div>
     </div>
 </div>
+</div>
 
 <footer>
     PS Verificación · COMARB · Datos: GA4 Data API + DGR Gestión
@@ -1424,6 +1611,13 @@ function switchTab(id) {{
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
     document.getElementById('tab-' + id).classList.add('active');
+    event.target.classList.add('active');
+}}
+
+function switchMainTab(id) {{
+    document.querySelectorAll('.main-tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.main-tab').forEach(el => el.classList.remove('active'));
+    document.getElementById('main-tab-' + id).classList.add('active');
     event.target.classList.add('active');
 }}
 
@@ -1551,6 +1745,7 @@ const STOPWORDS = new Set({stopwords_json});
 /* Instancias de Chart.js */
 let _chartEstrellas = null;
 let _chartProporcion = null;
+let _chartErrTop = null;
 
 const cloudEl = document.getElementById('wordCloud');
 
@@ -1576,6 +1771,105 @@ function renderBarTable(fechas, pres, env, cerr) {{
             '<td class="' + difClass + '" style="text-align:right;font-family:JetBrains Mono,monospace;font-size:.75rem">' + difVal + '</td>';
         tbody.appendChild(tr);
     }}
+}}
+
+function renderErrBarTable(fechas, counts, cuitRankingByDate) {{
+    /* fechas: array de strings YYYY-MM-DD
+       counts: array alineado con fechas, conteo total de errores por día
+       cuitRankingByDate: Map<fecha, Array<[cuit, count]>> ordenada por count desc */
+    const tbody = document.getElementById('errBarTableBody');
+    tbody.innerHTML = '';
+    if (fechas.length === 0) return;
+    const maxVal = Math.max(...counts, 1);
+    const barPct = v => Math.max(0, (v / maxVal) * 100);
+    const barHtml = (val, color) =>
+        '<div class="bar-cell"><span class="bar-val">' + val +
+        '</span><span class="bar" style="width:' + barPct(val) +
+        '%;background:' + color + '"></span></div>';
+    for (let i = fechas.length - 1; i >= 0; i--) {{
+        const tr = document.createElement('tr');
+        const ranking = cuitRankingByDate && cuitRankingByDate.get(fechas[i]);
+        let topCuitStr = '—';
+        if (ranking && ranking.length > 0) {{
+            const [topCuit, topCount] = ranking[0];
+            topCuitStr = '<span class="mono" style="font-size:.78rem">' + topCuit +
+                '</span> <span style="color:var(--text-dim);font-size:.78rem">(' + topCount + ')</span>';
+        }}
+        tr.innerHTML =
+            '<td style="font-family:JetBrains Mono,monospace;font-size:.75rem">' + fechas[i] + '</td>' +
+            '<td>' + barHtml(counts[i], '#ef5678') + '</td>' +
+            '<td>' + topCuitStr + '</td>';
+        tbody.appendChild(tr);
+    }}
+}}
+
+function renderErrTopChart(topPairs) {{
+    /* topPairs: array de [textoError, count] ordenado desc, máx 10.
+       Las etiquetas del eje Y se envuelven en hasta 3 líneas para que el
+       texto completo sea visible sin truncar. */
+    if (_chartErrTop) {{ _chartErrTop.destroy(); _chartErrTop = null; }}
+    const canvas = document.getElementById('chartErrTop');
+    if (!canvas) return;
+    if (!topPairs || topPairs.length === 0) {{
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        return;
+    }}
+    /* Wrap a palabra en N líneas de ~maxChars cada una */
+    const wrapLabel = (s, maxChars, maxLines) => {{
+        const words = (s || '').split(/\s+/);
+        const lines = [];
+        let cur = '';
+        for (const w of words) {{
+            if ((cur + ' ' + w).trim().length <= maxChars) {{
+                cur = (cur + ' ' + w).trim();
+            }} else {{
+                if (cur) lines.push(cur);
+                cur = w;
+                if (lines.length >= maxLines - 1) {{
+                    /* Meto el resto en la última línea, truncando con … si hace falta */
+                    const rest = words.slice(words.indexOf(w)).join(' ');
+                    lines.push(rest.length > maxChars ? rest.slice(0, maxChars - 1) + '…' : rest);
+                    return lines;
+                }}
+            }}
+        }}
+        if (cur) lines.push(cur);
+        return lines;
+    }};
+    const labels = topPairs.map(p => wrapLabel(p[0], 40, 3));
+    const fullLabels = topPairs.map(p => p[0]);
+    const values = topPairs.map(p => p[1]);
+    _chartErrTop = new Chart(canvas, {{
+        type: 'bar',
+        data: {{
+            labels: labels,
+            datasets: [{{
+                data: values,
+                backgroundColor: '#ef5678cc',
+                borderColor: '#ef5678',
+                borderWidth: 1,
+                borderRadius: 4,
+            }}],
+        }},
+        options: {{
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {{
+                legend: {{ display: false }},
+                tooltip: {{
+                    callbacks: {{
+                        title: items => fullLabels[items[0].dataIndex],
+                    }},
+                }},
+            }},
+            scales: {{
+                x: {{ grid: {{ color: '#2e3345' }}, beginAtZero: true, ticks: {{ precision: 0 }} }},
+                y: {{ grid: {{ display: false }}, ticks: {{ font: {{ size: 11 }}, autoSkip: false }} }},
+            }},
+        }},
+    }});
 }}
 
 function renderEstrellasChart(countsByLabel) {{
@@ -1776,6 +2070,45 @@ function recomputeKPIsAndCharts() {{
     renderEstrellasChart(estCounts);
     renderProporcionChart(estCounts['5'], estCounts['1'] + estCounts['2'] + estCounts['3'] + estCounts['4']);
     renderWordCloud(feedbackTexts);
+
+    /* ── Errores de validación (tab principal "Errores") ── */
+    const errRows = getVisibleRows('tbl-errores');
+    const errCuitsSet = new Set();
+    const errPorDia = {{}};
+    const errTextCounts = {{}};
+    /* cuitsPorDia[fecha][cuit] = count, para ranking de CUIT con más errores por día */
+    const cuitsPorDia = {{}};
+    errRows.forEach(r => {{
+        const cells = r.querySelectorAll('td');
+        const cuit = (cells[0]?.textContent || '').trim();
+        if (cuit) errCuitsSet.add(cuit);
+        const ts = (cells[1]?.textContent || '').trim().slice(0, 10);
+        if (ts) errPorDia[ts] = (errPorDia[ts] || 0) + 1;
+        if (ts && cuit) {{
+            if (!cuitsPorDia[ts]) cuitsPorDia[ts] = {{}};
+            cuitsPorDia[ts][cuit] = (cuitsPorDia[ts][cuit] || 0) + 1;
+        }}
+        const txt = (cells[4]?.textContent || '').trim();
+        if (txt) errTextCounts[txt] = (errTextCounts[txt] || 0) + 1;
+    }});
+    document.getElementById('kpi-err-total').textContent = errRows.length;
+    document.getElementById('kpi-err-cuits').textContent = errCuitsSet.size;
+    document.getElementById('main-tab-count-errores').textContent = errRows.length;
+    document.getElementById('main-tab-count-presentaciones').textContent = total;
+
+    /* Ranking: CUIT con más errores por día (uno por fecha) para la 4ta columna */
+    const rankingByDate = new Map();
+    for (const [fecha, cuitsMap] of Object.entries(cuitsPorDia)) {{
+        const sorted = Object.entries(cuitsMap).sort((a, b) => b[1] - a[1]);
+        rankingByDate.set(fecha, sorted);
+    }}
+
+    const errFechas = Object.keys(errPorDia).sort();
+    const errCounts = errFechas.map(f => errPorDia[f]);
+    renderErrBarTable(errFechas, errCounts, rankingByDate);
+
+    const topErr = Object.entries(errTextCounts).sort((a, b) => b[1] - a[1]).slice(0, 10);
+    renderErrTopChart(topErr);
 }}
 
 /* Render inicial (usa el período completo por defecto) */
@@ -1954,6 +2287,18 @@ def main():
 
         con_dgr = "verificada_dgr" in df.columns
 
+        # Cargar CSV de errores si existe (paralelo al CSV principal)
+        err_csv_path = args.desde_csv.replace(".csv", "_errores.csv")
+        if Path(err_csv_path).exists():
+            df_err = pd.read_csv(err_csv_path, encoding="utf-8-sig")
+            for col in ["region", "total", "texto_del_error"]:
+                if col in df_err.columns:
+                    df_err[col] = df_err[col].fillna("")
+            print(f"  📊 Errores cargados desde {err_csv_path} ({len(df_err)} filas)")
+        else:
+            df_err = pd.DataFrame(columns=["cuit", "exact_timestamp", "region", "total", "texto_del_error", "numero_eventos"])
+            print(f"  ℹ️  No se encontró {err_csv_path}; tab de errores quedará vacía")
+
         # Cargar chart_data desde JSON si existe (tiene series de GA4)
         chart_json_path = args.desde_csv.replace(".csv", "_charts.json")
         if Path(chart_json_path).exists():
@@ -1964,7 +2309,7 @@ def main():
             chart_data = _build_chart_data_from_df(df)
 
         print(f"📝 Generando reporte → {args.output}")
-        html = generate_report(df, args.desde, args.hasta, con_dgr, chart_data)
+        html = generate_report(df, df_err, args.desde, args.hasta, con_dgr, chart_data)
 
         with open(args.output, "w", encoding="utf-8") as f:
             f.write(html)
@@ -1995,36 +2340,59 @@ def main():
 
     # ── Paso 1: GA4 ──
     print("📡 PASO 1: Extracción de GA4")
-    result = extract_ga4_data(args.credentials, args.desde, args.hasta)
-    if isinstance(result, tuple):
-        df, chart_data = result
-    else:
-        df, chart_data = result, {}
+    df, df_err, chart_data = extract_ga4_data(args.credentials, args.desde, args.hasta)
     if df.empty:
         print("\n❌ Sin datos. Verificá el rango de fechas y los permisos.")
         sys.exit(1)
 
     # ── Early-exit: en modo incremental, si no hay eventos nuevos respecto al CSV
-    # previo, salimos sin tocar DGR ni regenerar el reporte. ──
+    # previo (presentaciones NI errores), salimos sin tocar DGR ni regenerar el reporte. ──
     if args.incremental:
         prev_csv_path = Path(args.output.replace(".html", ".csv"))
+        prev_err_csv_path = Path(args.output.replace(".html", "_errores.csv"))
         if prev_csv_path.exists():
             try:
                 prev_df = pd.read_csv(prev_csv_path, encoding="utf-8-sig", dtype=str)
                 sig_cols = ["cuit", "exact_timestamp", "nombre_evento"]
+                pres_nuevos = None
                 if all(c in prev_df.columns for c in sig_cols):
                     prev_sig = set(map(tuple, prev_df[sig_cols].astype(str).values))
                     new_sig = set(map(tuple, df[sig_cols].astype(str).values))
-                    nuevos = new_sig - prev_sig
-                    if not nuevos:
-                        print(
-                            f"\n✅ Sin eventos nuevos en GA4 "
-                            f"({len(new_sig)} eventos, todos ya en {prev_csv_path.name})."
-                        )
-                        print("   Saltando verificación DGR y regeneración de reporte.\n")
-                        print(f"{'═' * 60}\n")
-                        return
-                    print(f"\n📌 {len(nuevos)} evento(s) nuevo(s) detectado(s) desde la última corrida.")
+                    pres_nuevos = new_sig - prev_sig
+
+                # Errores: comparar (cuit, exact_timestamp) si hay archivo previo
+                err_nuevos = None
+                err_sig_cols = ["cuit", "exact_timestamp"]
+                if prev_err_csv_path.exists():
+                    try:
+                        prev_err_df = pd.read_csv(prev_err_csv_path, encoding="utf-8-sig", dtype=str)
+                        if all(c in prev_err_df.columns for c in err_sig_cols):
+                            prev_err_sig = set(map(tuple, prev_err_df[err_sig_cols].astype(str).values))
+                            new_err_sig = set(map(tuple, df_err[err_sig_cols].astype(str).values)) if not df_err.empty else set()
+                            err_nuevos = new_err_sig - prev_err_sig
+                    except Exception as exc:
+                        print(f"  ⚠️  No se pudo comparar errores con CSV previo ({exc}).")
+                else:
+                    # No hay archivo previo de errores; si hay errores nuevos, hay que regenerar
+                    err_nuevos = set(range(len(df_err))) if not df_err.empty else set()
+
+                if pres_nuevos is not None and not pres_nuevos and (err_nuevos is None or not err_nuevos):
+                    total_pres = len(set(map(tuple, df[sig_cols].astype(str).values)))
+                    total_err = len(df_err)
+                    print(
+                        f"\n✅ Sin eventos nuevos en GA4 "
+                        f"({total_pres} presentaciones + {total_err} errores, todo ya procesado)."
+                    )
+                    print("   Saltando verificación DGR y regeneración de reporte.\n")
+                    print(f"{'═' * 60}\n")
+                    return
+                msgs = []
+                if pres_nuevos:
+                    msgs.append(f"{len(pres_nuevos)} presentaciones nuevas")
+                if err_nuevos:
+                    msgs.append(f"{len(err_nuevos)} errores nuevos")
+                if msgs:
+                    print(f"\n📌 Detectados: {', '.join(msgs)} desde la última corrida.")
             except Exception as exc:
                 print(f"  ⚠️  No se pudo comparar con CSV previo ({exc}). Continuando con flujo completo.")
 
@@ -2058,14 +2426,17 @@ def main():
 
     # ── Paso 4: Reporte ──
     print(f"\n📝 PASO 4: Generando reporte → {args.output}")
-    html = generate_report(df, args.desde, args.hasta, con_dgr, chart_data)
+    html = generate_report(df, df_err, args.desde, args.hasta, con_dgr, chart_data)
 
     with open(args.output, "w", encoding="utf-8") as f:
         f.write(html)
 
-    # Guardar CSV y chart_data JSON
+    # Guardar CSV principal, CSV de errores y chart_data JSON
     csv_path = args.output.replace(".html", ".csv")
     df.to_csv(csv_path, index=False, encoding="utf-8-sig")
+
+    err_csv_path = args.output.replace(".html", "_errores.csv")
+    df_err.to_csv(err_csv_path, index=False, encoding="utf-8-sig")
 
     chart_json_path = args.output.replace(".html", "_charts.json")
     if chart_data:
@@ -2076,6 +2447,7 @@ def main():
     print(f"  ✨ Listo!")
     print(f"  📊 Reporte: {args.output}")
     print(f"  📄 CSV:     {csv_path}")
+    print(f"  📄 Errores: {err_csv_path}")
     print(f"{'═' * 60}\n")
 
 

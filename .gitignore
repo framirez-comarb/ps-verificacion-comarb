@@ -13,7 +13,7 @@ debug_padron_*.html
 test_*.html
 test_*.csv
 test_*.json
-ps_verificacion_test.*
+ps_verificacion_test*
 
 # Python cache
 __pycache__/
