@@ -1459,11 +1459,11 @@ def generate_report(df: pd.DataFrame, df_err: pd.DataFrame, start_date: str, end
 </header>
 
 <div class="main-tabs">
-    <div class="main-tab active" onclick="switchMainTab('errores')">Errores de validación (<span id="main-tab-count-errores">{total_errores}</span>)</div>
-    <div class="main-tab" onclick="switchMainTab('presentaciones')">Presentaciones (<span id="main-tab-count-presentaciones">{total_registros}</span>)</div>
+    <div class="main-tab active" onclick="switchMainTab('presentaciones')">Presentaciones (<span id="main-tab-count-presentaciones">{total_registros}</span>)</div>
+    <div class="main-tab" onclick="switchMainTab('errores')">Errores de validación (<span id="main-tab-count-errores">{total_errores}</span>)</div>
 </div>
 
-<div id="main-tab-errores" class="main-tab-content active">
+<div id="main-tab-errores" class="main-tab-content">
     <div class="kpis">
         <div class="kpi">
             <div class="label">Errores totales</div>
@@ -1514,7 +1514,7 @@ def generate_report(df: pd.DataFrame, df_err: pd.DataFrame, start_date: str, end
     </div>
 </div>
 
-<div id="main-tab-presentaciones" class="main-tab-content">
+<div id="main-tab-presentaciones" class="main-tab-content active">
 <div class="kpis">
     <div class="kpi">
         <div class="label">Total registros</div>
