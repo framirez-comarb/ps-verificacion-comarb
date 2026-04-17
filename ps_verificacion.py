@@ -1429,7 +1429,9 @@ def generate_report(df: pd.DataFrame, df_err: pd.DataFrame, start_date: str, end
     .word-cloud {{
         position: relative;
         width: 100%; height: 380px;
+        min-width: 0; max-width: 100%;
         overflow: hidden;
+        box-sizing: border-box;
     }}
     .word-cloud span {{
         cursor: default; transition: opacity .2s;
@@ -1619,6 +1621,11 @@ function switchMainTab(id) {{
     document.querySelectorAll('.main-tab').forEach(el => el.classList.remove('active'));
     document.getElementById('main-tab-' + id).classList.add('active');
     event.target.classList.add('active');
+    /* Re-render word cloud cuando la pestaña "Presentaciones" se vuelve visible
+       (al cargar la página está oculta y clientWidth=0 hace que el layout falle) */
+    if (id === 'presentaciones' && cloudEl && cloudEl.children.length === 0) {{
+        renderWordCloud(_lastFeedbackTexts);
+    }}
 }}
 
 /* ── Filtrado combinado (columnas + rango de fechas) ── */
@@ -1940,7 +1947,9 @@ function renderProporcionChart(cinco, resto) {{
     }});
 }}
 
+let _lastFeedbackTexts = [];
 function renderWordCloud(feedbackTexts) {{
+    _lastFeedbackTexts = feedbackTexts;
     cloudEl.innerHTML = '';
     const wordCount = {{}};
     const re = /\\b[a-záéíóúñü]{{3,}}\\b/g;
@@ -1955,6 +1964,12 @@ function renderWordCloud(feedbackTexts) {{
         cloudEl.innerHTML = '<span style="color:#8b90a5;font-size:.85rem;position:relative">Sin datos de feedback</span>';
         return;
     }}
+    /* Si el contenedor aún no tiene ancho real (tab oculta), diferir el render.
+       Al cambiar a la pestaña "Presentaciones" se vuelve a llamar con el ancho correcto. */
+    const Wreal = cloudEl.clientWidth;
+    if (!Wreal || Wreal < 50) {{
+        return;
+    }}
     const maxCount = entries[0][1];
     const wordData = entries.map(([w, c]) => ({{
         text: w,
@@ -1963,8 +1978,8 @@ function renderWordCloud(feedbackTexts) {{
     }}));
 
     const colors = ['#6c8aff','#45d9a8','#a78bfa','#38bdf8','#f59e42','#ef5678','#e4e6f0'];
-    const W = cloudEl.clientWidth || 1200;
-    const H = 380;
+    const W = Wreal;
+    const H = cloudEl.clientHeight || 380;
     const placed = [];
 
     const measureCanvas = document.createElement('canvas').getContext('2d');
