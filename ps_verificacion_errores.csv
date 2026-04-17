@@ -1,8 +1,11 @@
 ﻿cuit,exact_timestamp,region,total,texto_del_error,numero_eventos
+30718730429,2026-04-16 16:23:55,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,10
 20263969090,2026-04-14 19:59:36,Santa Cruz Province,,Error El total distribuido debe ser igual a la base imponible,4
 20079664953,2026-04-14 19:30:46,Cordoba Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 20126651687,2026-04-16 09:19:10,Buenos Aires,,Error Debe seleccionar un medio de pago,2
 20161633683,2026-04-15 17:37:29,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
+20214186218,2026-04-16 19:24:49,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
+20214186218,2026-04-16 19:25:40,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
 20263969090,2026-04-14 19:58:56,Santa Cruz Province,,Error El total distribuido debe ser igual a la base imponible,2
 20263969090,2026-04-14 19:59:26,Santa Cruz Province,,Error El total distribuido debe ser igual a la base imponible,2
 20263969090,2026-04-14 19:59:31,Santa Cruz Province,,Error El total distribuido debe ser igual a la base imponible,2
@@ -35,6 +38,8 @@
 27317189481,2026-04-14 15:23:29,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
 27317189481,2026-04-14 15:24:13,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
 27317189481,2026-04-14 15:24:14,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
+30710734964,2026-04-16 12:49:48,Neuquen Province,,Error Problemas para obtener sus deducciones,2
+30710734964,2026-04-16 12:50:05,Neuquen Province,,Error Problemas para obtener sus deducciones,2
 30711546568,2026-04-16 01:24:16,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 30716422050,2026-04-16 08:33:46,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 30718111613,2026-04-15 10:58:03,Salta Province,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
@@ -48,6 +53,17 @@
 30718423135,2026-04-16 09:31:07,Cordoba Province,"$465.181,69","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
 30718423135,2026-04-16 09:31:39,Cordoba Province,"$465.181,69","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
 30718423135,2026-04-16 09:32:39,Cordoba Province,"$465.181,69","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30718730429,2026-04-16 16:22:49,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,2
+30718730429,2026-04-16 16:23:06,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,2
+30718730429,2026-04-16 16:23:07,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,2
+30718730429,2026-04-16 16:23:25,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,2
+30718730429,2026-04-16 16:23:53,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,2
+30718730429,2026-04-16 16:23:54,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,2
+30718730429,2026-04-16 16:23:56,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,2
+30718730429,2026-04-16 16:26:14,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,2
+30718730429,2026-04-16 16:27:28,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,2
+30718730429,2026-04-16 16:31:09,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,2
+30718730429,2026-04-16 16:34:34,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,2
 30718785495,2026-04-15 18:17:21,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
 30718786580,2026-04-14 21:45:12,Jujuy Province,,Error El total distribuido debe ser igual a la base imponible,2
 33718997149,2026-04-16 11:07:43,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
