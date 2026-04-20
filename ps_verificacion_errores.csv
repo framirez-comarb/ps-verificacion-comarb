@@ -5,6 +5,8 @@
 20085674707,2026-04-17 15:51:51,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,3
 20079664953,2026-04-14 19:30:46,Cordoba Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 20126651687,2026-04-16 09:19:10,Buenos Aires,,Error Debe seleccionar un medio de pago,2
+20144732945,2026-04-20 08:49:54,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+20144732945,2026-04-20 08:50:57,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 20161633683,2026-04-15 17:37:29,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 20163413605,2026-04-17 09:54:10,Mendoza Province,,Error El total distribuido debe ser igual a la base imponible,2
 20214186218,2026-04-16 19:24:49,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
@@ -46,6 +48,7 @@
 30710734964,2026-04-16 12:50:05,Neuquen Province,,Error Problemas para obtener sus deducciones,2
 30711546568,2026-04-16 01:24:16,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 30711581649,2026-04-20 00:50:33,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+30712242341,2026-04-20 08:36:47,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 30716422050,2026-04-16 08:33:46,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 30718111613,2026-04-15 10:58:03,Salta Province,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
 30718137205,2026-04-15 17:01:45,Mendoza Province,"$0,00","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
