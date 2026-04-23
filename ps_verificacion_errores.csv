@@ -34,6 +34,8 @@
 27222370480,2026-04-15 10:20:53,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
 27222670158,2026-04-15 15:53:05,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 27222670158,2026-04-15 15:58:06,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+27234634890,2026-04-22 17:36:40,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
+27234634890,2026-04-22 17:50:46,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
 27248662781,2026-04-15 14:18:12,San Luis Province,,Error Debe seleccionar un medio de pago,2
 27295499279,2026-04-15 14:01:50,San Luis Province,"$0,00",Error Falla al intentar cerrar DDJJ. Error al validar DJ. Falla al validar total de Bases Imponibles,2
 27315472828,2026-04-15 17:43:15,Buenos Aires Province,,Error El total distribuido debe ser igual a la base imponible,2
@@ -51,6 +53,9 @@
 30711581649,2026-04-20 00:50:33,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 30712242341,2026-04-20 08:36:47,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 30716422050,2026-04-16 08:33:46,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+30717160653,2026-04-22 15:32:30,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+30717160653,2026-04-22 15:32:50,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+30717160653,2026-04-22 15:33:50,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 30718111613,2026-04-15 10:58:03,Salta Province,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
 30718137205,2026-04-15 17:01:45,Mendoza Province,"$0,00","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
 30718137205,2026-04-15 17:01:50,Mendoza Province,"$0,00","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
