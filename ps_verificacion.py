@@ -1191,13 +1191,32 @@ def generate_report(df: pd.DataFrame, df_err: pd.DataFrame, start_date: str, end
 <title>PS Verificación — COMARB</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+    /* Tema CLARO (default) */
     :root {{
+        --bg: #f5f6fa; --surface: #ffffff; --surface2: #f0f2f7;
+        --border: #dfe3ec; --text: #1a1d27; --text-dim: #6b7280;
+        --accent: #4f6ef0; --green: #0d9f6e; --amber: #d97706;
+        --red: #dc2e5c; --purple: #7c3aed; --cyan: #0891b2;
+        --hover-tint: rgba(79,110,240,0.07);
+        --row-border-soft: rgba(223,227,236,0.7);
+        --chart-grid: rgba(100,116,139,0.18);
+        --chart-text: #4b5563;
+        --color-scheme: light;
+        --radius: 12px;
+    }}
+    /* Tema OSCURO */
+    [data-theme="dark"] {{
         --bg: #0f1117; --surface: #1a1d27; --surface2: #242836;
         --border: #2e3345; --text: #e4e6f0; --text-dim: #8b90a5;
         --accent: #6c8aff; --green: #45d9a8; --amber: #f59e42;
         --red: #ef5678; --purple: #a78bfa; --cyan: #38bdf8;
-        --radius: 12px;
+        --hover-tint: rgba(108,138,255,0.04);
+        --row-border-soft: rgba(46,51,69,0.5);
+        --chart-grid: #2e3345;
+        --chart-text: #8b90a5;
+        --color-scheme: dark;
     }}
+    html {{ color-scheme: var(--color-scheme); }}
     * {{ margin: 0; padding: 0; box-sizing: border-box; }}
     body {{
         font-family: 'DM Sans', sans-serif;
@@ -1211,6 +1230,20 @@ def generate_report(df: pd.DataFrame, df_err: pd.DataFrame, start_date: str, end
     }}
     header h1 {{ font-size: 1.5rem; font-weight: 700; color: var(--accent); margin-bottom: .2rem; }}
     header .meta {{ font-size: .8rem; color: var(--text-dim); }}
+    .header-row {{
+        display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+    }}
+    .theme-toggle {{
+        background: var(--surface); color: var(--text);
+        border: 1px solid var(--border); border-radius: 10px;
+        padding: .5rem .9rem; cursor: pointer;
+        font-family: inherit; font-size: .85rem; font-weight: 500;
+        display: inline-flex; align-items: center; gap: .4rem;
+        transition: background .2s, color .2s, border-color .2s;
+        white-space: nowrap;
+    }}
+    .theme-toggle:hover {{ color: var(--accent); border-color: var(--accent); }}
+    .theme-toggle .theme-icon {{ font-size: 1rem; }}
     .period-filter {{
         display: flex; align-items: center; gap: .6rem;
         margin-top: .8rem; font-size: .85rem; color: var(--text-dim);
@@ -1221,7 +1254,6 @@ def generate_report(df: pd.DataFrame, df_err: pd.DataFrame, start_date: str, end
         background: var(--surface); color: var(--text);
         border: 1px solid var(--border); border-radius: 6px;
         padding: .35rem .6rem; font-family: inherit; font-size: .85rem;
-        color-scheme: dark;
     }}
     .period-filter input[type="date"]:focus {{
         outline: none; border-color: var(--accent);
@@ -1285,7 +1317,7 @@ def generate_report(df: pd.DataFrame, df_err: pd.DataFrame, start_date: str, end
         border-bottom: 1px solid var(--border);
     }}
     tr:last-child td {{ border-bottom: none; }}
-    tr:hover td {{ background: rgba(108,138,255,0.04); }}
+    tr:hover td {{ background: var(--hover-tint); }}
     tr.dup td {{ opacity: 0.5; }}
     td.mono {{
         font-family: 'JetBrains Mono', monospace;
@@ -1386,10 +1418,10 @@ def generate_report(df: pd.DataFrame, df_err: pd.DataFrame, start_date: str, end
         position: sticky; top: 0; background: var(--surface);
     }}
     .bar-table tbody td {{
-        padding: .25rem .6rem; border-bottom: 1px solid rgba(46,51,69,0.5);
+        padding: .25rem .6rem; border-bottom: 1px solid var(--row-border-soft);
         vertical-align: middle; white-space: nowrap;
     }}
-    .bar-table tbody tr:hover td {{ background: rgba(108,138,255,0.04); }}
+    .bar-table tbody tr:hover td {{ background: var(--hover-tint); }}
     .bar-table .bar-cell {{
         display: flex; align-items: center; gap: .4rem;
     }}
@@ -1445,16 +1477,21 @@ def generate_report(df: pd.DataFrame, df_err: pd.DataFrame, start_date: str, end
 <div class="container">
 
 <header>
-    <h1>📋 Presentación Simplificada</h1>
-    <div class="meta">
-        Propiedad: {PROPERTY_ID} · Generado: {generated}
-    </div>
-    <div class="period-filter">
-        <label>Período:</label>
-        <input type="date" id="fecha-desde" value="{start_date}" min="{start_date}" max="{end_date}">
-        <span>a</span>
-        <input type="date" id="fecha-hasta" value="{end_date}" min="{start_date}" max="{end_date}">
-        <button type="button" id="period-reset" title="Restablecer período completo">↺</button>
+    <div class="header-row">
+        <div>
+            <h1>📋 Presentación Simplificada</h1>
+            <div class="meta">
+                Propiedad: {PROPERTY_ID} · Generado: {generated}
+            </div>
+            <div class="period-filter">
+                <label>Período:</label>
+                <input type="date" id="fecha-desde" value="{start_date}" min="{start_date}" max="{end_date}">
+                <span>a</span>
+                <input type="date" id="fecha-hasta" value="{end_date}" min="{start_date}" max="{end_date}">
+                <button type="button" id="period-reset" title="Restablecer período completo">↺</button>
+            </div>
+        </div>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema" title="Cambiar tema"></button>
     </div>
 </header>
 
@@ -1739,8 +1776,18 @@ document.querySelectorAll('thead tr:first-child th[data-col]').forEach(th => {{
 }});
 
 /* ── Gráficos ── */
-Chart.defaults.color = '#8b90a5';
 Chart.defaults.font.family = "'DM Sans', sans-serif";
+
+/* Helper: leer colores del tema desde CSS vars (re-evalúa al cambiar tema) */
+function getThemeColors() {{
+    const style = getComputedStyle(document.documentElement);
+    return {{
+        gridColor: (style.getPropertyValue('--chart-grid') || '').trim() || '#2e3345',
+        textColor: (style.getPropertyValue('--chart-text') || '').trim() || '#8b90a5',
+        textDim:   (style.getPropertyValue('--text-dim') || '').trim() || '#8b90a5',
+    }};
+}}
+Chart.defaults.color = getThemeColors().textColor;
 
 /* Datos base (período completo) */
 const RAW_FECHAS = {chart_fechas_json};
@@ -1815,6 +1862,8 @@ function renderErrTopChart(topPairs) {{
        Las etiquetas del eje Y se envuelven en hasta 3 líneas para que el
        texto completo sea visible sin truncar. */
     if (_chartErrTop) {{ _chartErrTop.destroy(); _chartErrTop = null; }}
+    const __t = getThemeColors();
+    Chart.defaults.color = __t.textColor;
     const canvas = document.getElementById('chartErrTop');
     if (!canvas) return;
     if (!topPairs || topPairs.length === 0) {{
@@ -1872,7 +1921,7 @@ function renderErrTopChart(topPairs) {{
                 }},
             }},
             scales: {{
-                x: {{ grid: {{ color: '#2e3345' }}, beginAtZero: true, ticks: {{ precision: 0 }} }},
+                x: {{ grid: {{ color: __t.gridColor }}, beginAtZero: true, ticks: {{ precision: 0 }} }},
                 y: {{ grid: {{ display: false }}, ticks: {{ font: {{ size: 11 }}, autoSkip: false }} }},
             }},
         }},
@@ -1882,6 +1931,8 @@ function renderErrTopChart(topPairs) {{
 function renderEstrellasChart(countsByLabel) {{
     /* countsByLabel: {{'5': n, '4': n, '3': n, '2': n, '1': n}} */
     if (_chartEstrellas) {{ _chartEstrellas.destroy(); _chartEstrellas = null; }}
+    const __t = getThemeColors();
+    Chart.defaults.color = __t.textColor;
     const allLabels = ['5', '4', '3', '2', '1'];
     const labels = [];
     const values = [];
@@ -1908,7 +1959,7 @@ function renderEstrellasChart(countsByLabel) {{
             plugins: {{ legend: {{ display: false }} }},
             scales: {{
                 x: {{ grid: {{ display: false }} }},
-                y: {{ grid: {{ color: '#2e3345' }}, beginAtZero: true }},
+                y: {{ grid: {{ color: __t.gridColor }}, beginAtZero: true }},
             }},
         }},
     }});
@@ -1917,6 +1968,7 @@ function renderEstrellasChart(countsByLabel) {{
 function renderProporcionChart(cinco, resto) {{
     if (_chartProporcion) {{ _chartProporcion.destroy(); _chartProporcion = null; }}
     if (cinco + resto === 0) return;
+    Chart.defaults.color = getThemeColors().textColor;
     _chartProporcion = new Chart(document.getElementById('chartProporcion'), {{
         type: 'doughnut',
         data: {{
@@ -1961,7 +2013,7 @@ function renderWordCloud(feedbackTexts) {{
     }});
     const entries = Object.entries(wordCount).sort((a, b) => b[1] - a[1]).slice(0, 45);
     if (entries.length === 0) {{
-        cloudEl.innerHTML = '<span style="color:#8b90a5;font-size:.85rem;position:relative">Sin datos de feedback</span>';
+        cloudEl.innerHTML = '<span style="color:var(--text-dim);font-size:.85rem;position:relative">Sin datos de feedback</span>';
         return;
     }}
     /* Si el contenedor aún no tiene ancho real (tab oculta), diferir el render.
@@ -2128,6 +2180,37 @@ function recomputeKPIsAndCharts() {{
 
 /* Render inicial (usa el período completo por defecto) */
 recomputeKPIsAndCharts();
+
+/* ── Toggle de tema (claro / oscuro) ── */
+const THEME_KEY = 'ps_verificacion_theme';
+const themeBtn = document.getElementById('theme-toggle');
+
+function applyTheme(theme) {{
+    const t = (theme === 'dark') ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', t);
+    if (themeBtn) {{
+        // En tema claro mostramos 🌙 (invita a pasar a oscuro), y viceversa
+        themeBtn.innerHTML = (t === 'dark')
+            ? '<span class="theme-icon">☀️</span> Modo claro'
+            : '<span class="theme-icon">🌙</span> Modo oscuro';
+        themeBtn.title = (t === 'dark') ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro';
+    }}
+    try {{ localStorage.setItem(THEME_KEY, t); }} catch (_) {{ }}
+    // Re-render charts y KPIs con los nuevos colores de grid/texto
+    Chart.defaults.color = getThemeColors().textColor;
+    if (typeof recomputeKPIsAndCharts === 'function') recomputeKPIsAndCharts();
+}}
+
+let savedTheme = 'light';
+try {{ savedTheme = localStorage.getItem(THEME_KEY) || 'light'; }} catch (_) {{ }}
+applyTheme(savedTheme);
+
+if (themeBtn) {{
+    themeBtn.addEventListener('click', () => {{
+        const current = document.documentElement.getAttribute('data-theme') || 'light';
+        applyTheme(current === 'dark' ? 'light' : 'dark');
+    }});
+}}
 </script>
 </body>
 </html>"""
