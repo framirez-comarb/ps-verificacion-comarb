@@ -2219,9 +2219,10 @@ if (themeBtn) {{
 }}
 
 /* ── Descarga de PDF (vía html2pdf.js) ─────────────────────
-   Construye un wrapper off-screen con sólo los KPIs y visualizaciones
-   (sin tabs, filtros, ni tablas grandes de detalle), fuerza tema claro
-   y deja que html2pdf rasterize ese wrapper a PDF descargable. */
+   Approach: hacer visibles todas las pestañas (para que Chart.js
+   renderice todos los canvas), ocultar UI no relevante (tabs, filtros,
+   tablas grandes de detalle), y rasterizar el container completo.
+   Mostramos un overlay para que el usuario no vea el layout shift. */
 const pdfBtn = document.getElementById('pdf-download');
 if (pdfBtn) {{
     pdfBtn.addEventListener('click', () => {{
@@ -2229,151 +2230,91 @@ if (pdfBtn) {{
             alert('html2pdf.js no cargó. Revisá tu conexión a internet.');
             return;
         }}
-        pdfBtn.disabled = true;
-        const labelOriginal = pdfBtn.innerHTML;
-        pdfBtn.innerHTML = '<span class="theme-icon">⏳</span> Generando…';
-
-        // Forzar tema claro para el PDF
-        const prevTheme = document.documentElement.getAttribute('data-theme') || 'light';
-        if (prevTheme !== 'light') {{
-            document.documentElement.setAttribute('data-theme', 'light');
-            if (typeof recomputeKPIsAndCharts === 'function') recomputeKPIsAndCharts();
-        }}
-
-        // Esperar un tick para que Chart.js termine de re-renderizar
-        setTimeout(() => {{
-            const wrapper = buildPdfWrapper();
-            document.body.appendChild(wrapper);
-
-            const fechaArchivo = new Date().toISOString().slice(0, 10);
-            html2pdf().from(wrapper).set({{
-                margin: [10, 10, 12, 10],
-                filename: 'ps_verificacion_' + fechaArchivo + '.pdf',
-                image: {{ type: 'jpeg', quality: 0.95 }},
-                html2canvas: {{
-                    scale: 2, useCORS: true, backgroundColor: '#ffffff',
-                    logging: false, scrollY: 0,
-                }},
-                jsPDF: {{ unit: 'mm', format: 'a4', orientation: 'portrait' }},
-                pagebreak: {{ mode: ['css', 'legacy'], avoid: ['.kpi', '.chart-card', '.bar-table tr', 'tr'] }},
-            }}).save().then(() => {{
-                wrapper.remove();
-                pdfBtn.disabled = false;
-                pdfBtn.innerHTML = labelOriginal;
-                if (prevTheme !== 'light') {{
-                    document.documentElement.setAttribute('data-theme', prevTheme);
-                    if (typeof recomputeKPIsAndCharts === 'function') recomputeKPIsAndCharts();
-                }}
-            }}).catch((err) => {{
-                console.error('Error al generar PDF', err);
-                wrapper.remove();
-                pdfBtn.disabled = false;
-                pdfBtn.innerHTML = labelOriginal;
-                if (prevTheme !== 'light') {{
-                    document.documentElement.setAttribute('data-theme', prevTheme);
-                    if (typeof recomputeKPIsAndCharts === 'function') recomputeKPIsAndCharts();
-                }}
-                alert('Error al generar PDF. Revisá la consola.');
-            }});
-        }}, 350);
+        generarPDF();
     }});
 }}
 
-/* Construye el wrapper offscreen que html2pdf rasteriza.
-   Contiene: header simplificado + KPIs + charts + bar tables + word cloud
-   de ambas pestañas (Presentaciones y Errores). */
-function buildPdfWrapper() {{
-    const w = document.createElement('div');
-    w.id = 'pdf-wrapper';
-    // Off-screen pero layouted (necesario para que html2canvas pueda capturar)
-    w.style.cssText = (
-        'position:fixed; left:-99999px; top:0; ' +
-        'width:780px; padding:18px 20px; background:#ffffff; color:#1a1d27; ' +
-        'font-family:\\'DM Sans\\', sans-serif; font-size:11pt;'
-    );
+async function generarPDF() {{
+    const labelOriginal = pdfBtn.innerHTML;
+    pdfBtn.disabled = true;
+    pdfBtn.innerHTML = '<span class="theme-icon">⏳</span> Generando…';
 
-    // 1) Header
-    const headerOriginal = document.querySelector('header');
-    if (headerOriginal) {{
-        const headerClone = document.createElement('div');
-        headerClone.style.cssText = 'border-bottom:1px solid #dfe3ec; padding-bottom:12px; margin-bottom:14px';
-        const h1 = document.createElement('h1');
-        h1.textContent = '📋 Presentación Simplificada';
-        h1.style.cssText = 'font-size:20pt; font-weight:700; color:#4f6ef0; margin:0 0 4px 0';
-        headerClone.appendChild(h1);
-        const meta = headerOriginal.querySelector('.meta');
-        if (meta) {{
-            const metaClone = document.createElement('div');
-            metaClone.textContent = meta.textContent.trim();
-            metaClone.style.cssText = 'font-size:9pt; color:#6b7280';
-            headerClone.appendChild(metaClone);
-        }}
-        // Período seleccionado
-        const desde = document.getElementById('fecha-desde');
-        const hasta = document.getElementById('fecha-hasta');
-        if (desde && hasta) {{
-            const periodo = document.createElement('div');
-            periodo.textContent = 'Período visualizado: ' + desde.value + ' → ' + hasta.value;
-            periodo.style.cssText = 'font-size:9pt; color:#6b7280; margin-top:3px';
-            headerClone.appendChild(periodo);
-        }}
-        w.appendChild(headerClone);
+    // Overlay que tapa el layout shift mientras se genera
+    const overlay = document.createElement('div');
+    overlay.style.cssText = (
+        'position:fixed; inset:0; background:rgba(15,17,23,0.85); ' +
+        'z-index:99999; display:flex; align-items:center; justify-content:center; ' +
+        'color:white; font-family:\\'DM Sans\\', sans-serif; font-size:1.1rem;'
+    );
+    overlay.innerHTML = '<div style="text-align:center"><div style="font-size:2rem;margin-bottom:.5rem">📄</div>Generando PDF…</div>';
+    document.body.appendChild(overlay);
+
+    // Guardar tema y forzar claro
+    const prevTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    if (prevTheme !== 'light') {{
+        document.documentElement.setAttribute('data-theme', 'light');
     }}
 
-    // 2) Para cada pestaña principal (presentaciones, errores), agregar bloque
-    const mainTabs = [
-        {{ id: 'main-tab-presentaciones', titulo: 'Presentaciones' }},
-        {{ id: 'main-tab-errores', titulo: 'Errores de validación' }},
+    // Acciones de restore
+    const restoreActions = [];
+
+    // 1. Mostrar TODAS las main-tab-content y tab-content (para que Chart.js renderice)
+    document.querySelectorAll('.main-tab-content, .tab-content').forEach(el => {{
+        const orig = el.style.display;
+        restoreActions.push(() => {{ el.style.display = orig; }});
+        el.style.display = 'block';
+    }});
+
+    // 2. Ocultar UI no relevante para PDF
+    const hideSelectors = [
+        '#theme-toggle', '#pdf-download',
+        '.tabs', '.main-tabs',
+        '.period-filter button',
+        '.col-filter', '.filter-row',
+        '#tbl-no-dup', '#tbl-all', '#tbl-errores',
     ];
-    mainTabs.forEach((mt, i) => {{
-        const tabContent = document.getElementById(mt.id);
-        if (!tabContent) return;
-
-        if (i > 0) {{
-            // Page break entre pestañas
-            const br = document.createElement('div');
-            br.style.cssText = 'page-break-before:always; height:0';
-            br.className = 'html2pdf__page-break';
-            w.appendChild(br);
-        }}
-
-        // Título de la sección
-        const h2 = document.createElement('h2');
-        h2.textContent = mt.titulo;
-        h2.style.cssText = 'font-size:14pt; color:#4f6ef0; margin:8px 0 12px 0; font-weight:700';
-        w.appendChild(h2);
-
-        // KPIs
-        const kpisOrig = tabContent.querySelector('.kpis');
-        if (kpisOrig) w.appendChild(clonePdfBlock(kpisOrig));
-
-        // Cards (chart-card) y bar-tables dentro del tab
-        const chartCards = tabContent.querySelectorAll('.chart-card');
-        chartCards.forEach(card => {{
-            const cloned = clonePdfBlock(card);
-            // Re-pintar canvas en el clon
-            const origCanvases = card.querySelectorAll('canvas');
-            const cloneCanvases = cloned.querySelectorAll('canvas');
-            origCanvases.forEach((oc, idx) => {{
-                const cc = cloneCanvases[idx];
-                if (!cc || !oc) return;
-                cc.width = oc.width; cc.height = oc.height;
-                try {{ cc.getContext('2d').drawImage(oc, 0, 0); }} catch (_) {{ }}
-                cc.style.maxHeight = '380px'; cc.style.height = 'auto';
-            }});
-            w.appendChild(cloned);
+    hideSelectors.forEach(sel => {{
+        document.querySelectorAll(sel).forEach(el => {{
+            const orig = el.style.display;
+            restoreActions.push(() => {{ el.style.display = orig; }});
+            el.style.display = 'none';
         }});
     }});
 
-    return w;
-}}
+    // 3. Re-render charts (ahora que sus parents son visibles)
+    if (typeof recomputeKPIsAndCharts === 'function') recomputeKPIsAndCharts();
 
-/* Copia un nodo del DOM y le aplica estilos amigables para PDF. */
-function clonePdfBlock(node) {{
-    const clone = node.cloneNode(true);
-    clone.style.marginBottom = '14px';
-    clone.style.pageBreakInside = 'avoid';
-    return clone;
+    // 4. Esperar a que Chart.js termine de renderizar
+    await new Promise(r => setTimeout(r, 600));
+
+    try {{
+        const target = document.querySelector('.container') || document.body;
+        const fechaArchivo = new Date().toISOString().slice(0, 10);
+        await html2pdf().from(target).set({{
+            margin: [10, 10, 12, 10],
+            filename: 'ps_verificacion_' + fechaArchivo + '.pdf',
+            image: {{ type: 'jpeg', quality: 0.95 }},
+            html2canvas: {{
+                scale: 1.5, useCORS: true, backgroundColor: '#ffffff',
+                logging: false, scrollY: 0, windowWidth: target.scrollWidth,
+            }},
+            jsPDF: {{ unit: 'mm', format: 'a4', orientation: 'portrait' }},
+            pagebreak: {{ mode: ['css', 'legacy'], avoid: ['.kpi', '.chart-card', 'tr'] }},
+        }}).save();
+    }} catch (err) {{
+        console.error('Error al generar PDF', err);
+        alert('Error al generar PDF: ' + (err && err.message ? err.message : err));
+    }} finally {{
+        // Restaurar todo
+        restoreActions.reverse().forEach(fn => {{ try {{ fn(); }} catch (_) {{ }} }});
+        if (prevTheme !== 'light') {{
+            document.documentElement.setAttribute('data-theme', prevTheme);
+        }}
+        if (typeof recomputeKPIsAndCharts === 'function') recomputeKPIsAndCharts();
+        overlay.remove();
+        pdfBtn.disabled = false;
+        pdfBtn.innerHTML = labelOriginal;
+    }}
 }}
 </script>
 </body>
