@@ -1470,6 +1470,75 @@ def generate_report(df: pd.DataFrame, df_err: pd.DataFrame, start_date: str, end
         font-weight: 500;
     }}
     .word-cloud span:hover {{ opacity: .7; }}
+
+    /* ── Modo PDF (impresión) ─────────────────────────────────
+       Layout especial al imprimir: ocultar elementos interactivos
+       y mostrar SOLO los elementos visualizables (KPIs, charts,
+       bar tables, word cloud) sin importar la pestaña activa. */
+    @media print {{
+        /* Forzar tema claro para legibilidad en papel */
+        :root {{
+            --bg: #ffffff !important; --surface: #ffffff !important;
+            --surface2: #f0f2f7 !important; --border: #d9dde5 !important;
+            --text: #1a1d27 !important; --text-dim: #4b5563 !important;
+            --accent: #4f6ef0 !important; --green: #0d9f6e !important;
+            --amber: #d97706 !important; --red: #dc2e5c !important;
+            --purple: #7c3aed !important; --cyan: #0891b2 !important;
+            --hover-tint: transparent !important;
+            --row-border-soft: #d9dde5 !important;
+            --chart-grid: #d9dde5 !important; --chart-text: #4b5563 !important;
+        }}
+        @page {{ size: A4; margin: 14mm 12mm; }}
+        body {{ padding: 0 !important; background: white !important; }}
+        .container {{ max-width: 100% !important; }}
+
+        /* Ocultar elementos interactivos */
+        .theme-toggle, #pdf-download,
+        .period-filter button,
+        .main-tabs, .tabs,
+        .col-filter, .filter-row, .filter-row-wrap,
+        thead tr.sort-row, .sort-arrow {{
+            display: none !important;
+        }}
+        .period-filter {{ font-size: .75rem; margin-top: .3rem; }}
+        .period-filter input {{ border: none !important; padding: 0 !important; background: none !important; }}
+
+        /* Mostrar TODAS las pestañas y secciones marcadas como pdf-section */
+        .tab-content, .main-tab-content {{
+            display: block !important;
+        }}
+        .pdf-section {{ display: block !important; page-break-inside: avoid; }}
+
+        /* Cards y charts: bordes sutiles para impresión */
+        .chart-card, .card {{
+            border: 1px solid #d9dde5 !important;
+            box-shadow: none !important;
+            page-break-inside: avoid;
+            margin-bottom: 1rem;
+        }}
+        .chart-card canvas {{ background: #fff !important; max-height: 280pt !important; }}
+        .charts-grid {{ display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 1rem !important; }}
+
+        /* Tablas grandes de detalle: ocultar */
+        #tbl-no-dup, #tbl-all, #tbl-errores,
+        .tabs, .main-tab-count {{
+            display: none !important;
+        }}
+
+        /* Bar tables visibles */
+        .bar-table {{ display: table !important; font-size: 9pt !important; }}
+        .bar-table tbody tr {{ page-break-inside: avoid; }}
+
+        /* Word cloud */
+        #wordCloud {{ page-break-inside: avoid; }}
+
+        /* Tipografía adaptada a papel */
+        body {{ font-size: 10pt; }}
+        h1 {{ font-size: 16pt !important; }}
+        .kpi .value {{ font-size: 1.2rem !important; }}
+        .kpi .label {{ font-size: .65rem !important; }}
+        table {{ font-size: 9pt; }}
+    }}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 </head>
@@ -1491,7 +1560,12 @@ def generate_report(df: pd.DataFrame, df_err: pd.DataFrame, start_date: str, end
                 <button type="button" id="period-reset" title="Restablecer período completo">↺</button>
             </div>
         </div>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema" title="Cambiar tema"></button>
+        <div style="display:flex;flex-direction:column;gap:.5rem;align-items:flex-end">
+            <button id="pdf-download" class="theme-toggle" aria-label="Descargar PDF" title="Descargar PDF (KPIs y gráficos)">
+                <span class="theme-icon">📄</span> Descargar PDF
+            </button>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema" title="Cambiar tema"></button>
+        </div>
     </div>
 </header>
 
@@ -1501,7 +1575,7 @@ def generate_report(df: pd.DataFrame, df_err: pd.DataFrame, start_date: str, end
 </div>
 
 <div id="main-tab-errores" class="main-tab-content">
-    <div class="kpis">
+    <div class="kpis pdf-section">
         <div class="kpi">
             <div class="label">Errores totales</div>
             <div class="value v6" id="kpi-err-total">{total_errores}</div>
@@ -1512,7 +1586,7 @@ def generate_report(df: pd.DataFrame, df_err: pd.DataFrame, start_date: str, end
         </div>
     </div>
 
-    <div class="charts-grid">
+    <div class="charts-grid pdf-section">
         <div class="chart-card full">
             <h3>Errores de validación por día</h3>
             <div class="bar-table-wrap" style="max-height:420px">
@@ -1552,7 +1626,7 @@ def generate_report(df: pd.DataFrame, df_err: pd.DataFrame, start_date: str, end
 </div>
 
 <div id="main-tab-presentaciones" class="main-tab-content active">
-<div class="kpis">
+<div class="kpis pdf-section">
     <div class="kpi">
         <div class="label">Total registros</div>
         <div class="value v1" id="kpi-total">{total_registros}</div>
@@ -1572,7 +1646,7 @@ def generate_report(df: pd.DataFrame, df_err: pd.DataFrame, start_date: str, end
     {dgr_kpi_html}
 </div>
 
-<div class="charts-grid">
+<div class="charts-grid pdf-section">
     <div class="chart-card full">
         <h3>Presentadas (sin duplicados), Encuestas enviadas, cerradas y Diferencia por día</h3>
         <div class="bar-table-wrap">
@@ -2209,6 +2283,31 @@ if (themeBtn) {{
     themeBtn.addEventListener('click', () => {{
         const current = document.documentElement.getAttribute('data-theme') || 'light';
         applyTheme(current === 'dark' ? 'light' : 'dark');
+    }});
+}}
+
+/* ── Descarga de PDF (vía window.print + @media print) ── */
+const pdfBtn = document.getElementById('pdf-download');
+if (pdfBtn) {{
+    pdfBtn.addEventListener('click', () => {{
+        const prevTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        // Forzar tema claro para impresión (más legible en papel)
+        if (prevTheme !== 'light') {{
+            document.documentElement.setAttribute('data-theme', 'light');
+            // Re-render charts con colores del tema claro
+            if (typeof recomputeKPIsAndCharts === 'function') recomputeKPIsAndCharts();
+        }}
+        // Pequeña espera para que Chart.js termine de re-renderizar antes de imprimir
+        setTimeout(() => {{
+            window.print();
+            // Restaurar tema previo después del diálogo de impresión
+            setTimeout(() => {{
+                if (prevTheme !== 'light') {{
+                    document.documentElement.setAttribute('data-theme', prevTheme);
+                    if (typeof recomputeKPIsAndCharts === 'function') recomputeKPIsAndCharts();
+                }}
+            }}, 500);
+        }}, 250);
     }});
 }}
 </script>
