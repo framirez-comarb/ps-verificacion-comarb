@@ -297,7 +297,7 @@
         <div>
             <h1>📋 Presentación Simplificada</h1>
             <div class="meta">
-                Propiedad: 485388348 · Generado: 27/04/2026 15:54 (ART)
+                Propiedad: 485388348 · Generado: 28/04/2026 02:10 (ART)
             </div>
             <div class="period-filter">
                 <label>Período:</label>
@@ -64051,9 +64051,8 @@ async function generarPDF() {
     // Acciones de restore
     const restoreActions = [];
 
-    // 1. Reducir el ancho del container para que entre en A4 portrait (~190mm útiles)
-    //    A4 = 210mm = ~794px @ 96dpi; con margen 10mm/lado quedan 190mm = ~720px.
-    //    Trabajamos a 760px para tener un poquito de aire y que las grids respiren.
+    // 1. Ajustar ancho del container para A4 LANDSCAPE (~277mm útiles ≈ 1047px @ 96dpi).
+    //    Usamos 1000px para tener aire y headers anchos de tabla entren cómodos.
     const container = document.querySelector('.container');
     if (container) {
         const origCont = {
@@ -64068,8 +64067,8 @@ async function generarPDF() {
             container.style.padding = origCont.padding;
             container.style.margin = origCont.margin;
         });
-        container.style.maxWidth = '760px';
-        container.style.width = '760px';
+        container.style.maxWidth = '1000px';
+        container.style.width = '1000px';
         container.style.padding = '0';
         container.style.margin = '0';
     }
@@ -64077,20 +64076,82 @@ async function generarPDF() {
     restoreActions.push(() => { document.body.style.padding = origBodyPadding; });
     document.body.style.padding = '0';
 
-    // 2. Mostrar TODAS las main-tab-content y tab-content (para que Chart.js renderice)
+    // 2. Inyectar CSS para que cards, kpi-grids y filas de tabla NO se corten
+    //    entre páginas. Esto fuerza a html2pdf a empujar el elemento entero
+    //    a la página siguiente si no entra al final de la actual.
+    const pdfStyleEl = document.createElement('style');
+    pdfStyleEl.id = 'pdf-page-break-rules';
+    pdfStyleEl.textContent = (
+        // Cards y kpis no se parten entre páginas, EXCEPTO los marcados
+        // con .pdf-allow-split (ej. la tabla larga de Presentadas).
+        '.card:not(.pdf-allow-split), .chart-card:not(.pdf-allow-split), .kpis { page-break-inside: avoid !important; break-inside: avoid !important; }' +
+        'tr, thead { page-break-inside: avoid !important; break-inside: avoid !important; }' +
+        // Tablas regulares (no bar-table): permitir wrap natural en palabras enteras
+        'table:not(.bar-table) th, table:not(.bar-table) td { white-space: normal !important; }' +
+        // Compactar tablas regulares para que entren más filas por página
+        'table:not(.bar-table) { font-size: 0.78rem !important; }' +
+        'table:not(.bar-table) td, table:not(.bar-table) th { padding: 0.3rem 0.6rem !important; line-height: 1.35 !important; }' +
+        // Padding de cards: las normales 1rem, las que permiten split (Presentadas)
+        // padding mínimo para que la tabla suba al top de la página.
+        '.card:not(.pdf-allow-split), .chart-card:not(.pdf-allow-split) { padding: 1rem !important; }' +
+        '.card.pdf-allow-split, .chart-card.pdf-allow-split { padding: 0 !important; margin: 0 !important; }' +
+        // Title de la card de Presentadas: compacto pero visible
+        '.chart-card.pdf-allow-split h2, .chart-card.pdf-allow-split h3, .chart-card.pdf-allow-split .section-title, .chart-card.pdf-allow-split .card-title { margin: 0 !important; padding: 0.2rem 0.4rem !important; font-size: 0.72rem !important; line-height: 1.1 !important; }' +
+        '.chart-card.pdf-allow-split .bar-table-wrap { margin: 0 !important; padding: 0 !important; }'
+    );
+    document.head.appendChild(pdfStyleEl);
+    restoreActions.push(() => { pdfStyleEl.remove(); });
+
+    // 3. Cap el alto de los wrappers de bar-table a ~una página de A4 landscape
+    //    (188mm útiles ≈ 711px @ 96dpi, descontando KPIs + título + paddings ≈ 410px).
+    //    EXCEPCIÓN: la card "Presentadas..." muestra todos los días (puede
+    //    ocupar varias páginas). Se identifica por estar dentro de un .chart-card
+    //    cuyo título empieza con "presentadas".
+    document.querySelectorAll('.bar-table-wrap').forEach(el => {
+        const origMH = el.style.maxHeight;
+        const origO = el.style.overflow;
+        restoreActions.push(() => {
+            el.style.maxHeight = origMH;
+            el.style.overflow = origO;
+        });
+        // ¿Está dentro de la card Presentadas?
+        const parentCard = el.closest('.chart-card, .card');
+        const cardTitle = (parentCard?.querySelector('.section-title, h2, h3')?.textContent || '').trim().toLowerCase();
+        if (cardTitle.startsWith('presentadas')) {
+            // Cap para que la tabla termine en página 5 sin derramar a página 6.
+            // Cualquier día que iría a la página 6 se recorta (overflow:hidden).
+            el.style.maxHeight = '1175px';
+            el.style.overflow = 'hidden';
+            // Marcar la card para permitir partir entre páginas; el CSS
+            // inyectado se encarga del padding/title/gap mínimos.
+            if (parentCard) {
+                parentCard.classList.add('pdf-allow-split');
+                restoreActions.push(() => parentCard.classList.remove('pdf-allow-split'));
+            }
+        } else {
+            el.style.maxHeight = '410px';
+            el.style.overflow = 'hidden';
+        }
+    });
+
+    // 3b. (Detección de unidades atómicas se mueve DESPUÉS del show-tabs + charts)
+
+    // 3. Mostrar TODAS las main-tab-content y tab-content (para que Chart.js renderice)
     document.querySelectorAll('.main-tab-content, .tab-content').forEach(el => {
         const orig = el.style.display;
         restoreActions.push(() => { el.style.display = orig; });
         el.style.display = 'block';
     });
 
-    // 3. Ocultar UI no relevante para PDF
+    // 4. Ocultar UI no relevante para PDF
     const hideSelectors = [
         '#theme-toggle', '#pdf-download',
         '.tabs', '.main-tabs',
         '.period-filter button',
         '.col-filter', '.filter-row',
         '#tbl-no-dup', '#tbl-all', '#tbl-errores',
+        // Pie de informe
+        '.container > footer', 'body > footer',
     ];
     hideSelectors.forEach(sel => {
         document.querySelectorAll(sel).forEach(el => {
@@ -64100,11 +64161,97 @@ async function generarPDF() {
         });
     });
 
-    // 4. Re-render charts (ahora que sus parents son visibles y con nuevo ancho)
+    // 5. Re-render charts (ahora que sus parents son visibles y con nuevo ancho)
     if (typeof recomputeKPIsAndCharts === 'function') recomputeKPIsAndCharts();
 
-    // 5. Esperar a que Chart.js termine de renderizar
+    // 6. Esperar a que Chart.js termine de renderizar
     await new Promise(r => setTimeout(r, 700));
+
+    // 6.0. Ocultar cards "fantasma" SOLO si están al FINAL del documento
+    //      (después del último elemento real). Los cards vacíos del medio
+    //      (separadores entre tabs, etc.) se mantienen para no romper layout.
+    {
+        const realEls = [...document.querySelectorAll('.chart-card, .kpis')]
+            .filter(el => el.getBoundingClientRect().height > 50);
+        const maxBottom = realEls.length > 0
+            ? Math.max(...realEls.map(el => el.getBoundingClientRect().bottom))
+            : 0;
+        document.querySelectorAll('.container .card').forEach(el => {
+            const r = el.getBoundingClientRect();
+            const txt = el.textContent.replace(/\s+/g, '').trim();
+            // Sólo ocultar si está al final (su top >= maxBottom) Y es vacío/chico
+            if (r.top >= maxBottom - 10 && (r.height < 80 || txt.length < 5)) {
+                const orig = el.style.display;
+                restoreActions.push(() => { el.style.display = orig; });
+                el.style.display = 'none';
+            }
+        });
+    }
+
+    // 6a. Reordenar: mover la card "Encuesta valoraciones" ANTES de la card
+    //     "Presentadas..." para que quede en la página de KPIs2.
+    //     OJO: la card "Presentadas" también contiene la palabra "Encuestas"
+    //     en su título (ENCUESTAS ENVIADAS), así que usamos match más estricto.
+    const allChartCards = [...document.querySelectorAll('.chart-card')];
+    const encuestaCard = allChartCards.find(c => {
+        const t = (c.querySelector('.section-title, h2, h3')?.textContent || '').trim().toLowerCase();
+        return t.startsWith('encuesta:') || t.includes('valoraciones');
+    });
+    const presentadasCard = allChartCards.find(c => {
+        const t = (c.querySelector('.section-title, h2, h3')?.textContent || '').trim().toLowerCase();
+        return t.startsWith('presentadas');
+    });
+    if (encuestaCard && presentadasCard && encuestaCard.parentElement === presentadasCard.parentElement
+        && encuestaCard !== presentadasCard) {
+        const origParent = encuestaCard.parentElement;
+        const origNextSibling = encuestaCard.nextSibling;
+        origParent.insertBefore(encuestaCard, presentadasCard);
+        restoreActions.push(() => {
+            if (origNextSibling) origParent.insertBefore(encuestaCard, origNextSibling);
+            else origParent.appendChild(encuestaCard);
+        });
+        await new Promise(r => setTimeout(r, 50));
+    }
+
+    // 6b. Lógica fit-to-page: cards consecutivas que sumadas entran en una
+    //     página A4 landscape quedan juntas; sino se rompe página.
+    //     Incluye .kpis para que los bloques de KPIs cuenten en el cálculo.
+    const PAGE_USABLE_PX = 620;
+    const CARD_GAP_PX = 24;
+    const atomicCards = [...document.querySelectorAll('.chart-card, .container .card, .kpis')]
+        .filter(c => c.getBoundingClientRect().height > 50)
+        .sort((a, b) => a.getBoundingClientRect().y - b.getBoundingClientRect().y);
+    let pageAccumH = 0;
+    atomicCards.forEach((c, i) => {
+        const h = c.getBoundingClientRect().height;
+        const allowSplit = c.classList.contains('pdf-allow-split');
+        const origPB = c.style.pageBreakBefore;
+        const origBB = c.style.breakBefore;
+        const origPI = c.style.pageBreakInside;
+        const origBI = c.style.breakInside;
+        restoreActions.push(() => {
+            c.style.pageBreakBefore = origPB;
+            c.style.breakBefore = origBB;
+            c.style.pageBreakInside = origPI;
+            c.style.breakInside = origBI;
+        });
+        // Sólo aplicar avoid si la card no permite partir
+        if (!allowSplit) {
+            c.style.pageBreakInside = 'avoid';
+            c.style.breakInside = 'avoid';
+        }
+        if (i === 0) { pageAccumH = h; return; }
+        const projectedH = pageAccumH + CARD_GAP_PX + h;
+        if (projectedH > PAGE_USABLE_PX) {
+            c.style.pageBreakBefore = 'always';
+            c.style.breakBefore = 'page';
+            // Si la card permite partirse y es más alta que la página,
+            // resetar accum a 0 (próxima card arrancará en página propia tras esta)
+            pageAccumH = allowSplit && h > PAGE_USABLE_PX ? PAGE_USABLE_PX : h;
+        } else {
+            pageAccumH = projectedH;
+        }
+    });
 
     try {
         const target = document.querySelector('.container') || document.body;
@@ -64116,10 +64263,10 @@ async function generarPDF() {
             html2canvas: {
                 scale: 2, useCORS: true, backgroundColor: '#ffffff',
                 logging: false, scrollX: 0, scrollY: 0,
-                width: 760, windowWidth: 760,
+                width: 1000,
             },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-            pagebreak: { mode: ['css', 'legacy'], avoid: ['.kpi', '.chart-card', 'tr'] },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
+            pagebreak: { mode: ['css', 'legacy'], avoid: ['.kpi', '.kpis', '.chart-card', '.card', 'tr', 'thead'] },
         }).save();
     } catch (err) {
         console.error('Error al generar PDF', err);
