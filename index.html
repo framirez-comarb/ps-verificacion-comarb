@@ -288,6 +288,10 @@
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.2/dist/html2pdf.bundle.min.js"></script>
+<!-- html2pdf bundles html2canvas+jsPDF internally pero no los re-exporta; los cargamos
+     standalone para usarlos directo desde generarPDF() (captura por page-group). -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -297,13 +301,13 @@
         <div>
             <h1>📋 Presentación Simplificada</h1>
             <div class="meta">
-                Propiedad: 485388348 · Generado: 28/04/2026 18:02 (ART)
+                Propiedad: 485388348 · Generado: 29/04/2026 09:25 (ART)
             </div>
             <div class="period-filter">
                 <label>Período:</label>
-                <input type="date" id="fecha-desde" value="2026-01-01" min="2026-01-01" max="2026-04-28">
+                <input type="date" id="fecha-desde" value="2026-01-01" min="2026-01-01" max="2026-04-29">
                 <span>a</span>
-                <input type="date" id="fecha-hasta" value="2026-04-28" min="2026-01-01" max="2026-04-28">
+                <input type="date" id="fecha-hasta" value="2026-04-29" min="2026-01-01" max="2026-04-29">
                 <button type="button" id="period-reset" title="Restablecer período completo">↺</button>
             </div>
         </div>
@@ -317,7 +321,7 @@
 </header>
 
 <div class="main-tabs">
-    <div class="main-tab active" onclick="switchMainTab('presentaciones')">Presentaciones (<span id="main-tab-count-presentaciones">2789</span>)</div>
+    <div class="main-tab active" onclick="switchMainTab('presentaciones')">Presentaciones (<span id="main-tab-count-presentaciones">2790</span>)</div>
     <div class="main-tab" onclick="switchMainTab('errores')">Errores de validación (<span id="main-tab-count-errores">90</span>)</div>
 </div>
 
@@ -924,7 +928,7 @@
 <div class="kpis">
     <div class="kpi">
         <div class="label">Total registros</div>
-        <div class="value v1" id="kpi-total">2789</div>
+        <div class="value v1" id="kpi-total">2790</div>
     </div>
     <div class="kpi">
         <div class="label">CUITs únicos</div>
@@ -932,7 +936,7 @@
     </div>
     <div class="kpi">
         <div class="label">No duplicados</div>
-        <div class="value v3" id="kpi-no-dup">2419</div>
+        <div class="value v3" id="kpi-no-dup">2420</div>
     </div>
     <div class="kpi">
         <div class="label">Duplicados</div>
@@ -975,8 +979,8 @@
 
 <div class="section">
     <div class="tabs">
-        <div class="tab active" onclick="switchTab('no-dup')">Sin duplicados (<span id="tab-count-no-dup">2419</span>)</div>
-        <div class="tab" onclick="switchTab('all')">Con duplicados (<span id="tab-count-all">2789</span>)</div>
+        <div class="tab active" onclick="switchTab('no-dup')">Sin duplicados (<span id="tab-count-no-dup">2420</span>)</div>
+        <div class="tab" onclick="switchTab('all')">Con duplicados (<span id="tab-count-all">2790</span>)</div>
     </div>
 
     <div id="tab-no-dup" class="tab-content active">
@@ -1011,6 +1015,18 @@
                     </tr>
                 </thead>
                 <tbody><tr>
+                <td class="mono">27061735998</td>
+                <td>2026-04-28 22:35:51</td>
+                <td><code>Presentar y Salir</code></td>
+                <td>San Juan Province</td>
+                <td>904, 918</td>
+                <td>$0,00</td>
+                <td>5</td>
+                <td></td>
+                <td></td>
+                <td>No</td>
+                <td class="dgr-si">Sí</td>
+            </tr><tr>
                 <td class="mono">27389230893</td>
                 <td>2026-04-28 11:17:36</td>
                 <td><code>Presentar y Salir</code></td>
@@ -4755,18 +4771,6 @@
                 <td>No</td>
                 <td class="dgr-si">Sí</td>
             </tr><tr>
-                <td class="mono">20472837134</td>
-                <td>2026-04-15 16:20:58</td>
-                <td><code>Presentar y Salir</code></td>
-                <td>Rio Negro Province</td>
-                <td>915, 916</td>
-                <td>$0,00</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>No</td>
-                <td class="dgr-si">Sí</td>
-            </tr><tr>
                 <td class="mono">27215544902</td>
                 <td>2026-04-15 16:20:58</td>
                 <td><code>Presentar y Salir</code></td>
@@ -4774,6 +4778,18 @@
                 <td>904, 921</td>
                 <td>$0,00</td>
                 <td>5</td>
+                <td></td>
+                <td></td>
+                <td>No</td>
+                <td class="dgr-si">Sí</td>
+            </tr><tr>
+                <td class="mono">20472837134</td>
+                <td>2026-04-15 16:20:58</td>
+                <td><code>Presentar y Salir</code></td>
+                <td>Rio Negro Province</td>
+                <td>915, 916</td>
+                <td>$0,00</td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td>No</td>
@@ -11823,24 +11839,24 @@
                 <td>No</td>
                 <td class="dgr-si">Sí</td>
             </tr><tr>
-                <td class="mono">27128377323</td>
-                <td>2026-03-13 11:52:47</td>
-                <td><code>Presentar y Salir</code></td>
-                <td>Santa Fe Province</td>
-                <td>908, 921</td>
-                <td>$0,00</td>
-                <td>5</td>
-                <td></td>
-                <td></td>
-                <td>No</td>
-                <td class="dgr-si">Sí</td>
-            </tr><tr>
                 <td class="mono">27145793667</td>
                 <td>2026-03-13 11:52:47</td>
                 <td><code>Presentar y Salir</code></td>
                 <td>Cordoba Province</td>
                 <td>904, 922</td>
                 <td>$282.206,28</td>
+                <td>5</td>
+                <td></td>
+                <td></td>
+                <td>No</td>
+                <td class="dgr-si">Sí</td>
+            </tr><tr>
+                <td class="mono">27128377323</td>
+                <td>2026-03-13 11:52:47</td>
+                <td><code>Presentar y Salir</code></td>
+                <td>Santa Fe Province</td>
+                <td>908, 921</td>
+                <td>$0,00</td>
                 <td>5</td>
                 <td></td>
                 <td></td>
@@ -30075,6 +30091,18 @@
                     </tr>
                 </thead>
                 <tbody><tr>
+                <td class="mono">27061735998</td>
+                <td>2026-04-28 22:35:51</td>
+                <td><code>Presentar y Salir</code></td>
+                <td>San Juan Province</td>
+                
+                <td>$0,00</td>
+                <td>5</td>
+                <td></td>
+                <td></td>
+                <td>No</td>
+                
+            </tr><tr>
                 <td class="mono">27389230893</td>
                 <td>2026-04-28 11:17:36</td>
                 <td><code>Presentar y Salir</code></td>
@@ -33677,7 +33705,7 @@
             </tr><tr class="dup">
                 <td class="mono">27102738441</td>
                 <td>2026-04-15 20:01:40</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Mendoza Province</td>
                 
                 <td>$5.440,50</td>
@@ -33689,7 +33717,7 @@
             </tr><tr class="dup">
                 <td class="mono">27102738441</td>
                 <td>2026-04-15 20:01:40</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Mendoza Province</td>
                 
                 <td>$5.440,50</td>
@@ -34227,18 +34255,6 @@
                 <td>Sí</td>
                 
             </tr><tr>
-                <td class="mono">20472837134</td>
-                <td>2026-04-15 16:20:58</td>
-                <td><code>Presentar y Salir</code></td>
-                <td>Rio Negro Province</td>
-                
-                <td>$0,00</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>No</td>
-                
-            </tr><tr>
                 <td class="mono">27215544902</td>
                 <td>2026-04-15 16:20:58</td>
                 <td><code>Presentar y Salir</code></td>
@@ -34246,6 +34262,18 @@
                 
                 <td>$0,00</td>
                 <td>5</td>
+                <td></td>
+                <td></td>
+                <td>No</td>
+                
+            </tr><tr>
+                <td class="mono">20472837134</td>
+                <td>2026-04-15 16:20:58</td>
+                <td><code>Presentar y Salir</code></td>
+                <td>Rio Negro Province</td>
+                
+                <td>$0,00</td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td>No</td>
@@ -34685,7 +34713,7 @@
             </tr><tr class="dup">
                 <td class="mono">20282405564</td>
                 <td>2026-04-15 13:41:19</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Santa Fe Province</td>
                 
                 <td>$53.345,45</td>
@@ -34697,7 +34725,7 @@
             </tr><tr class="dup">
                 <td class="mono">20282405564</td>
                 <td>2026-04-15 13:41:19</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Santa Fe Province</td>
                 
                 <td>$53.345,45</td>
@@ -40493,7 +40521,7 @@
             </tr><tr class="dup">
                 <td class="mono">30712304258</td>
                 <td>2026-03-16 10:28:49</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Santa Fe Province</td>
                 
                 <td>$477.198,92</td>
@@ -40505,7 +40533,7 @@
             </tr><tr class="dup">
                 <td class="mono">30712304258</td>
                 <td>2026-03-16 10:28:49</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Santa Fe Province</td>
                 
                 <td>$477.198,92</td>
@@ -42087,24 +42115,24 @@
                 <td>No</td>
                 
             </tr><tr>
-                <td class="mono">27128377323</td>
-                <td>2026-03-13 11:52:47</td>
-                <td><code>Presentar y Salir</code></td>
-                <td>Santa Fe Province</td>
-                
-                <td>$0,00</td>
-                <td>5</td>
-                <td></td>
-                <td></td>
-                <td>No</td>
-                
-            </tr><tr>
                 <td class="mono">27145793667</td>
                 <td>2026-03-13 11:52:47</td>
                 <td><code>Presentar y Salir</code></td>
                 <td>Cordoba Province</td>
                 
                 <td>$282.206,28</td>
+                <td>5</td>
+                <td></td>
+                <td></td>
+                <td>No</td>
+                
+            </tr><tr>
+                <td class="mono">27128377323</td>
+                <td>2026-03-13 11:52:47</td>
+                <td><code>Presentar y Salir</code></td>
+                <td>Santa Fe Province</td>
+                
+                <td>$0,00</td>
                 <td>5</td>
                 <td></td>
                 <td></td>
@@ -42377,7 +42405,7 @@
             </tr><tr class="dup">
                 <td class="mono">30708312793</td>
                 <td>2026-03-13 10:17:54</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Cordoba Province</td>
                 
                 <td>$18.078.789,59</td>
@@ -42389,7 +42417,7 @@
             </tr><tr class="dup">
                 <td class="mono">30708312793</td>
                 <td>2026-03-13 10:17:54</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Cordoba Province</td>
                 
                 <td>$18.078.789,59</td>
@@ -42761,7 +42789,7 @@
             </tr><tr class="dup">
                 <td class="mono">20270913416</td>
                 <td>2026-03-12 20:04:59</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Rio Negro Province</td>
                 
                 <td>$67,76</td>
@@ -42773,7 +42801,7 @@
             </tr><tr class="dup">
                 <td class="mono">20270913416</td>
                 <td>2026-03-12 20:04:59</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Rio Negro Province</td>
                 
                 <td>$67,76</td>
@@ -49418,18 +49446,6 @@
                 <td></td>
                 <td>No</td>
                 
-            </tr><tr class="dup">
-                <td class="mono">30712142827</td>
-                <td>2026-02-18 14:53:26</td>
-                <td><code>Presentar y Generar Pago</code></td>
-                <td>Chubut Province</td>
-                
-                <td>$883.492,53</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>Sí</td>
-                
             </tr><tr>
                 <td class="mono">30712142827</td>
                 <td>2026-02-18 14:53:26</td>
@@ -49441,6 +49457,18 @@
                 <td></td>
                 <td></td>
                 <td>No</td>
+                
+            </tr><tr class="dup">
+                <td class="mono">30712142827</td>
+                <td>2026-02-18 14:53:26</td>
+                <td><code>Presentar y Generar Pago</code></td>
+                <td>Chubut Province</td>
+                
+                <td>$883.492,53</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Sí</td>
                 
             </tr><tr class="dup">
                 <td class="mono">30712142827</td>
@@ -50070,7 +50098,7 @@
             </tr><tr class="dup">
                 <td class="mono">20254810232</td>
                 <td>2026-02-18 08:09:13</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Cordoba Province</td>
                 
                 <td>$28.544,41</td>
@@ -50082,7 +50110,7 @@
             </tr><tr class="dup">
                 <td class="mono">20254810232</td>
                 <td>2026-02-18 08:09:13</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Cordoba Province</td>
                 
                 <td>$28.544,41</td>
@@ -54319,7 +54347,7 @@
             </tr><tr class="dup">
                 <td class="mono">20163926041</td>
                 <td>2026-02-10 18:31:07</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Cordoba Province</td>
                 
                 <td>$17.582,37</td>
@@ -54331,7 +54359,7 @@
             </tr><tr class="dup">
                 <td class="mono">20163926041</td>
                 <td>2026-02-10 18:31:07</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Cordoba Province</td>
                 
                 <td>$17.582,37</td>
@@ -54415,7 +54443,7 @@
             </tr><tr class="dup">
                 <td class="mono">20163926041</td>
                 <td>2026-02-10 16:45:21</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Cordoba Province</td>
                 
                 <td>$17.582,37</td>
@@ -54427,7 +54455,7 @@
             </tr><tr class="dup">
                 <td class="mono">20163926041</td>
                 <td>2026-02-10 16:45:21</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Cordoba Province</td>
                 
                 <td>$17.582,37</td>
@@ -56500,18 +56528,6 @@
                 <td></td>
                 <td>No</td>
                 
-            </tr><tr>
-                <td class="mono">30714566438</td>
-                <td>2026-01-20 15:06:54</td>
-                <td><code>Presentar y Generar Pago</code></td>
-                <td>Mendoza Province</td>
-                
-                <td>$31.574,33</td>
-                <td>5</td>
-                <td></td>
-                <td></td>
-                <td>No</td>
-                
             </tr><tr class="dup">
                 <td class="mono">30714566438</td>
                 <td>2026-01-20 15:06:54</td>
@@ -56523,6 +56539,18 @@
                 <td></td>
                 <td></td>
                 <td>Sí</td>
+                
+            </tr><tr>
+                <td class="mono">30714566438</td>
+                <td>2026-01-20 15:06:54</td>
+                <td><code>Presentar y Generar Pago</code></td>
+                <td>Mendoza Province</td>
+                
+                <td>$31.574,33</td>
+                <td>5</td>
+                <td></td>
+                <td></td>
+                <td>No</td>
                 
             </tr><tr class="dup">
                 <td class="mono">30714566438</td>
@@ -57475,7 +57503,7 @@
             </tr><tr class="dup">
                 <td class="mono">20389715396</td>
                 <td>2026-01-16 16:57:50</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Santa Fe Province</td>
                 
                 <td>$31.120,55</td>
@@ -57487,7 +57515,7 @@
             </tr><tr class="dup">
                 <td class="mono">20389715396</td>
                 <td>2026-01-16 16:57:50</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Santa Fe Province</td>
                 
                 <td>$31.120,55</td>
@@ -58075,7 +58103,7 @@
             </tr><tr class="dup">
                 <td class="mono">30718199413</td>
                 <td>2026-01-15 17:08:37</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Mendoza Province</td>
                 
                 <td>$645.720,31</td>
@@ -58087,7 +58115,7 @@
             </tr><tr class="dup">
                 <td class="mono">30718199413</td>
                 <td>2026-01-15 17:08:37</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Mendoza Province</td>
                 
                 <td>$645.720,31</td>
@@ -58159,7 +58187,7 @@
             </tr><tr class="dup">
                 <td class="mono">20293522635</td>
                 <td>2026-01-15 16:28:16</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Bio Bio</td>
                 
                 <td>$976.612,61</td>
@@ -58171,7 +58199,7 @@
             </tr><tr class="dup">
                 <td class="mono">20293522635</td>
                 <td>2026-01-15 16:28:16</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Bio Bio</td>
                 
                 <td>$976.612,61</td>
@@ -58315,7 +58343,7 @@
             </tr><tr class="dup">
                 <td class="mono">30712549072</td>
                 <td>2026-01-15 15:30:29</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Quebec</td>
                 
                 <td>$1.319.844,74</td>
@@ -58327,7 +58355,7 @@
             </tr><tr class="dup">
                 <td class="mono">30712549072</td>
                 <td>2026-01-15 15:30:29</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Quebec</td>
                 
                 <td>$1.319.844,74</td>
@@ -62576,7 +62604,7 @@
             </tr><tr class="dup">
                 <td class="mono">20087854060</td>
                 <td>2026-01-09 11:03:48</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Buenos Aires</td>
                 
                 <td>$2.159,30</td>
@@ -62588,7 +62616,7 @@
             </tr><tr class="dup">
                 <td class="mono">20087854060</td>
                 <td>2026-01-09 11:03:48</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Buenos Aires</td>
                 
                 <td>$2.159,30</td>
@@ -63704,8 +63732,8 @@ Chart.defaults.color = getThemeColors().textColor;
 
 /* Datos base (período completo) */
 const RAW_FECHAS = ["2026-01-01", "2026-01-02", "2026-01-03", "2026-01-05", "2026-01-06", "2026-01-07", "2026-01-08", "2026-01-09", "2026-01-10", "2026-01-11", "2026-01-12", "2026-01-13", "2026-01-14", "2026-01-15", "2026-01-16", "2026-01-17", "2026-01-18", "2026-01-19", "2026-01-20", "2026-01-21", "2026-01-22", "2026-01-23", "2026-01-27", "2026-01-29", "2026-02-01", "2026-02-02", "2026-02-03", "2026-02-04", "2026-02-05", "2026-02-06", "2026-02-07", "2026-02-08", "2026-02-09", "2026-02-10", "2026-02-11", "2026-02-12", "2026-02-13", "2026-02-14", "2026-02-15", "2026-02-16", "2026-02-17", "2026-02-18", "2026-02-19", "2026-02-20", "2026-02-21", "2026-02-22", "2026-02-23", "2026-02-24", "2026-02-25", "2026-02-27", "2026-03-01", "2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05", "2026-03-06", "2026-03-07", "2026-03-09", "2026-03-10", "2026-03-11", "2026-03-12", "2026-03-13", "2026-03-14", "2026-03-15", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20", "2026-03-25", "2026-03-26", "2026-03-28", "2026-04-01", "2026-04-02", "2026-04-03", "2026-04-04", "2026-04-05", "2026-04-06", "2026-04-07", "2026-04-08", "2026-04-14", "2026-04-15", "2026-04-16", "2026-04-17", "2026-04-18", "2026-04-19", "2026-04-20", "2026-04-21", "2026-04-22", "2026-04-23", "2026-04-24", "2026-04-27", "2026-04-28"];
-const RAW_PRES = [1, 9, 1, 18, 8, 6, 22, 18, 12, 7, 63, 74, 93, 84, 38, 5, 6, 33, 20, 9, 2, 6, 2, 0, 2, 5, 10, 6, 10, 14, 10, 6, 37, 44, 45, 77, 78, 16, 6, 22, 38, 73, 44, 33, 3, 2, 6, 4, 7, 6, 5, 10, 7, 9, 16, 12, 5, 39, 54, 88, 108, 90, 15, 15, 102, 57, 29, 8, 9, 6, 2, 1, 5, 6, 3, 2, 2, 15, 20, 4, 107, 185, 103, 62, 9, 4, 45, 11, 9, 4, 6, 2, 2];
-const RAW_ENV = [1, 6, 0, 14, 3, 4, 14, 9, 10, 3, 45, 40, 60, 63, 23, 5, 5, 23, 14, 8, 2, 6, 1, 0, 1, 3, 7, 4, 6, 9, 9, 5, 18, 30, 28, 50, 50, 14, 4, 17, 25, 50, 30, 26, 1, 3, 2, 3, 7, 3, 0, 5, 6, 7, 10, 6, 4, 28, 30, 55, 65, 60, 7, 10, 78, 43, 21, 8, 8, 6, 2, 1, 2, 7, 3, 1, 1, 11, 12, 2, 77, 137, 64, 45, 9, 4, 31, 8, 7, 3, 5, 1, 2];
+const RAW_PRES = [1, 9, 1, 18, 8, 6, 22, 18, 12, 7, 63, 74, 93, 84, 38, 5, 6, 33, 20, 9, 2, 6, 2, 0, 2, 5, 10, 6, 10, 14, 10, 6, 37, 44, 45, 77, 78, 16, 6, 22, 38, 73, 44, 33, 3, 2, 6, 4, 7, 6, 5, 10, 7, 9, 16, 12, 5, 39, 54, 88, 108, 90, 15, 15, 102, 57, 29, 8, 9, 6, 2, 1, 5, 6, 3, 2, 2, 15, 20, 4, 107, 185, 103, 62, 9, 4, 45, 11, 9, 4, 6, 2, 3];
+const RAW_ENV = [1, 6, 0, 14, 3, 4, 14, 9, 10, 3, 45, 40, 60, 63, 23, 5, 5, 23, 14, 8, 2, 6, 1, 0, 1, 3, 7, 4, 6, 9, 9, 5, 18, 30, 28, 50, 50, 14, 4, 17, 25, 50, 30, 26, 1, 3, 2, 3, 7, 3, 0, 5, 6, 7, 10, 6, 4, 28, 30, 55, 65, 60, 7, 10, 78, 43, 21, 8, 8, 6, 2, 1, 2, 7, 3, 1, 1, 11, 12, 2, 77, 137, 64, 45, 9, 4, 31, 8, 7, 3, 5, 1, 3];
 const RAW_CERR = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 72, 72, 31, 2, 6, 32, 15, 7, 0, 0, 2, 3, 0, 0, 0, 0, 3, 4, 1, 1, 11, 9, 11, 24, 21, 1, 2, 3, 7, 13, 12, 5, 1, 0, 2, 0, 0, 1, 4, 3, 1, 1, 4, 4, 0, 6, 19, 21, 26, 20, 8, 0, 19, 6, 6, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 4, 3, 1, 23, 37, 30, 13, 0, 0, 9, 2, 1, 1, 0, 1, 0];
 const STOPWORDS = new Set(["a", "al", "algunos", "ante", "antes", "bien", "como", "con", "contra", "cual", "cuando", "de", "del", "desde", "donde", "durante", "e", "el", "ella", "ellos", "en", "entre", "es", "esa", "ese", "eso", "esta", "este", "esto", "estos", "est\u00e1", "fue", "ha", "haber", "hacer", "hasta", "hay", "la", "las", "le", "les", "lo", "los", "me", "mi", "mucho", "muchos", "muy", "m\u00e1s", "nada", "ni", "no", "nos", "o", "otra", "otras", "otro", "otros", "para", "pero", "poco", "poder", "por", "porque", "que", "quien", "quienes", "qu\u00e9", "se", "ser", "si", "sin", "sobre", "son", "su", "sus", "tambi\u00e9n", "tanto", "tengo", "tiene", "todo", "todos", "un", "una", "uno", "unos", "y", "ya", "yo", "\u00e9l"]);
 
@@ -64125,16 +64153,18 @@ if (themeBtn) {
     });
 }
 
-/* ── Descarga de PDF (vía html2pdf.js) ─────────────────────
-   Approach: hacer visibles todas las pestañas (para que Chart.js
-   renderice todos los canvas), ocultar UI no relevante (tabs, filtros,
-   tablas grandes de detalle), y rasterizar el container completo.
-   Mostramos un overlay para que el usuario no vea el layout shift. */
+/* ── Descarga de PDF (html2canvas + jsPDF, captura per-page-group) ──
+   Approach: hacer visibles todas las pestañas (Chart.js renderiza canvases),
+   ocultar UI no relevante, ejecutar la lógica fit-to-page que decide qué cards
+   van juntas, y luego capturar cada page-group con html2canvas + armar el PDF
+   manualmente con jsPDF. La card .pdf-allow-split (Presentadas) se slicéa en
+   N páginas según altura. Evita el slicing de canvas de html2pdf que dejaba
+   contenido pegado al borde inferior con whitespace al top. */
 const pdfBtn = document.getElementById('pdf-download');
 if (pdfBtn) {
     pdfBtn.addEventListener('click', () => {
-        if (typeof html2pdf === 'undefined') {
-            alert('html2pdf.js no cargó. Revisá tu conexión a internet.');
+        if (typeof html2canvas === 'undefined' || (typeof window.jspdf === 'undefined' && typeof window.jsPDF === 'undefined')) {
+            alert('html2canvas / jsPDF no cargaron. Revisá tu conexión a internet.');
             return;
         }
         generarPDF();
@@ -64232,12 +64262,11 @@ async function generarPDF() {
         const parentCard = el.closest('.chart-card, .card');
         const cardTitle = (parentCard?.querySelector('.section-title, h2, h3')?.textContent || '').trim().toLowerCase();
         if (cardTitle.startsWith('presentadas')) {
-            // Cap para que la tabla termine en página 5 sin derramar a página 6.
-            // Cualquier día que iría a la página 6 se recorta (overflow:hidden).
-            el.style.maxHeight = '1175px';
-            el.style.overflow = 'hidden';
-            // Marcar la card para permitir partir entre páginas; el CSS
-            // inyectado se encarga del padding/title/gap mínimos.
+            // Sin cap: con la captura per-page-group, la tabla se slicéa manualmente
+            // a páginas A4-landscape después de capturar. Todos los días entran.
+            el.style.maxHeight = 'none';
+            el.style.overflow = 'visible';
+            // Marcar la card para que el slicer la maneje aparte (no entra al stack).
             if (parentCard) {
                 parentCard.classList.add('pdf-allow-split');
                 restoreActions.push(() => parentCard.classList.remove('pdf-allow-split'));
@@ -64368,20 +64397,146 @@ async function generarPDF() {
     });
 
     try {
-        const target = document.querySelector('.container') || document.body;
+        // === Per-page-group capture con html2canvas + jsPDF ===
+        // Reemplaza html2pdf().from().save() para evitar el slicing de canvas
+        // que dejaba contenido pegado al borde inferior con whitespace al top.
+        // La fit-to-page logic de arriba ya seteó pageBreakBefore='always' en
+        // las cards que arrancan página nueva. Acá agrupamos por esos markers,
+        // capturamos cada grupo (cards stackeadas + header en pág 1) como UNA
+        // imagen y la centramos en la página A4. La card .pdf-allow-split
+        // (Presentadas) se captura aparte y se slicéa manualmente en N páginas.
+
+        const headerEl = document.querySelector('header');
+
+        // Reagrupar atomicCards por pageBreakBefore markers
+        const pageGroups = [];
+        let currentGroup = [];
+        atomicCards.forEach((c, i) => {
+            if (i === 0) { currentGroup = [c]; return; }
+            if (c.style.pageBreakBefore === 'always') {
+                if (currentGroup.length) pageGroups.push(currentGroup);
+                currentGroup = [c];
+            } else {
+                currentGroup.push(c);
+            }
+        });
+        if (currentGroup.length) pageGroups.push(currentGroup);
+
+        // Helper: html2canvas wrapper con opciones consistentes
+        const captureEl = async (el) => await html2canvas(el, {
+            scale: 2, useCORS: true, backgroundColor: '#ffffff',
+            logging: false, scrollX: 0, scrollY: 0,
+            windowWidth: 1000,
+        });
+
+        // Setup PDF
+        const jsPDFCtor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+        const pdf = new jsPDFCtor({ unit: 'mm', format: 'a4', orientation: 'landscape' });
+        const pageW = 297, pageH = 210;
+        const margin = 10;
+        const usableW = pageW - 2 * margin; // 277mm
+        const usableH = pageH - 2 * margin; // 190mm
+        const cardGap_mm = 4;
+
+        let isFirstPage = true;
+        const startPage = () => {
+            if (!isFirstPage) pdf.addPage();
+            isFirstPage = false;
+        };
+
+        // Stack de cards (1 o más) en una página, centrado verticalmente como un bloque
+        const placeStack = (canvases) => {
+            // Calcular w/h en mm de cada canvas, scaleados a usableW
+            const dims = canvases.map(canvas => {
+                const w = usableW;
+                const h = w * (canvas.height / canvas.width);
+                return { canvas, w, h };
+            });
+            const totalH = dims.reduce((acc, d) => acc + d.h, 0) + cardGap_mm * (dims.length - 1);
+            // Si el stack excede usableH, escalar todo proporcionalmente
+            const scale = totalH > usableH ? (usableH / totalH) : 1;
+            const scaledTotalH = totalH * scale;
+            let y = margin + (usableH - scaledTotalH) / 2;
+            dims.forEach(d => {
+                const w_mm = d.w * scale;
+                const h_mm = d.h * scale;
+                const x_mm = (pageW - w_mm) / 2;
+                const img = d.canvas.toDataURL('image/jpeg', 0.95);
+                pdf.addImage(img, 'JPEG', x_mm, y, w_mm, h_mm);
+                y += h_mm + cardGap_mm * scale;
+            });
+        };
+
+        // Slice una card alta en N páginas (top-aligned, ancho completo).
+        // Cada slice usa el ALTO COMPLETO de la página A4 (usableH), así no queda
+        // whitespace al fondo. Si maxPages está definido y la card es más alta que
+        // maxPages * usableH, se trunca el contenido sobrante (los días más viejos
+        // de la tabla quedan recortados) para respetar el cap.
+        const placeSlicedCard = (canvas, maxPages) => {
+            const px_per_mm = canvas.width / usableW;
+            const slice_h_px = Math.floor(usableH * px_per_mm);
+            const naturalTotal = Math.ceil(canvas.height / slice_h_px);
+            const total = (maxPages != null) ? Math.min(naturalTotal, maxPages) : naturalTotal;
+            const effectiveH = Math.min(canvas.height, total * slice_h_px);
+            for (let s = 0; s < total; s++) {
+                const y_start = s * slice_h_px;
+                const y_end = Math.min(y_start + slice_h_px, effectiveH);
+                const slice_h_actual = y_end - y_start;
+                const sliceCanvas = document.createElement('canvas');
+                sliceCanvas.width = canvas.width;
+                sliceCanvas.height = slice_h_actual;
+                const ctx = sliceCanvas.getContext('2d');
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, sliceCanvas.width, sliceCanvas.height);
+                ctx.drawImage(canvas, 0, -y_start);
+                const img = sliceCanvas.toDataURL('image/jpeg', 0.95);
+                const sliceH_mm = slice_h_actual / px_per_mm;
+                startPage();
+                pdf.addImage(img, 'JPEG', margin, margin, usableW, sliceH_mm);
+            }
+        };
+
+        // === Procesar cada page-group ===
+        for (let g = 0; g < pageGroups.length; g++) {
+            const group = pageGroups[g];
+            // Capturar cards (incluyendo header si es la primera página)
+            const elementsToCapture = (g === 0 && headerEl) ? [headerEl, ...group] : group;
+            const canvases = [];
+            for (const el of elementsToCapture) {
+                canvases.push(await captureEl(el));
+            }
+            // Detectar si en este grupo hay un .pdf-allow-split (Presentadas)
+            const splitIdx = elementsToCapture.findIndex(el => el.classList && el.classList.contains('pdf-allow-split'));
+            if (splitIdx >= 0) {
+                // Cards previas (si hay): emitir como stack en página propia
+                if (splitIdx > 0) {
+                    startPage();
+                    placeStack(canvases.slice(0, splitIdx));
+                }
+                // La card a partir → ¿necesita slice?
+                const card = canvases[splitIdx];
+                const ratio_mm = usableW * (card.height / card.width);
+                if (ratio_mm > usableH) {
+                    // Cap a 2 páginas para Presentadas: los días más viejos que no
+                    // entren se truncan (igual que lo hacía el cap de 1175px previo).
+                    placeSlicedCard(card, 2);
+                } else {
+                    startPage();
+                    placeStack([card]);
+                }
+                // Cards posteriores (no debería haber en el layout actual)
+                if (splitIdx + 1 < canvases.length) {
+                    startPage();
+                    placeStack(canvases.slice(splitIdx + 1));
+                }
+            } else {
+                startPage();
+                placeStack(canvases);
+            }
+        }
+
         const fechaArchivo = new Date().toISOString().slice(0, 10);
-        await html2pdf().from(target).set({
-            margin: [10, 10, 12, 10],
-            filename: 'ps_verificacion_' + fechaArchivo + '.pdf',
-            image: { type: 'jpeg', quality: 0.95 },
-            html2canvas: {
-                scale: 2, useCORS: true, backgroundColor: '#ffffff',
-                logging: false, scrollX: 0, scrollY: 0,
-                width: 1000,
-            },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
-            pagebreak: { mode: ['css', 'legacy'], avoid: ['.kpi', '.kpis', '.chart-card', '.card', 'tr', 'thead'] },
-        }).save();
+        pdf.save('ps_verificacion_' + fechaArchivo + '.pdf');
     } catch (err) {
         console.error('Error al generar PDF', err);
         alert('Error al generar PDF: ' + (err && err.message ? err.message : err));
