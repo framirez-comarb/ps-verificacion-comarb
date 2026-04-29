@@ -2400,6 +2400,26 @@ async function generarPDF() {{
         }});
     }}
 
+    // 6a-pre. Reordenar tabs principales: mover #main-tab-presentaciones ANTES
+    //         de #main-tab-errores para que en el PDF aparezca primero todo lo
+    //         de presentaciones (KPIs2 + encuesta + presentadas) y después lo
+    //         de errores (KPIs1 + errores por día + top textos).
+    const presTab = document.getElementById('main-tab-presentaciones');
+    const errTab = document.getElementById('main-tab-errores');
+    if (presTab && errTab && presTab.parentElement === errTab.parentElement) {{
+        const tabsParent = presTab.parentElement;
+        const presNextSibling = presTab.nextSibling;
+        if (presTab !== errTab && errTab.compareDocumentPosition(presTab) & Node.DOCUMENT_POSITION_FOLLOWING) {{
+            // presTab está DESPUÉS de errTab → moverlo antes
+            tabsParent.insertBefore(presTab, errTab);
+            restoreActions.push(() => {{
+                if (presNextSibling) tabsParent.insertBefore(presTab, presNextSibling);
+                else tabsParent.appendChild(presTab);
+            }});
+            await new Promise(r => setTimeout(r, 50));
+        }}
+    }}
+
     // 6a. Reordenar: mover la card "Encuesta valoraciones" ANTES de la card
     //     "Presentadas..." para que quede en la página de KPIs2.
     //     OJO: la card "Presentadas" también contiene la palabra "Encuestas"
