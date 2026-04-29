@@ -1473,6 +1473,10 @@ def generate_report(df: pd.DataFrame, df_err: pd.DataFrame, start_date: str, end
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.2/dist/html2pdf.bundle.min.js"></script>
+<!-- html2pdf bundles html2canvas+jsPDF internally pero no los re-exporta; los cargamos
+     standalone para usarlos directo desde generarPDF() (captura por page-group). -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -2218,16 +2222,18 @@ if (themeBtn) {{
     }});
 }}
 
-/* ── Descarga de PDF (vía html2pdf.js) ─────────────────────
-   Approach: hacer visibles todas las pestañas (para que Chart.js
-   renderice todos los canvas), ocultar UI no relevante (tabs, filtros,
-   tablas grandes de detalle), y rasterizar el container completo.
-   Mostramos un overlay para que el usuario no vea el layout shift. */
+/* ── Descarga de PDF (html2canvas + jsPDF, captura per-page-group) ──
+   Approach: hacer visibles todas las pestañas (Chart.js renderiza canvases),
+   ocultar UI no relevante, ejecutar la lógica fit-to-page que decide qué cards
+   van juntas, y luego capturar cada page-group con html2canvas + armar el PDF
+   manualmente con jsPDF. La card .pdf-allow-split (Presentadas) se slicéa en
+   N páginas según altura. Evita el slicing de canvas de html2pdf que dejaba
+   contenido pegado al borde inferior con whitespace al top. */
 const pdfBtn = document.getElementById('pdf-download');
 if (pdfBtn) {{
     pdfBtn.addEventListener('click', () => {{
-        if (typeof html2pdf === 'undefined') {{
-            alert('html2pdf.js no cargó. Revisá tu conexión a internet.');
+        if (typeof html2canvas === 'undefined' || (typeof window.jspdf === 'undefined' && typeof window.jsPDF === 'undefined')) {{
+            alert('html2canvas / jsPDF no cargaron. Revisá tu conexión a internet.');
             return;
         }}
         generarPDF();
@@ -2325,12 +2331,11 @@ async function generarPDF() {{
         const parentCard = el.closest('.chart-card, .card');
         const cardTitle = (parentCard?.querySelector('.section-title, h2, h3')?.textContent || '').trim().toLowerCase();
         if (cardTitle.startsWith('presentadas')) {{
-            // Cap para que la tabla termine en página 5 sin derramar a página 6.
-            // Cualquier día que iría a la página 6 se recorta (overflow:hidden).
-            el.style.maxHeight = '1175px';
-            el.style.overflow = 'hidden';
-            // Marcar la card para permitir partir entre páginas; el CSS
-            // inyectado se encarga del padding/title/gap mínimos.
+            // Sin cap: con la captura per-page-group, la tabla se slicéa manualmente
+            // a páginas A4-landscape después de capturar. Todos los días entran.
+            el.style.maxHeight = 'none';
+            el.style.overflow = 'visible';
+            // Marcar la card para que el slicer la maneje aparte (no entra al stack).
             if (parentCard) {{
                 parentCard.classList.add('pdf-allow-split');
                 restoreActions.push(() => parentCard.classList.remove('pdf-allow-split'));
@@ -2461,20 +2466,146 @@ async function generarPDF() {{
     }});
 
     try {{
-        const target = document.querySelector('.container') || document.body;
+        // === Per-page-group capture con html2canvas + jsPDF ===
+        // Reemplaza html2pdf().from().save() para evitar el slicing de canvas
+        // que dejaba contenido pegado al borde inferior con whitespace al top.
+        // La fit-to-page logic de arriba ya seteó pageBreakBefore='always' en
+        // las cards que arrancan página nueva. Acá agrupamos por esos markers,
+        // capturamos cada grupo (cards stackeadas + header en pág 1) como UNA
+        // imagen y la centramos en la página A4. La card .pdf-allow-split
+        // (Presentadas) se captura aparte y se slicéa manualmente en N páginas.
+
+        const headerEl = document.querySelector('header');
+
+        // Reagrupar atomicCards por pageBreakBefore markers
+        const pageGroups = [];
+        let currentGroup = [];
+        atomicCards.forEach((c, i) => {{
+            if (i === 0) {{ currentGroup = [c]; return; }}
+            if (c.style.pageBreakBefore === 'always') {{
+                if (currentGroup.length) pageGroups.push(currentGroup);
+                currentGroup = [c];
+            }} else {{
+                currentGroup.push(c);
+            }}
+        }});
+        if (currentGroup.length) pageGroups.push(currentGroup);
+
+        // Helper: html2canvas wrapper con opciones consistentes
+        const captureEl = async (el) => await html2canvas(el, {{
+            scale: 2, useCORS: true, backgroundColor: '#ffffff',
+            logging: false, scrollX: 0, scrollY: 0,
+            windowWidth: 1000,
+        }});
+
+        // Setup PDF
+        const jsPDFCtor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+        const pdf = new jsPDFCtor({{ unit: 'mm', format: 'a4', orientation: 'landscape' }});
+        const pageW = 297, pageH = 210;
+        const margin = 10;
+        const usableW = pageW - 2 * margin; // 277mm
+        const usableH = pageH - 2 * margin; // 190mm
+        const cardGap_mm = 4;
+
+        let isFirstPage = true;
+        const startPage = () => {{
+            if (!isFirstPage) pdf.addPage();
+            isFirstPage = false;
+        }};
+
+        // Stack de cards (1 o más) en una página, centrado verticalmente como un bloque
+        const placeStack = (canvases) => {{
+            // Calcular w/h en mm de cada canvas, scaleados a usableW
+            const dims = canvases.map(canvas => {{
+                const w = usableW;
+                const h = w * (canvas.height / canvas.width);
+                return {{ canvas, w, h }};
+            }});
+            const totalH = dims.reduce((acc, d) => acc + d.h, 0) + cardGap_mm * (dims.length - 1);
+            // Si el stack excede usableH, escalar todo proporcionalmente
+            const scale = totalH > usableH ? (usableH / totalH) : 1;
+            const scaledTotalH = totalH * scale;
+            let y = margin + (usableH - scaledTotalH) / 2;
+            dims.forEach(d => {{
+                const w_mm = d.w * scale;
+                const h_mm = d.h * scale;
+                const x_mm = (pageW - w_mm) / 2;
+                const img = d.canvas.toDataURL('image/jpeg', 0.95);
+                pdf.addImage(img, 'JPEG', x_mm, y, w_mm, h_mm);
+                y += h_mm + cardGap_mm * scale;
+            }});
+        }};
+
+        // Slice una card alta en N páginas (top-aligned, ancho completo).
+        // Cada slice usa el ALTO COMPLETO de la página A4 (usableH), así no queda
+        // whitespace al fondo. Si maxPages está definido y la card es más alta que
+        // maxPages * usableH, se trunca el contenido sobrante (los días más viejos
+        // de la tabla quedan recortados) para respetar el cap.
+        const placeSlicedCard = (canvas, maxPages) => {{
+            const px_per_mm = canvas.width / usableW;
+            const slice_h_px = Math.floor(usableH * px_per_mm);
+            const naturalTotal = Math.ceil(canvas.height / slice_h_px);
+            const total = (maxPages != null) ? Math.min(naturalTotal, maxPages) : naturalTotal;
+            const effectiveH = Math.min(canvas.height, total * slice_h_px);
+            for (let s = 0; s < total; s++) {{
+                const y_start = s * slice_h_px;
+                const y_end = Math.min(y_start + slice_h_px, effectiveH);
+                const slice_h_actual = y_end - y_start;
+                const sliceCanvas = document.createElement('canvas');
+                sliceCanvas.width = canvas.width;
+                sliceCanvas.height = slice_h_actual;
+                const ctx = sliceCanvas.getContext('2d');
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, sliceCanvas.width, sliceCanvas.height);
+                ctx.drawImage(canvas, 0, -y_start);
+                const img = sliceCanvas.toDataURL('image/jpeg', 0.95);
+                const sliceH_mm = slice_h_actual / px_per_mm;
+                startPage();
+                pdf.addImage(img, 'JPEG', margin, margin, usableW, sliceH_mm);
+            }}
+        }};
+
+        // === Procesar cada page-group ===
+        for (let g = 0; g < pageGroups.length; g++) {{
+            const group = pageGroups[g];
+            // Capturar cards (incluyendo header si es la primera página)
+            const elementsToCapture = (g === 0 && headerEl) ? [headerEl, ...group] : group;
+            const canvases = [];
+            for (const el of elementsToCapture) {{
+                canvases.push(await captureEl(el));
+            }}
+            // Detectar si en este grupo hay un .pdf-allow-split (Presentadas)
+            const splitIdx = elementsToCapture.findIndex(el => el.classList && el.classList.contains('pdf-allow-split'));
+            if (splitIdx >= 0) {{
+                // Cards previas (si hay): emitir como stack en página propia
+                if (splitIdx > 0) {{
+                    startPage();
+                    placeStack(canvases.slice(0, splitIdx));
+                }}
+                // La card a partir → ¿necesita slice?
+                const card = canvases[splitIdx];
+                const ratio_mm = usableW * (card.height / card.width);
+                if (ratio_mm > usableH) {{
+                    // Cap a 2 páginas para Presentadas: los días más viejos que no
+                    // entren se truncan (igual que lo hacía el cap de 1175px previo).
+                    placeSlicedCard(card, 2);
+                }} else {{
+                    startPage();
+                    placeStack([card]);
+                }}
+                // Cards posteriores (no debería haber en el layout actual)
+                if (splitIdx + 1 < canvases.length) {{
+                    startPage();
+                    placeStack(canvases.slice(splitIdx + 1));
+                }}
+            }} else {{
+                startPage();
+                placeStack(canvases);
+            }}
+        }}
+
         const fechaArchivo = new Date().toISOString().slice(0, 10);
-        await html2pdf().from(target).set({{
-            margin: [10, 10, 12, 10],
-            filename: 'ps_verificacion_' + fechaArchivo + '.pdf',
-            image: {{ type: 'jpeg', quality: 0.95 }},
-            html2canvas: {{
-                scale: 2, useCORS: true, backgroundColor: '#ffffff',
-                logging: false, scrollX: 0, scrollY: 0,
-                width: 1000,
-            }},
-            jsPDF: {{ unit: 'mm', format: 'a4', orientation: 'landscape' }},
-            pagebreak: {{ mode: ['css', 'legacy'], avoid: ['.kpi', '.kpis', '.chart-card', '.card', 'tr', 'thead'] }},
-        }}).save();
+        pdf.save('ps_verificacion_' + fechaArchivo + '.pdf');
     }} catch (err) {{
         console.error('Error al generar PDF', err);
         alert('Error al generar PDF: ' + (err && err.message ? err.message : err));
