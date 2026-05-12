@@ -108,6 +108,7 @@
 55E831C15,2026-05-10 15:46:06,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 56E649A7D,2026-05-10 12:33:55,La Pampa Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 64BC59114,2026-05-09 10:06:25,Cordoba Province,,Error Debe seleccionar un medio de pago,2
+64D0FC087,2026-05-12 07:41:12,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
 20282405564,2026-04-15 13:45:14,Santa Fe Province,"$53.345,45",Error Falla al intentar cerrar DDJJ. Error al validar DJ. Falla al validar datos de firmantes. El da,1
 20282405564,2026-04-15 13:45:15,Santa Fe Province,"$53.345,45",Error Falla al intentar cerrar DDJJ. Error al validar DJ. Falla al validar datos de firmantes. El da,1
 27102738441,2026-04-15 20:01:55,Mendoza Province,,Error Debe seleccionar un medio de pago,1
