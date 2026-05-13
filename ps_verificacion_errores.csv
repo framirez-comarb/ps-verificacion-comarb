@@ -115,9 +115,19 @@
 64BC59114,2026-05-09 10:06:25,Cordoba Province,,Error Debe seleccionar un medio de pago,2
 64D0FC087,2026-05-12 07:41:12,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
 65120BEB1,2026-05-12 08:33:50,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
+65164DDE2,2026-05-13 09:16:38,Cordoba Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
+65164DDE2,2026-05-13 09:17:42,Cordoba Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
+65164DDE2,2026-05-13 09:17:52,Cordoba Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
+72681F2E3,2026-05-13 09:44:38,Santa Fe Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
+726891099,2026-05-13 08:59:36,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+726891099,2026-05-13 09:12:16,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+726891099,2026-05-13 09:16:10,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+72692C8E1,2026-05-13 11:15:18,Rio Negro Province,"$0,00",Error No se pudo conectar con el servidor,2
 726B90A18,2026-05-12 14:35:35,Santa Fe Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 726B90A18,2026-05-12 14:35:39,Santa Fe Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 726B90A18,2026-05-12 14:35:43,Santa Fe Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
+726C68ECA,2026-05-13 08:39:33,Chaco Province,,Error Problemas para obtener sus deducciones,2
+726C68ECA,2026-05-13 13:01:05,Chaco Province,,Error Problemas para obtener sus deducciones,2
 726E2ACCD,2026-05-12 15:10:56,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 20282405564,2026-04-15 13:45:14,Santa Fe Province,"$53.345,45",Error Falla al intentar cerrar DDJJ. Error al validar DJ. Falla al validar datos de firmantes. El da,1
 20282405564,2026-04-15 13:45:15,Santa Fe Province,"$53.345,45",Error Falla al intentar cerrar DDJJ. Error al validar DJ. Falla al validar datos de firmantes. El da,1
