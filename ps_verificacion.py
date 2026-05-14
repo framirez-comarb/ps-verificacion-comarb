@@ -66,6 +66,52 @@ DGR_PADRON_URL = f"{DGR_BASE}/pwContribBlockChain.do"
 TTL_PADRON_DIAS = 30
 
 
+# Paths conocidos donde puede vivir el JSON de service account de GA4.
+# Se prueban en orden cuando --credentials y GA4_SA_PATH no estan seteados.
+import os
+from pathlib import Path
+
+_HERE = Path(__file__).resolve().parent
+KNOWN_CREDS_PATHS = [
+    str(_HERE / "comarb-analytics-580ca8f5412c.json"),
+    str(_HERE / "sa_credentials.json"),
+    r"C:\Users\FARP\Documents\Proyects\Fede4\comarb-analytics-580ca8f5412c.json",
+    r"G:\Otros ordenadores\Mi PC\Proyects\Fede4\comarb-analytics-580ca8f5412c.json",
+    str(_HERE.parent / "Fede4" / "comarb-analytics-580ca8f5412c.json"),
+    str(_HERE.parent / "ps-flujo-comarb" / "sa_credentials.json"),
+]
+
+
+def find_ga4_credentials(cli_path):
+    """Localiza el JSON de service account de GA4.
+
+    Prioridad: --credentials > env GA4_SA_PATH > paths conocidos. Devuelve
+    (path, fuente). Fail-fast si --credentials o GA4_SA_PATH apuntan a algo
+    que no existe — no quiero enmascarar typos cayendo silenciosamente al
+    fallback.
+    """
+    if cli_path:
+        if not Path(cli_path).is_file():
+            raise FileNotFoundError(f"--credentials apunta a un path que no existe: {cli_path}")
+        return cli_path, "--credentials"
+    env = os.environ.get("GA4_SA_PATH")
+    if env:
+        if not Path(env).is_file():
+            raise FileNotFoundError(f"env GA4_SA_PATH apunta a un path que no existe: {env}")
+        return env, "env GA4_SA_PATH"
+    for p in KNOWN_CREDS_PATHS:
+        if Path(p).is_file():
+            return p, "path conocido"
+    msg = ["No se encontro JSON de credenciales GA4 en paths conocidos:"]
+    for p in KNOWN_CREDS_PATHS:
+        msg.append(f"  {p}")
+    msg.append("Opciones para resolverlo:")
+    msg.append("  - pasar -c <path al JSON>")
+    msg.append("  - setear env GA4_SA_PATH=<path al JSON>")
+    msg.append("  - copiar el JSON a alguno de los paths conocidos de arriba")
+    raise FileNotFoundError("\n".join(msg))
+
+
 # Desde 2026-05 GA4 envía el CUIT codificado en hexadecimal (e.g. "4AAB51350").
 # Lo decodificamos a su forma decimal estándar (11 dígitos) ni bien sale de
 # la API, así toda la lógica downstream (verificación DGR, padrón ARCA, joins,
@@ -2884,9 +2930,11 @@ def main():
         print(f"{'═' * 60}\n")
         return
 
-    # Validar credenciales GA4
-    if not args.credentials:
-        print("❌ Se requiere -c CREDENCIALES (o usar --desde-csv)")
+    # Resolver credenciales GA4 (CLI > env > paths conocidos, con fail-fast)
+    try:
+        creds_path, creds_source = find_ga4_credentials(args.credentials)
+    except FileNotFoundError as e:
+        print(f"❌ {e}")
         sys.exit(1)
 
     # Validar que si no es solo-ga4, tenga credenciales DGR
@@ -2899,12 +2947,13 @@ def main():
     print(f"\n{'═' * 60}")
     print(f"  PS Verificación — COMARB")
     print(f"  Período: {args.desde} → {args.hasta}")
+    print(f"  Credenciales GA4: {creds_path} (fuente: {creds_source})")
     print(f"  DGR: {'Sí' if con_dgr else 'No (solo GA4)'}")
     print(f"{'═' * 60}\n")
 
     # ── Paso 1: GA4 ──
     print("📡 PASO 1: Extracción de GA4")
-    df, df_err, chart_data = extract_ga4_data(args.credentials, args.desde, args.hasta)
+    df, df_err, chart_data = extract_ga4_data(creds_path, args.desde, args.hasta)
     if df.empty:
         print("\n❌ Sin datos. Verificá el rango de fechas y los permisos.")
         sys.exit(1)
