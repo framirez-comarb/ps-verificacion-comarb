@@ -54,6 +54,16 @@ Single-file script (`ps_verificacion.py`) with 4 sequential steps:
 
 ## Session Changelog
 
+### Session 2026-05-14 — CUIT en GA4 pasó a venir en hexadecimal
+
+GA4 empezó a enviar `customEvent:CUIT` codificado en hexadecimal a partir de algún día de mayo 2026. Ejemplos: `4AAB51350` (era `20043862864`), `65B8ED902` (era `27305892098`). La transformación es `int(hex, 16)` → string decimal — son los mismos 11 dígitos del CUIT argentino expresados en base 16.
+
+- Función `_decode_cuit()` agregada en `ps_verificacion.py` (cerca de los helpers GA4, antes de `extract_ga4_data`).
+- Aplicada en los 3 DataFrames con columna `cuit` (`df` presentaciones, `df_enc` encuestas, `df_err` errores de validación) inmediatamente después del DataFrame creation y antes de los filtros de `(not set)`. Así toda la lógica downstream (verificación DGR, padrón ARCA, joins, HTML, CSVs) ve y consulta el CUIT real.
+- Crítico para `dgr_search_cuit()` / `dgr_jurisdicciones_cuit()`: sin este fix las queries a SIFERE WEB / Padrón ARCA mandaban el hex en vez del CUIT decimal y todas las verificaciones contra DGR fallarían.
+- Guardrails: pasa tal cual `(not set)`, vacíos, strings sólo-dígitos (CUIT decimal legacy pre-2026-05), strings no hex, hex que decodifica fuera del rango 10-11 dígitos.
+- Mismo cambio aplicado en `ps-flujo-comarb` (repo hermano, PR [#1](https://github.com/framirez-comarb/ps-flujo-comarb/pull/1)).
+
 ### Session 2026-04-01 / 2026-04-02
 - **Fixed GA4 dimension names**: Changed `customEvent:customParamDimension1/3/4` to `customEvent:CUIT/Total/exact_timestamp` (GA4 Data API uses actual parameter names, not UA-style numbered indices)
 - **Fixed Windows encoding**: Added UTF-8 forcing for stdout/stderr to handle Unicode characters on Windows cp1252 consoles

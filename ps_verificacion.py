@@ -66,6 +66,35 @@ DGR_PADRON_URL = f"{DGR_BASE}/pwContribBlockChain.do"
 TTL_PADRON_DIAS = 30
 
 
+# Desde 2026-05 GA4 envía el CUIT codificado en hexadecimal (e.g. "4AAB51350").
+# Lo decodificamos a su forma decimal estándar (11 dígitos) ni bien sale de
+# la API, así toda la lógica downstream (verificación DGR, padrón ARCA, joins,
+# HTML, CSVs) ve y consulta el CUIT real.
+_CUIT_NULL_MARKERS = ("(not set)", "", "nan", "NaN")
+
+
+def _decode_cuit(raw: str) -> str:
+    if raw is None:
+        return ""
+    s = str(raw).strip()
+    if s in _CUIT_NULL_MARKERS:
+        return s
+    if not all(c in "0123456789abcdefABCDEF" for c in s):
+        return s
+    # Si son sólo dígitos, es un CUIT decimal legacy (pre-2026-05) — no convertir.
+    if all(c in "0123456789" for c in s):
+        return s
+    try:
+        decoded = str(int(s, 16))
+    except ValueError:
+        return s
+    # Guardrail: CUIT argentino tiene 10 u 11 dígitos. Si cae fuera, devolvemos
+    # el valor original para no enmascarar datos raros.
+    if 10 <= len(decoded) <= 11:
+        return decoded
+    return s
+
+
 # ═══════════════════════════════════════════════════════════════
 # PASO 1: Extracción de datos GA4
 # ═══════════════════════════════════════════════════════════════
@@ -150,6 +179,9 @@ def extract_ga4_data(creds_path: str, start_date: str, end_date: str) -> tuple[p
 
     df["numero_eventos"] = pd.to_numeric(df["numero_eventos"], errors="coerce")
 
+    # Decodificar CUIT hex → decimal (cambio en GA4 ~2026-05).
+    df["cuit"] = df["cuit"].map(_decode_cuit)
+
     # Limpiar (not set) en texto_del_error
     if "texto_del_error" in df.columns:
         df["texto_del_error"] = df["texto_del_error"].replace("(not set)", "")
@@ -213,6 +245,8 @@ def extract_ga4_data(creds_path: str, start_date: str, end_date: str) -> tuple[p
         df["texto_feedback"] = ""
         print("  ⚠️  No se encontraron datos de encuesta.")
     else:
+        # Decodificar CUIT hex → decimal (cambio en GA4 ~2026-05).
+        df_enc["cuit"] = df_enc["cuit"].map(_decode_cuit)
         # Limpiar (not set)
         for col in ["estrellas_valor", "texto_feedback"]:
             df_enc[col] = df_enc[col].replace("(not set)", "")
@@ -321,6 +355,8 @@ def extract_ga4_data(creds_path: str, start_date: str, end_date: str) -> tuple[p
 
     df_err = pd.DataFrame(err_rows)
     if not df_err.empty:
+        # Decodificar CUIT hex → decimal (cambio en GA4 ~2026-05).
+        df_err["cuit"] = df_err["cuit"].map(_decode_cuit)
         # Limpiar (not set) en strings
         for col in ["region", "total", "texto_del_error"]:
             df_err[col] = df_err[col].replace("(not set)", "")
