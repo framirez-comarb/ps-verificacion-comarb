@@ -2743,7 +2743,11 @@ def load_previous_verifications(csv_path: str) -> dict:
     if not p.exists():
         return {}
 
-    df_prev = pd.read_csv(csv_path, encoding="utf-8-sig")
+    # dtype=str: evita que pandas infiera `cuit` como float64 (todos los CUITs
+    # post-_decode_cuit son numéricos puros). Sin esto, las keys del dict quedan
+    # como "20043862864.0" y nunca matchean contra el df vivo ("20043862864"),
+    # forzando re-verificación DGR de todos los CUITs en cada corrida incremental.
+    df_prev = pd.read_csv(csv_path, encoding="utf-8-sig", dtype=str)
     if "verificada_dgr" not in df_prev.columns:
         return {}
 
