@@ -134,21 +134,24 @@ def _decode_cuit(raw: str) -> str:
         return "(invalido)"
     if not all(c in "0123456789abcdefABCDEF" for c in s):
         return s
-    # Decimal legacy: SOLO si el string tiene 10-11 chars y es todo dígitos
+    # Decimal legacy: SOLO si el string tiene 11 chars exactos y es todo dígitos
     # (rango CUIT argentino válido). Esto distingue "20043862864" (legacy
     # decimal real) de "566257774" (hex de 9 chars que casualmente sólo
     # contiene dígitos — decodifica a 23.188.567.924, CUIT argentino válido).
-    if 10 <= len(s) <= 11 and all(c in "0123456789" for c in s):
+    if len(s) == 11 and all(c in "0123456789" for c in s):
         return s
     try:
         decoded = str(int(s, 16))
     except (ValueError, OverflowError):
-        return s
-    # Guardrail: CUIT argentino tiene 10 u 11 dígitos. Si cae fuera, devolvemos
-    # el valor original para no enmascarar datos raros.
+        return "(invalido)"
+    # Guardrail: CUIT argentino tiene 10 u 11 dígitos. Si después de decodificar
+    # no encaja, marcamos como inválido — generalmente son CUITs corrompidos
+    # aguas arriba (truncamiento JS, padding extra, etc.). Confirmado vía query
+    # directa a GA4 con casos como "7270242000" (10 chars puros, decodifica a 12
+    # dígitos) y "657544600000" (12 chars puros, decodifica a 15 dígitos).
     if 10 <= len(decoded) <= 11:
         return decoded
-    return s
+    return "(invalido)"
 
 
 # ═══════════════════════════════════════════════════════════════
