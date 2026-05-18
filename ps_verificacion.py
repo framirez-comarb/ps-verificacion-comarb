@@ -127,12 +127,15 @@ def _decode_cuit(raw: str) -> str:
         return s
     if not all(c in "0123456789abcdefABCDEF" for c in s):
         return s
-    # Si son sólo dígitos, es un CUIT decimal legacy (pre-2026-05) — no convertir.
-    if all(c in "0123456789" for c in s):
+    # Decimal legacy: SOLO si el string tiene 10-11 chars y es todo dígitos
+    # (rango CUIT argentino válido). Esto distingue "20043862864" (legacy
+    # decimal real) de "566257774" (hex de 9 chars que casualmente sólo
+    # contiene dígitos — decodifica a 23.188.567.924, CUIT argentino válido).
+    if 10 <= len(s) <= 11 and all(c in "0123456789" for c in s):
         return s
     try:
         decoded = str(int(s, 16))
-    except ValueError:
+    except (ValueError, OverflowError):
         return s
     # Guardrail: CUIT argentino tiene 10 u 11 dígitos. Si cae fuera, devolvemos
     # el valor original para no enmascarar datos raros.
@@ -2887,7 +2890,10 @@ def main():
         print(f"  CSV: {args.desde_csv}")
         print(f"{'═' * 60}\n")
 
-        df = pd.read_csv(args.desde_csv, encoding="utf-8-sig")
+        # dtype={'cuit': str} es crítico: sin esto pandas infiere tipo numérico
+        # y CUITs hex como "566257774" o "FFFFFFFFFFFFFF" se convierten a float
+        # (overflow → 'inf' / notación científica). Ver bug detectado 2026-05-18.
+        df = pd.read_csv(args.desde_csv, encoding="utf-8-sig", dtype={"cuit": str})
         df["numero_eventos"] = pd.to_numeric(df["numero_eventos"], errors="coerce")
         for col in ["estrellas_valor", "texto_feedback", "texto_del_error"]:
             if col in df.columns:
@@ -2904,7 +2910,7 @@ def main():
         # Cargar CSV de errores si existe (paralelo al CSV principal)
         err_csv_path = args.desde_csv.replace(".csv", "_errores.csv")
         if Path(err_csv_path).exists():
-            df_err = pd.read_csv(err_csv_path, encoding="utf-8-sig")
+            df_err = pd.read_csv(err_csv_path, encoding="utf-8-sig", dtype={"cuit": str})
             for col in ["region", "total", "texto_del_error"]:
                 if col in df_err.columns:
                     df_err[col] = df_err[col].fillna("")
