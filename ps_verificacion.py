@@ -125,6 +125,13 @@ def _decode_cuit(raw: str) -> str:
     s = str(raw).strip()
     if s in _CUIT_NULL_MARKERS:
         return s
+    # Detección defensiva de corrupción aguas arriba (frontend/GTM).
+    # GA4 a veces recibe el CUIT en notación científica float ("5.6103e+87",
+    # "7.26579e+60") o como "inf"/"NaN" — ocurre cuando algún paso JS del
+    # cliente hace overflow al convertir el CUIT a Number. No son recuperables;
+    # los marcamos explícitamente para no contaminar los reportes.
+    if "." in s or "+" in s or s.lower() in ("inf", "infinity", "-inf", "nan"):
+        return "(invalido)"
     if not all(c in "0123456789abcdefABCDEF" for c in s):
         return s
     # Decimal legacy: SOLO si el string tiene 10-11 chars y es todo dígitos
