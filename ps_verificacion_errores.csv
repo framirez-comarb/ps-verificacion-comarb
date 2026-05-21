@@ -110,6 +110,7 @@
 20071901719,2026-05-19 18:35:37,Santa Fe Province,"$225.947,10","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 3.997.702,44 con e",2
 20102347839,2026-05-15 13:08:01,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 20102349319,2026-05-20 11:09:40,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+20103290288,2026-05-21 11:05:51,Neuquen Province,,Error Problemas para obtener sus deducciones,2
 20107783653,2026-05-11 15:07:14,Santa Fe Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 20125725067,2026-05-15 11:11:22,Buenos Aires Province,"$22.668,70","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 0,00 con el total ",2
 20125725067,2026-05-15 11:11:33,Buenos Aires Province,"$22.668,70","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 0,00 con el total ",2
@@ -142,6 +143,8 @@
 20293130079,2026-05-13 15:55:37,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
 20293130079,2026-05-13 15:55:42,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
 20293630632,2026-05-14 11:53:21,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
+20322564296,2026-05-21 08:22:52,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+20322564296,2026-05-21 08:23:19,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 20335378548,2026-05-15 10:42:19,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 20335378548,2026-05-15 10:42:49,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 20348184475,2026-05-08 17:02:00,Cordoba Province,,Error Problemas para obtener sus deducciones,2
@@ -179,10 +182,13 @@
 23183582534,2026-05-12 14:58:33,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 23326923389,2026-05-10 12:33:55,La Pampa Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 23355920119,2026-05-20 15:56:11,Buenos Aires,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
+23409123724,2026-05-21 10:11:58,Buenos Aires Province,"$0,00",Error Error al validar DJ. Imposible cerrar DDJJ. Deben existir al menos 2 jurisdicciones declaradas,2
+23409123724,2026-05-21 10:12:39,Buenos Aires Province,"$0,00",Error Error al validar DJ. Imposible cerrar DDJJ. Deben existir al menos 2 jurisdicciones declaradas,2
 23496218914,2026-05-18 23:40:02,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 23496218914,2026-05-18 23:42:15,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 23496218914,2026-05-18 23:42:59,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 23941496784,2026-05-16 14:18:53,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,2
+27033050254,2026-05-21 10:09:15,Santa Fe Province,"$0,00",Error Debes completar los datos del firmante para continuar.,2
 27041042708,2026-05-09 10:06:25,Cordoba Province,,Error Debe seleccionar un medio de pago,2
 27051914649,2026-05-20 20:00:14,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 27062681735,2026-05-12 07:41:12,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
