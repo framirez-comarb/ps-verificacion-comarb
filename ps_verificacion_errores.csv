@@ -7,6 +7,7 @@
 20135213099,2026-05-08 10:34:13,Cordoba Province,,Error Problemas para obtener sus deducciones,4
 20135213099,2026-05-08 10:35:35,Cordoba Province,,Error Problemas para obtener sus deducciones,4
 20263969090,2026-04-14 19:59:36,Santa Cruz Province,,Error El total distribuido debe ser igual a la base imponible,4
+20282089697,2026-05-27 09:29:33,Cordoba Province,,Error Debe completar los campos,4
 30716814145,2026-05-18 16:26:10,Mendoza Province,,Error El total distribuido debe ser igual a la base imponible,4
 20085674707,2026-04-17 15:51:51,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,3
 20073651671,2026-04-24 12:41:26,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
@@ -135,6 +136,15 @@
 20278842100,2026-05-12 08:58:06,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
 20278954952,2026-05-14 09:31:48,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 20278954952,2026-05-14 09:31:57,Cordoba Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
+20282089697,2026-05-27 09:25:16,Cordoba Province,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
+20282089697,2026-05-27 09:25:24,Cordoba Province,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
+20282089697,2026-05-27 09:25:34,Cordoba Province,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
+20282089697,2026-05-27 09:25:54,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
+20282089697,2026-05-27 09:26:31,Cordoba Province,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
+20282089697,2026-05-27 09:26:35,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
+20282089697,2026-05-27 09:26:59,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
+20282089697,2026-05-27 09:27:54,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
+20282089697,2026-05-27 09:27:59,Cordoba Province,,Error Debe completar los campos,2
 20282405564,2026-05-19 11:49:38,Santa Fe Province,,Error Debe seleccionar un medio de pago,2
 20286360956,2026-05-21 17:05:37,Cordoba Province,,Error No se pudo conectar con el servidor,2
 20286360956,2026-05-21 17:05:55,Cordoba Province,,Error No se pudo conectar con el servidor,2
