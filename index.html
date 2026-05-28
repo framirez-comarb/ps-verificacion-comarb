@@ -301,13 +301,13 @@
         <div>
             <h1>📋 Presentación Simplificada</h1>
             <div class="meta">
-                Propiedad: 485388348 · Generado: 27/05/2026 17:58 (ART)
+                Propiedad: 485388348 · Generado: 28/05/2026 11:28 (ART)
             </div>
             <div class="period-filter">
                 <label>Período:</label>
-                <input type="date" id="fecha-desde" value="2026-01-01" min="2026-01-01" max="2026-05-27">
+                <input type="date" id="fecha-desde" value="2026-01-01" min="2026-01-01" max="2026-05-28">
                 <span>a</span>
-                <input type="date" id="fecha-hasta" value="2026-05-27" min="2026-01-01" max="2026-05-27">
+                <input type="date" id="fecha-hasta" value="2026-05-28" min="2026-01-01" max="2026-05-28">
                 <button type="button" id="period-reset" title="Restablecer período completo">↺</button>
             </div>
         </div>
@@ -321,19 +321,19 @@
 </header>
 
 <div class="main-tabs">
-    <div class="main-tab active" onclick="switchMainTab('presentaciones')">Presentaciones (<span id="main-tab-count-presentaciones">3956</span>)</div>
-    <div class="main-tab" onclick="switchMainTab('errores')">Errores de validación (<span id="main-tab-count-errores">334</span>)</div>
+    <div class="main-tab active" onclick="switchMainTab('presentaciones')">Presentaciones (<span id="main-tab-count-presentaciones">3961</span>)</div>
+    <div class="main-tab" onclick="switchMainTab('errores')">Errores de validación (<span id="main-tab-count-errores">335</span>)</div>
 </div>
 
 <div id="main-tab-errores" class="main-tab-content">
     <div class="kpis">
         <div class="kpi">
             <div class="label">Errores totales</div>
-            <div class="value v6" id="kpi-err-total">334</div>
+            <div class="value v6" id="kpi-err-total">335</div>
         </div>
         <div class="kpi">
             <div class="label">CUITs con errores</div>
-            <div class="value v2" id="kpi-err-cuits">151</div>
+            <div class="value v2" id="kpi-err-cuits">152</div>
         </div>
     </div>
 
@@ -380,6 +380,12 @@
                 </tr>
             </thead>
             <tbody><tr>
+                <td class="mono">20270409602</td>
+                <td>2026-05-27 18:29:05</td>
+                <td>Cordoba Province</td>
+                <td></td>
+                <td>Error Problemas para obtener sus deducciones</td>
+            </tr><tr>
                 <td class="mono">20282089697</td>
                 <td>2026-05-27 09:29:33</td>
                 <td>Cordoba Province</td>
@@ -2392,15 +2398,15 @@
 <div class="kpis">
     <div class="kpi">
         <div class="label">Total registros</div>
-        <div class="value v1" id="kpi-total">3956</div>
+        <div class="value v1" id="kpi-total">3961</div>
     </div>
     <div class="kpi">
         <div class="label">CUITs únicos</div>
-        <div class="value v2" id="kpi-cuits">1622</div>
+        <div class="value v2" id="kpi-cuits">1625</div>
     </div>
     <div class="kpi">
         <div class="label">No duplicados</div>
-        <div class="value v3" id="kpi-no-dup">3401</div>
+        <div class="value v3" id="kpi-no-dup">3406</div>
     </div>
     <div class="kpi">
         <div class="label">Duplicados</div>
@@ -2443,8 +2449,8 @@
 
 <div class="section">
     <div class="tabs">
-        <div class="tab active" onclick="switchTab('no-dup')">Sin duplicados (<span id="tab-count-no-dup">3401</span>)</div>
-        <div class="tab" onclick="switchTab('all')">Con duplicados (<span id="tab-count-all">3956</span>)</div>
+        <div class="tab active" onclick="switchTab('no-dup')">Sin duplicados (<span id="tab-count-no-dup">3406</span>)</div>
+        <div class="tab" onclick="switchTab('all')">Con duplicados (<span id="tab-count-all">3961</span>)</div>
     </div>
 
     <div id="tab-no-dup" class="tab-content active">
@@ -2479,6 +2485,66 @@
                     </tr>
                 </thead>
                 <tbody><tr>
+                <td class="mono">23344119139</td>
+                <td>2026-05-27 20:36:12</td>
+                <td><code>Presentar y Generar Pago</code></td>
+                <td>La Rioja Province</td>
+                <td>903, 912</td>
+                <td>$419.540,81</td>
+                <td>5</td>
+                <td></td>
+                <td></td>
+                <td>No</td>
+                <td class="dgr-si">Sí</td>
+            </tr><tr>
+                <td class="mono">27171146599</td>
+                <td>2026-05-27 15:40:13</td>
+                <td><code>Presentar y Salir</code></td>
+                <td>Cordoba Province</td>
+                <td>904, 915</td>
+                <td>$0,00</td>
+                <td>vacio</td>
+                <td></td>
+                <td></td>
+                <td>No</td>
+                <td class="dgr-si">Sí</td>
+            </tr><tr>
+                <td class="mono">27338585360</td>
+                <td>2026-05-27 15:36:04</td>
+                <td><code>Presentar y Salir</code></td>
+                <td>Chubut Province</td>
+                <td>907, 916, 920</td>
+                <td>$0,00</td>
+                <td>5</td>
+                <td></td>
+                <td></td>
+                <td>No</td>
+                <td class="dgr-si">Sí</td>
+            </tr><tr>
+                <td class="mono">20950071673</td>
+                <td>2026-05-27 15:21:41</td>
+                <td><code>Presentar y Salir</code></td>
+                <td>Rio Negro Province</td>
+                <td>915, 916</td>
+                <td>$0,00</td>
+                <td>4</td>
+                <td></td>
+                <td></td>
+                <td>No</td>
+                <td class="dgr-si">Sí</td>
+            </tr><tr>
+                <td class="mono">27062772463</td>
+                <td>2026-05-27 15:09:29</td>
+                <td><code>Presentar y Salir</code></td>
+                <td>Santa Fe Province</td>
+                <td>904, 921</td>
+                <td>$4.059,00</td>
+                <td>vacio</td>
+                <td></td>
+                <td></td>
+                <td>No</td>
+                <td class="dgr-si">Sí</td>
+            </tr><tr>
                 <td class="mono">30717786099</td>
                 <td>2026-05-27 12:13:12</td>
                 <td><code>Presentar y Generar Pago</code></td>
@@ -43330,6 +43396,66 @@ Saludos :)</td>
                     </tr>
                 </thead>
                 <tbody><tr>
+                <td class="mono">23344119139</td>
+                <td>2026-05-27 20:36:12</td>
+                <td><code>Presentar y Generar Pago</code></td>
+                <td>La Rioja Province</td>
+                
+                <td>$419.540,81</td>
+                <td>5</td>
+                <td></td>
+                <td></td>
+                <td>No</td>
+                
+            </tr><tr>
+                <td class="mono">27171146599</td>
+                <td>2026-05-27 15:40:13</td>
+                <td><code>Presentar y Salir</code></td>
+                <td>Cordoba Province</td>
+                
+                <td>$0,00</td>
+                <td>vacio</td>
+                <td></td>
+                <td></td>
+                <td>No</td>
+                
+            </tr><tr>
+                <td class="mono">27338585360</td>
+                <td>2026-05-27 15:36:04</td>
+                <td><code>Presentar y Salir</code></td>
+                <td>Chubut Province</td>
+                
+                <td>$0,00</td>
+                <td>5</td>
+                <td></td>
+                <td></td>
+                <td>No</td>
+                
+            </tr><tr>
+                <td class="mono">20950071673</td>
+                <td>2026-05-27 15:21:41</td>
+                <td><code>Presentar y Salir</code></td>
+                <td>Rio Negro Province</td>
+                
+                <td>$0,00</td>
+                <td>4</td>
+                <td></td>
+                <td></td>
+                <td>No</td>
+                
+            </tr><tr>
+                <td class="mono">27062772463</td>
+                <td>2026-05-27 15:09:29</td>
+                <td><code>Presentar y Salir</code></td>
+                <td>Santa Fe Province</td>
+                
+                <td>$4.059,00</td>
+                <td>vacio</td>
+                <td></td>
+                <td></td>
+                <td>No</td>
+                
+            </tr><tr>
                 <td class="mono">30717786099</td>
                 <td>2026-05-27 12:13:12</td>
                 <td><code>Presentar y Generar Pago</code></td>
@@ -43501,7 +43627,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">27336638890</td>
                 <td>2026-05-26 12:05:11</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Rio Negro Province</td>
                 
                 <td>$10.181,00</td>
@@ -43513,18 +43639,6 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">27336638890</td>
                 <td>2026-05-26 12:05:11</td>
-                <td><code>Presentar y Generar Pago</code></td>
-                <td>Rio Negro Province</td>
-                
-                <td>$10.181,00</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>Sí</td>
-                
-            </tr><tr class="dup">
-                <td class="mono">27336638890</td>
-                <td>2026-05-26 12:04:54</td>
                 <td><code>Presentar y Salir</code></td>
                 <td>Rio Negro Province</td>
                 
@@ -43538,6 +43652,18 @@ Saludos :)</td>
                 <td class="mono">27336638890</td>
                 <td>2026-05-26 12:04:54</td>
                 <td><code>Presentar y Generar Pago</code></td>
+                <td>Rio Negro Province</td>
+                
+                <td>$10.181,00</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Sí</td>
+                
+            </tr><tr class="dup">
+                <td class="mono">27336638890</td>
+                <td>2026-05-26 12:04:54</td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Rio Negro Province</td>
                 
                 <td>$10.181,00</td>
@@ -43849,7 +43975,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">27391675517</td>
                 <td>2026-05-21 18:56:23</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Cordoba Province</td>
                 
                 <td>$20.850,00</td>
@@ -43861,7 +43987,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">27391675517</td>
                 <td>2026-05-21 18:56:23</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Cordoba Province</td>
                 
                 <td>$20.850,00</td>
@@ -44137,7 +44263,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">20395342070</td>
                 <td>2026-05-21 08:25:19</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Mendoza Province</td>
                 
                 <td>$120.873,02</td>
@@ -44149,7 +44275,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">20395342070</td>
                 <td>2026-05-21 08:25:19</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Mendoza Province</td>
                 
                 <td>$120.873,02</td>
@@ -47271,7 +47397,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">20251399205</td>
                 <td>2026-05-18 14:21:17</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Neuquen Province</td>
                 
                 <td>$79.200,00</td>
@@ -47283,7 +47409,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">20251399205</td>
                 <td>2026-05-18 14:21:17</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Neuquen Province</td>
                 
                 <td>$79.200,00</td>
@@ -51147,7 +51273,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">30719342880</td>
                 <td>2026-05-15 08:28:27</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Neuquen Province</td>
                 
                 <td>$260.677,92</td>
@@ -51159,7 +51285,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">30719342880</td>
                 <td>2026-05-15 08:28:27</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Neuquen Province</td>
                 
                 <td>$260.677,92</td>
@@ -57771,7 +57897,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">20236319939</td>
                 <td>2026-04-21 00:30:30</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Cordoba Province</td>
                 
                 <td>$914,60</td>
@@ -57783,7 +57909,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">20236319939</td>
                 <td>2026-04-21 00:30:30</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Cordoba Province</td>
                 
                 <td>$914,60</td>
@@ -61947,7 +62073,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">20282405564</td>
                 <td>2026-04-15 13:41:19</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Santa Fe Province</td>
                 
                 <td>$53.345,45</td>
@@ -61959,7 +62085,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">20282405564</td>
                 <td>2026-04-15 13:41:19</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Santa Fe Province</td>
                 
                 <td>$53.345,45</td>
@@ -70611,7 +70737,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">27961443461</td>
                 <td>2026-03-12 13:39:37</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Neuquen Province</td>
                 
                 <td>$47.322,00</td>
@@ -70623,7 +70749,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">27961443461</td>
                 <td>2026-03-12 13:39:37</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Neuquen Province</td>
                 
                 <td>$47.322,00</td>
@@ -79288,7 +79414,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">30708332891</td>
                 <td>2026-02-13 13:04:51</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Cordoba Province</td>
                 
                 <td>$534,52</td>
@@ -79300,7 +79426,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">30708332891</td>
                 <td>2026-02-13 13:04:51</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Cordoba Province</td>
                 
                 <td>$534,52</td>
@@ -81677,7 +81803,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">20163926041</td>
                 <td>2026-02-10 16:45:21</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Cordoba Province</td>
                 
                 <td>$17.582,37</td>
@@ -81689,7 +81815,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">20163926041</td>
                 <td>2026-02-10 16:45:21</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Cordoba Province</td>
                 
                 <td>$17.582,37</td>
@@ -82841,7 +82967,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">20431308585</td>
                 <td>2026-02-06 11:40:05</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Neuquen Province</td>
                 
                 <td>$35.458,57</td>
@@ -82853,7 +82979,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">20431308585</td>
                 <td>2026-02-06 11:40:05</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Neuquen Province</td>
                 
                 <td>$35.458,57</td>
@@ -83762,18 +83888,6 @@ Saludos :)</td>
                 <td></td>
                 <td>No</td>
                 
-            </tr><tr>
-                <td class="mono">30714566438</td>
-                <td>2026-01-20 15:06:54</td>
-                <td><code>Presentar y Generar Pago</code></td>
-                <td>Mendoza Province</td>
-                
-                <td>$31.574,33</td>
-                <td>5</td>
-                <td></td>
-                <td></td>
-                <td>No</td>
-                
             </tr><tr class="dup">
                 <td class="mono">30714566438</td>
                 <td>2026-01-20 15:06:54</td>
@@ -83785,6 +83899,18 @@ Saludos :)</td>
                 <td></td>
                 <td></td>
                 <td>Sí</td>
+                
+            </tr><tr>
+                <td class="mono">30714566438</td>
+                <td>2026-01-20 15:06:54</td>
+                <td><code>Presentar y Generar Pago</code></td>
+                <td>Mendoza Province</td>
+                
+                <td>$31.574,33</td>
+                <td>5</td>
+                <td></td>
+                <td></td>
+                <td>No</td>
                 
             </tr><tr class="dup">
                 <td class="mono">30714566438</td>
@@ -85337,7 +85463,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">30718199413</td>
                 <td>2026-01-15 17:08:37</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Mendoza Province</td>
                 
                 <td>$645.720,31</td>
@@ -85349,7 +85475,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">30718199413</td>
                 <td>2026-01-15 17:08:37</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Mendoza Province</td>
                 
                 <td>$645.720,31</td>
@@ -85577,7 +85703,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">30712549072</td>
                 <td>2026-01-15 15:30:29</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Quebec</td>
                 
                 <td>$1.319.844,74</td>
@@ -85589,7 +85715,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">30712549072</td>
                 <td>2026-01-15 15:30:29</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Quebec</td>
                 
                 <td>$1.319.844,74</td>
@@ -89838,7 +89964,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">20087854060</td>
                 <td>2026-01-09 11:03:48</td>
-                <td><code>Presentar y Generar Pago</code></td>
+                <td><code>Presentar y Salir</code></td>
                 <td>Buenos Aires</td>
                 
                 <td>$2.159,30</td>
@@ -89850,7 +89976,7 @@ Saludos :)</td>
             </tr><tr class="dup">
                 <td class="mono">20087854060</td>
                 <td>2026-01-09 11:03:48</td>
-                <td><code>Presentar y Salir</code></td>
+                <td><code>Presentar y Generar Pago</code></td>
                 <td>Buenos Aires</td>
                 
                 <td>$2.159,30</td>
@@ -90966,8 +91092,8 @@ Chart.defaults.color = getThemeColors().textColor;
 
 /* Datos base (período completo) */
 const RAW_FECHAS = ["2026-01-01", "2026-01-02", "2026-01-03", "2026-01-05", "2026-01-06", "2026-01-07", "2026-01-08", "2026-01-09", "2026-01-10", "2026-01-11", "2026-01-12", "2026-01-13", "2026-01-14", "2026-01-15", "2026-01-16", "2026-01-17", "2026-01-18", "2026-01-19", "2026-01-20", "2026-01-21", "2026-01-22", "2026-01-23", "2026-01-27", "2026-01-29", "2026-02-01", "2026-02-02", "2026-02-03", "2026-02-04", "2026-02-05", "2026-02-06", "2026-02-07", "2026-02-08", "2026-02-09", "2026-02-10", "2026-02-11", "2026-02-12", "2026-02-13", "2026-02-14", "2026-02-15", "2026-02-16", "2026-02-17", "2026-02-18", "2026-02-19", "2026-02-20", "2026-02-21", "2026-02-22", "2026-02-23", "2026-02-24", "2026-02-25", "2026-02-27", "2026-03-01", "2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05", "2026-03-06", "2026-03-07", "2026-03-09", "2026-03-10", "2026-03-11", "2026-03-12", "2026-03-13", "2026-03-14", "2026-03-15", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20", "2026-03-25", "2026-03-26", "2026-03-28", "2026-04-01", "2026-04-02", "2026-04-03", "2026-04-04", "2026-04-05", "2026-04-06", "2026-04-07", "2026-04-08", "2026-04-14", "2026-04-15", "2026-04-16", "2026-04-17", "2026-04-18", "2026-04-19", "2026-04-20", "2026-04-21", "2026-04-22", "2026-04-23", "2026-04-24", "2026-04-27", "2026-04-28", "2026-04-29", "2026-04-30", "2026-05-01", "2026-05-02", "2026-05-03", "2026-05-04", "2026-05-05", "2026-05-06", "2026-05-07", "2026-05-08", "2026-05-09", "2026-05-10", "2026-05-11", "2026-05-12", "2026-05-13", "2026-05-14", "2026-05-15", "2026-05-16", "2026-05-17", "2026-05-18", "2026-05-19", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-23", "2026-05-24", "2026-05-25", "2026-05-26", "2026-05-27"];
-const RAW_PRES = [1, 9, 1, 18, 8, 6, 22, 18, 12, 7, 63, 74, 93, 84, 38, 5, 6, 33, 20, 9, 2, 6, 2, 0, 2, 5, 10, 6, 10, 14, 10, 6, 37, 44, 45, 77, 78, 16, 6, 22, 38, 73, 44, 33, 3, 2, 6, 4, 7, 6, 5, 10, 7, 9, 16, 12, 5, 39, 54, 88, 108, 90, 15, 15, 102, 57, 29, 8, 9, 6, 2, 1, 5, 6, 3, 2, 2, 15, 20, 4, 107, 185, 103, 62, 9, 4, 45, 11, 9, 4, 6, 2, 3, 1, 1, 1, 1, 1, 11, 24, 10, 24, 19, 7, 12, 52, 90, 95, 118, 151, 23, 19, 137, 92, 55, 25, 6, 1, 2, 2, 12, 2];
-const RAW_ENV = [1, 6, 0, 14, 3, 4, 14, 9, 10, 3, 45, 40, 60, 63, 23, 5, 5, 23, 14, 8, 2, 6, 1, 0, 1, 3, 7, 4, 6, 9, 9, 5, 18, 30, 28, 50, 50, 14, 4, 17, 25, 50, 30, 26, 1, 3, 2, 3, 7, 3, 0, 5, 6, 7, 10, 6, 4, 28, 30, 55, 65, 60, 7, 10, 78, 43, 21, 8, 8, 6, 2, 1, 2, 7, 3, 1, 1, 11, 12, 2, 77, 137, 64, 45, 9, 4, 31, 8, 7, 3, 5, 1, 3, 1, 1, 0, 1, 1, 5, 14, 8, 18, 12, 7, 8, 36, 60, 53, 83, 97, 15, 15, 99, 62, 39, 12, 3, 0, 1, 2, 10, 2];
+const RAW_PRES = [1, 9, 1, 18, 8, 6, 22, 18, 12, 7, 63, 74, 93, 84, 38, 5, 6, 33, 20, 9, 2, 6, 2, 0, 2, 5, 10, 6, 10, 14, 10, 6, 37, 44, 45, 77, 78, 16, 6, 22, 38, 73, 44, 33, 3, 2, 6, 4, 7, 6, 5, 10, 7, 9, 16, 12, 5, 39, 54, 88, 108, 90, 15, 15, 102, 57, 29, 8, 9, 6, 2, 1, 5, 6, 3, 2, 2, 15, 20, 4, 107, 185, 103, 62, 9, 4, 45, 11, 9, 4, 6, 2, 3, 1, 1, 1, 1, 1, 11, 24, 10, 24, 19, 7, 12, 52, 90, 95, 118, 151, 23, 19, 137, 92, 55, 25, 6, 1, 2, 2, 12, 7];
+const RAW_ENV = [1, 6, 0, 14, 3, 4, 14, 9, 10, 3, 45, 40, 60, 63, 23, 5, 5, 23, 14, 8, 2, 6, 1, 0, 1, 3, 7, 4, 6, 9, 9, 5, 18, 30, 28, 50, 50, 14, 4, 17, 25, 50, 30, 26, 1, 3, 2, 3, 7, 3, 0, 5, 6, 7, 10, 6, 4, 28, 30, 55, 65, 60, 7, 10, 78, 43, 21, 8, 8, 6, 2, 1, 2, 7, 3, 1, 1, 11, 12, 2, 77, 137, 64, 45, 9, 4, 31, 8, 7, 3, 5, 1, 3, 1, 1, 0, 1, 1, 5, 14, 8, 18, 12, 7, 8, 36, 60, 53, 83, 97, 15, 15, 99, 62, 39, 12, 3, 0, 1, 2, 10, 7];
 const RAW_CERR = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 72, 72, 31, 2, 6, 32, 15, 7, 0, 0, 2, 3, 0, 0, 0, 0, 3, 4, 1, 1, 11, 9, 11, 24, 21, 1, 2, 3, 7, 13, 12, 5, 1, 0, 2, 0, 0, 1, 4, 3, 1, 1, 4, 4, 0, 6, 19, 21, 26, 20, 8, 0, 19, 6, 6, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 4, 3, 1, 23, 37, 30, 13, 0, 0, 9, 2, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 5, 11, 0, 5, 8, 0, 3, 9, 25, 33, 28, 41, 8, 5, 24, 18, 6, 7, 3, 0, 0, 0, 2, 0];
 const STOPWORDS = new Set(["a", "al", "algunos", "ante", "antes", "bien", "como", "con", "contra", "cual", "cuando", "de", "del", "desde", "donde", "durante", "e", "el", "ella", "ellos", "en", "entre", "es", "esa", "ese", "eso", "esta", "este", "esto", "estos", "est\u00e1", "fue", "ha", "haber", "hacer", "hasta", "hay", "la", "las", "le", "les", "lo", "los", "me", "mi", "mucho", "muchos", "muy", "m\u00e1s", "nada", "ni", "no", "nos", "o", "otra", "otras", "otro", "otros", "para", "pero", "poco", "poder", "por", "porque", "que", "quien", "quienes", "qu\u00e9", "se", "ser", "si", "sin", "sobre", "son", "su", "sus", "tambi\u00e9n", "tanto", "tengo", "tiene", "todo", "todos", "un", "una", "uno", "unos", "y", "ya", "yo", "\u00e9l"]);
 
