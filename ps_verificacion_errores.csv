@@ -107,6 +107,11 @@
 30718877403,2026-04-19 18:13:03,Buenos Aires,,Error El total distribuido debe ser igual a la base imponible,2
 33718997149,2026-04-16 11:07:43,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
 20064499042,2026-05-16 00:02:52,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+20065514231,2026-05-28 08:18:27,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+20065514231,2026-05-28 08:24:36,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+20065514231,2026-05-28 08:34:40,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+20065514231,2026-05-28 09:08:52,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+20065514231,2026-05-28 09:11:00,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 20071901719,2026-05-19 18:34:46,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
 20071901719,2026-05-19 18:35:37,Santa Fe Province,"$225.947,10","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 3.997.702,44 con e",2
 20102347839,2026-05-15 13:08:01,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
@@ -293,6 +298,7 @@
 30717912922,2026-05-14 11:37:13,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
 30718111613,2026-05-19 09:23:03,Salta Province,,Error El total distribuido debe ser igual a la base imponible,2
 30718111613,2026-05-19 09:23:19,Salta Province,,Error El total distribuido debe ser igual a la base imponible,2
+30718185064,2026-05-28 09:33:23,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 30718199413,2026-05-14 11:20:21,Mendoza Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 30718423135,2026-05-18 09:57:27,Cordoba Province,"$467.147,80","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
 30718543556,2026-05-18 23:55:36,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
