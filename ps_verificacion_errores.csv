@@ -160,6 +160,7 @@
 20286360956,2026-05-21 17:05:37,Cordoba Province,,Error No se pudo conectar con el servidor,2
 20286360956,2026-05-21 17:05:55,Cordoba Province,,Error No se pudo conectar con el servidor,2
 20291544577,2026-05-18 15:05:51,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,2
+20291544577,2026-06-03 12:20:18,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,2
 20293130079,2026-05-13 15:54:44,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
 20293130079,2026-05-13 15:55:14,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
 20293130079,2026-05-13 15:55:17,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
@@ -284,6 +285,9 @@
 30711924961,2026-05-13 11:15:18,Rio Negro Province,"$0,00",Error No se pudo conectar con el servidor,2
 30712142878,2026-05-18 09:16:14,Salta Province,"$1.892.621,94","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
 30712142878,2026-05-18 09:16:21,Salta Province,"$1.892.621,94","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30712242341,2026-06-03 08:43:07,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+30712242341,2026-06-03 09:48:35,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+30712242341,2026-06-03 09:49:52,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 30714432024,2026-05-12 14:35:35,Santa Fe Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 30714432024,2026-05-12 14:35:39,Santa Fe Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 30714432024,2026-05-12 14:35:43,Santa Fe Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
