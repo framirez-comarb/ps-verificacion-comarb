@@ -364,6 +364,12 @@
 27345494559,2026-05-18 08:21:59,Entre Rios Province,,Error Problemas para obtener sus deducciones,2
 27345494559,2026-05-18 08:22:38,Entre Rios Province,,Error Problemas para obtener sus deducciones,2
 27351437826,2026-06-17 13:07:00,Mendoza Province,"$73.100,00",Error Debes completar los datos del firmante para continuar.,2
+27379182122,2026-06-22 22:47:20,La Rioja Province,,Error El total distribuido debe ser igual a la base imponible,2
+27379182122,2026-06-22 22:47:48,La Rioja Province,,Error El total distribuido debe ser igual a la base imponible,2
+27379182122,2026-06-22 22:48:06,La Rioja Province,,Error El total distribuido debe ser igual a la base imponible,2
+27379182122,2026-06-22 22:48:58,La Rioja Province,,Error El total distribuido debe ser igual a la base imponible,2
+27379182122,2026-06-22 22:49:05,La Rioja Province,,Error El total distribuido debe ser igual a la base imponible,2
+27379182122,2026-06-22 22:49:11,La Rioja Province,,Error El total distribuido debe ser igual a la base imponible,2
 27381178779,2026-06-15 11:30:59,Buenos Aires,"$9.230,00",Error Debes completar los datos del firmante para continuar.,2
 27417289165,2026-06-15 16:22:28,Buenos Aires,"$0,00",Error Debes completar los datos del firmante para continuar.,2
 27422050863,2026-05-16 16:44:38,Misiones Province,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
@@ -481,6 +487,13 @@
 30717507882,2026-06-14 11:46:12,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,2
 30717551520,2026-05-29 16:39:37,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 30717764133,2026-06-12 15:20:45,Neuquen Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
+30717786099,2026-06-22 18:59:26,Mendoza Province,"$0,00","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30717786099,2026-06-22 19:01:19,Mendoza Province,"$0,00","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30717786099,2026-06-22 19:01:27,Mendoza Province,"$0,00","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30717786099,2026-06-22 19:03:50,Mendoza Province,"$0,00","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30717786099,2026-06-22 19:06:43,Mendoza Province,"$0,00","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30717786099,2026-06-22 19:06:59,Mendoza Province,"$0,00","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30717786099,2026-06-22 19:08:16,Mendoza Province,"$0,00","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
 30717840344,2026-06-15 10:53:29,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 30717840344,2026-06-15 10:54:49,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 30717912922,2026-05-14 11:37:13,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
