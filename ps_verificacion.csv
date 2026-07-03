@@ -1,34 +1,34 @@
 ﻿cuit,exact_timestamp,nombre_evento,region,total,texto_del_error,numero_eventos,estrellas_valor,texto_feedback,fecha,duplicado,verificada_dgr,jurisdicciones,jurisdicciones_check
-(invalido),2026-05-11 16:49:13,PS_boton_presentar_y_salir,Santa Fe Province,"$0,00",,1,5,,2026-05-11,No,No,,2026-07-02
+(invalido),2026-05-11 16:49:13,PS_boton_presentar_y_salir,Santa Fe Province,"$0,00",,1,5,,2026-05-11,No,No,,2026-07-03
 (invalido),2026-05-11 16:49:07,PS_boton_presentar_y_salir,Santa Fe Province,"$0,00",,1,5,,2026-05-11,Sí,,,
-(invalido),2026-05-13 14:50:33,PS_boton_presentar_y_generar_pago,Mendoza Province,"$46.852,54",,1,3,,2026-05-13,No,No,,2026-07-02
+(invalido),2026-05-13 14:50:33,PS_boton_presentar_y_generar_pago,Mendoza Province,"$46.852,54",,1,3,,2026-05-13,No,No,,2026-07-03
 (invalido),2026-05-13 12:38:30,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,3,,2026-05-13,Sí,,,
 (invalido),2026-05-13 12:38:21,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,3,,2026-05-13,Sí,,,
-(invalido),2026-05-15 23:25:11,PS_boton_presentar_y_salir,Neuquen Province,"$93.913,83",,1,4,,2026-05-15,No,No,,2026-07-02
+(invalido),2026-05-15 23:25:11,PS_boton_presentar_y_salir,Neuquen Province,"$93.913,83",,1,4,,2026-05-15,No,No,,2026-07-03
 (invalido),2026-05-15 19:15:48,PS_boton_presentar_y_salir,Mendoza Province,"$83.618,30",,1,4,,2026-05-15,Sí,,,
 (invalido),2026-05-15 10:49:36,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,4,,2026-05-15,Sí,,,
 (invalido),2026-05-15 10:39:20,PS_boton_presentar_y_salir,Salta Province,"$0,00",,1,4,,2026-05-15,Sí,,,
 (invalido),2026-05-15 09:53:57,PS_boton_presentar_y_generar_pago,Rio Negro Province,"$275.773,53",,1,4,,2026-05-15,Sí,,,
-(invalido),2026-05-16 11:01:23,PS_boton_presentar_y_generar_pago,Neuquen Province,"$137.630,54",,1,,,2026-05-16,No,No,,2026-07-02
-(invalido),2026-05-18 13:02:50,PS_boton_presentar_y_generar_pago,Santa Fe Province,"$837.884,30",,1,5,,2026-05-18,No,No,,2026-07-02
+(invalido),2026-05-16 11:01:23,PS_boton_presentar_y_generar_pago,Neuquen Province,"$137.630,54",,1,,,2026-05-16,No,No,,2026-07-03
+(invalido),2026-05-18 13:02:50,PS_boton_presentar_y_generar_pago,Santa Fe Province,"$837.884,30",,1,5,,2026-05-18,No,No,,2026-07-03
 (invalido),2026-05-18 11:27:55,PS_boton_presentar_y_generar_pago,Salta Province,"$24.208,03",,1,5,,2026-05-18,Sí,,,
-(invalido),2026-05-20 13:09:43,PS_boton_presentar_y_salir,Neuquen Province,"$0,00",,1,5,,2026-05-20,No,No,,2026-07-02
-(invalido),2026-06-04 10:55:00,PS_boton_presentar_y_generar_pago,Neuquen Province,"$107.050,10",,1,5,,2026-06-04,No,No,,2026-07-02
-(invalido),2026-06-05 09:23:07,PS_boton_presentar_y_generar_pago,Santa Fe Province,"$51.742,47",,1,5,,2026-06-05,No,No,,2026-07-02
-(invalido),2026-06-07 11:57:14,PS_boton_presentar_y_salir,Santa Fe Province,"$0,00",,1,5,,2026-06-07,No,No,,2026-07-02
-(invalido),2026-06-10 14:27:14,PS_boton_presentar_y_generar_pago,Neuquen Province,"$169.857,06",,1,5,,2026-06-10,No,No,,2026-07-02
+(invalido),2026-05-20 13:09:43,PS_boton_presentar_y_salir,Neuquen Province,"$0,00",,1,5,,2026-05-20,No,No,,2026-07-03
+(invalido),2026-06-04 10:55:00,PS_boton_presentar_y_generar_pago,Neuquen Province,"$107.050,10",,1,5,,2026-06-04,No,No,,2026-07-03
+(invalido),2026-06-05 09:23:07,PS_boton_presentar_y_generar_pago,Santa Fe Province,"$51.742,47",,1,5,,2026-06-05,No,No,,2026-07-03
+(invalido),2026-06-07 11:57:14,PS_boton_presentar_y_salir,Santa Fe Province,"$0,00",,1,5,,2026-06-07,No,No,,2026-07-03
+(invalido),2026-06-10 14:27:14,PS_boton_presentar_y_generar_pago,Neuquen Province,"$169.857,06",,1,5,,2026-06-10,No,No,,2026-07-03
 (invalido),2026-06-10 12:07:07,PS_boton_presentar_y_generar_pago,Santa Fe Province,"$137.710,36",,1,5,,2026-06-10,Sí,,,
 (invalido),2026-06-10 09:43:44,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,,2026-06-10,Sí,,,
 (invalido),2026-06-10 09:10:32,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-06-10,Sí,,,
-(invalido),2026-06-12 11:52:47,PS_boton_presentar_y_generar_pago,Mendoza Province,"$10.464,00",,1,,,2026-06-12,No,No,,2026-07-02
-(invalido),2026-06-15 14:52:54,PS_boton_presentar_y_salir,Neuquen Province,"$0,00",,1,vacio,bien,2026-06-15,No,No,,2026-07-02
+(invalido),2026-06-12 11:52:47,PS_boton_presentar_y_generar_pago,Mendoza Province,"$10.464,00",,1,,,2026-06-12,No,No,,2026-07-03
+(invalido),2026-06-15 14:52:54,PS_boton_presentar_y_salir,Neuquen Province,"$0,00",,1,vacio,bien,2026-06-15,No,No,,2026-07-03
 (invalido),2026-06-15 14:52:46,PS_boton_presentar_y_salir,Neuquen Province,"$0,00",,1,vacio,bien,2026-06-15,Sí,,,
-(invalido),2026-06-16 16:31:30,PS_boton_presentar_y_generar_pago,Santa Fe Province,"$5.961,54",,1,5,,2026-06-16,No,No,,2026-07-02
+(invalido),2026-06-16 16:31:30,PS_boton_presentar_y_generar_pago,Santa Fe Province,"$5.961,54",,1,5,,2026-06-16,No,No,,2026-07-03
 (invalido),2026-06-16 13:36:38,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-06-16,Sí,,,
 (invalido),2026-06-16 10:21:42,PS_boton_presentar_y_generar_pago,Mendoza Province,"$79.000,00",,1,5,,2026-06-16,Sí,,,
-(invalido),2026-06-19 13:05:39,PS_boton_presentar_y_generar_pago,Rio Negro Province,"$49.068,96",,1,5,,2026-06-19,No,No,,2026-07-02
-(invalido),2026-06-26 08:52:48,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-06-26,No,No,,2026-07-02
-1694516560,2026-06-11 11:47:36,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,,,2026-06-11,No,No,,2026-07-02
+(invalido),2026-06-19 13:05:39,PS_boton_presentar_y_generar_pago,Rio Negro Province,"$49.068,96",,1,5,,2026-06-19,No,No,,2026-07-03
+(invalido),2026-06-26 08:52:48,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-06-26,No,No,,2026-07-03
+1694516560,2026-06-11 11:47:36,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,,,2026-06-11,No,No,,2026-07-03
 20026526877,2026-06-16 10:18:46,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,4,,2026-06-16,No,Sí,"915, 916",2026-06-16
 20043862864,2026-05-13 16:21:06,PS_boton_presentar_y_salir,Buenos Aires Province,"$0,00",,1,5,,2026-05-13,No,Sí,"904, 911",2026-06-15
 20043862864,2026-06-16 16:43:56,PS_boton_presentar_y_generar_pago,Buenos Aires Province,"$122.530,00",,1,,,2026-06-16,No,Sí,"904, 911",2026-06-17
@@ -73,7 +73,7 @@
 20061437259,2026-03-02 08:21:49,PS_boton_presentar_y_generar_pago,Santa Fe Province,"$11.385,49",,1,,,2026-03-02,No,Sí,"904, 921",2026-06-15
 20061437259,2026-04-01 12:48:03,PS_boton_presentar_y_generar_pago,Santa Fe Province,"$10.750,00",,1,,,2026-04-01,No,Sí,"904, 921",2026-06-15
 20061437259,2026-05-04 11:39:02,PS_boton_presentar_y_generar_pago,Santa Fe Province,"$10.750,00",,1,,,2026-05-04,No,Sí,"904, 921",2026-06-15
-20061437259,2026-06-02 13:24:16,PS_boton_presentar_y_generar_pago,Santa Fe Province,"$10.750,00",,1,5,,2026-06-02,No,Sí,"904, 921",2026-06-02
+20061437259,2026-06-02 13:24:16,PS_boton_presentar_y_generar_pago,Santa Fe Province,"$10.750,00",,1,5,,2026-06-02,No,Sí,"904, 921",2026-07-03
 20061445375,2026-06-08 19:16:01,PS_boton_presentar_y_generar_pago,Santa Fe Province,"$120.318,33",,1,vacio,"Excelente, muy práctica.-",2026-06-08,No,Sí,"904, 921",2026-06-09
 20061821202,2026-03-12 08:34:04,PS_boton_presentar_y_salir,Santa Fe Province,"$0,00",,1,,,2026-03-12,No,Sí,"904, 921",2026-06-15
 20061821202,2026-06-11 07:40:23,PS_boton_presentar_y_salir,Santa Fe Province,"$0,00",,1,,,2026-06-11,No,Sí,"904, 921",2026-06-12
@@ -82,6 +82,8 @@
 20062725312,2026-01-05 12:54:24,PS_boton_presentar_y_salir,Cordoba Province,"$1.698,06",,1,5,,2026-01-05,Sí,,,
 20062725312,2026-02-06 16:14:52,PS_boton_presentar_y_salir,Cordoba Province,"$1.698,06",,1,5,,2026-02-06,No,Sí,"904, 921",2026-06-15
 20062725312,2026-06-03 00:37:07,PS_boton_presentar_y_salir,Cordoba Province,"$1.950,00",,1,5,,2026-06-03,No,Sí,"904, 921",2026-06-03
+20062725312,2026-07-03 00:29:46,PS_boton_presentar_y_salir,Cordoba Province,"$1.950,00",,1,5,,2026-07-03,No,Sí,"904, 921",2026-07-03
+20062830604,2026-07-02 19:58:31,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,.,2026-07-02,No,Sí,"904, 921",2026-07-03
 20062842033,2026-05-12 17:49:29,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,,2026-05-12,No,Sí,"904, 921",2026-06-15
 20062842033,2026-05-12 17:49:23,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,,2026-05-12,Sí,,,
 20062842033,2026-06-12 13:42:54,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,,2026-06-12,No,Sí,"904, 921",2026-06-15
@@ -92,7 +94,7 @@
 20062857642,2026-04-01 18:08:07,PS_boton_presentar_y_generar_pago,Cordoba Province,"$37.510,00",,1,5,,2026-04-01,No,Sí,"904, 921",2026-06-15
 20062857642,2026-05-06 10:30:52,PS_boton_presentar_y_salir,Cordoba Province,"$37.510,00",,1,5,,2026-05-06,No,Sí,"904, 921",2026-06-15
 20062857642,2026-05-06 10:30:43,PS_boton_presentar_y_salir,Cordoba Province,"$37.510,00",,1,5,,2026-05-06,Sí,,,
-20062857642,2026-06-02 09:39:06,PS_boton_presentar_y_salir,Cordoba Province,"$27.036,62",,1,5,,2026-06-02,No,Sí,"904, 921",2026-06-02
+20062857642,2026-06-02 09:39:06,PS_boton_presentar_y_salir,Cordoba Province,"$27.036,62",,1,5,,2026-06-02,No,Sí,"904, 921",2026-07-03
 20062875802,2026-04-16 21:51:23,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,MUY BUENO,2026-04-16,No,Sí,"904, 921",2026-06-15
 20062875802,2026-05-16 14:07:02,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,,2026-05-16,No,Sí,"904, 921",2026-06-18
 20062875802,2026-06-13 09:09:27,PS_boton_presentar_y_generar_pago,Cordoba Province,"$47.642,00",,1,5,,2026-06-13,No,Sí,"904, 921",2026-06-15
@@ -995,7 +997,7 @@
 20231728717,2026-03-14 20:27:38,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,,,2026-03-14,No,Sí,"915, 916",2026-06-15
 20231728717,2026-05-21 15:06:37,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,,,2026-05-21,No,Sí,"915, 916",2026-06-22
 20231728717,2026-06-16 13:02:01,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,,,2026-06-16,No,Sí,"915, 916",2026-06-16
-20232523590,2026-06-02 09:59:38,PS_boton_presentar_y_generar_pago,Cordoba Province,"$73.869,15",,1,5,,2026-06-02,No,Sí,"921, 920",2026-06-02
+20232523590,2026-06-02 09:59:38,PS_boton_presentar_y_generar_pago,Cordoba Province,"$73.869,15",,1,5,,2026-06-02,No,Sí,"921, 920",2026-07-03
 20233489809,2026-01-15 08:30:01,PS_boton_presentar_y_generar_pago,Quebec,"$41.361,51",,1,5,sin inconvenientes,2026-01-15,No,Sí,"915, 916",2026-06-15
 20233489809,2026-02-07 22:09:12,PS_boton_presentar_y_salir,Quebec,"$0,00",,1,5,,2026-02-07,No,Sí,"915, 916",2026-06-15
 20233489809,2026-03-16 23:54:30,PS_boton_presentar_y_salir,Quebec,"$0,00",,1,5,,2026-03-16,No,Sí,"915, 916",2026-06-15
@@ -1020,7 +1022,7 @@
 20234661702,2026-04-06 10:23:58,PS_boton_presentar_y_generar_pago,Cordoba Province,"$427.276,39",,1,,,2026-04-06,No,Sí,"904, 922",2026-06-15
 20234661702,2026-05-15 10:01:58,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,,2026-05-15,No,Sí,"904, 922",2026-06-15
 20234661702,2026-05-15 10:01:52,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,,2026-05-15,Sí,,,
-20234661702,2026-06-02 09:29:12,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,vacio,,2026-06-02,No,Sí,"904, 922",2026-06-02
+20234661702,2026-06-02 09:29:12,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,vacio,,2026-06-02,No,Sí,"904, 922",2026-07-03
 20235208998,2026-03-18 12:01:22,PS_boton_presentar_y_generar_pago,Santa Fe Province,"$49.584,15",,1,vacio,,2026-03-18,No,Sí,"904, 921",2026-06-15
 20235345693,2026-01-15 12:11:58,PS_boton_presentar_y_generar_pago,Cordoba Province,"$517.584,60",,1,vacio,,2026-01-15,No,Sí,"904, 921",2026-06-15
 20235345693,2026-03-13 13:19:16,PS_boton_presentar_y_generar_pago,Cordoba Province,"$485.376,86",,1,vacio,,2026-03-13,No,Sí,"904, 921",2026-06-15
@@ -1127,7 +1129,7 @@
 20247564099,2026-03-11 13:28:38,PS_boton_presentar_y_generar_pago,Neuquen Province,"$169.512,27",,1,,,2026-03-11,No,Sí,"915, 916",2026-06-15
 20247564099,2026-05-14 10:59:42,PS_boton_presentar_y_salir,Neuquen Province,"$0,00",,1,,,2026-05-14,No,Sí,"915, 916",2026-06-15
 20247837745,2026-03-10 11:36:03,PS_boton_presentar_y_generar_pago,Cordoba Province,"$577.884,27",,1,5,,2026-03-10,No,Sí,"904, 919",2026-06-15
-20248780798,2026-06-02 09:36:26,PS_boton_presentar_y_generar_pago,Chubut Province,"$42.909,02",,1,5,,2026-06-02,No,Sí,"904, 907",2026-06-02
+20248780798,2026-06-02 09:36:26,PS_boton_presentar_y_generar_pago,Chubut Province,"$42.909,02",,1,5,,2026-06-02,No,Sí,"904, 907",2026-07-03
 20249013847,2026-01-14 14:17:04,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,3,,2026-01-14,No,Sí,"904, 921",2026-06-15
 20249013847,2026-02-18 15:47:58,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,4,,2026-02-18,No,Sí,"904, 921",2026-06-15
 20249013847,2026-02-18 15:47:50,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,4,,2026-02-18,Sí,,,
@@ -1349,6 +1351,7 @@
 20286360956,2026-05-21 17:06:34,PS_boton_presentar_y_generar_pago,Cordoba Province,"$214.378,84",,1,5,,2026-05-21,No,Sí,"904, 921",2026-06-22
 20286463372,2026-06-12 16:00:27,PS_boton_presentar_y_generar_pago,Jujuy Province,"$50.076,31",,1,5,,2026-06-12,No,Sí,"901, 910, 917",2026-06-15
 20287480475,2026-01-14 11:45:26,PS_boton_presentar_y_generar_pago,Quebec,"$11.287,60",,1,,,2026-01-14,No,Sí,"915, 916",2026-06-15
+20287754443,2026-07-02 22:38:04,PS_boton_presentar_y_salir,Santa Fe Province,"$10.750,00",,1,5,,2026-07-02,No,Sí,"904, 921",2026-07-03
 20287876654,2026-04-15 08:36:34,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,,,2026-04-15,No,Sí,"904, 921",2026-06-15
 20287876654,2026-05-15 08:52:50,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,,,2026-05-15,No,Sí,"904, 921",2026-06-15
 20287876654,2026-06-17 08:41:38,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,,,2026-06-17,No,Sí,"904, 921",2026-06-17
@@ -1474,7 +1477,7 @@
 20310760235,2026-04-16 10:02:54,PS_boton_presentar_y_generar_pago,Buenos Aires,"$36.371,17",,1,,,2026-04-16,No,Sí,"915, 916",2026-06-15
 20310760235,2026-05-18 22:25:46,PS_boton_presentar_y_generar_pago,Buenos Aires,"$248,26",,1,5,,2026-05-18,No,Sí,"915, 916",2026-06-19
 20310760235,2026-06-15 19:20:33,PS_boton_presentar_y_salir,Puerto Plata Province,"$0,00",,1,5,,2026-06-15,No,Sí,"915, 916",2026-06-16
-20313137644,2026-06-02 08:56:23,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,,2026-06-02,No,Sí,"904, 921",2026-06-02
+20313137644,2026-06-02 08:56:23,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,,2026-06-02,No,Sí,"904, 921",2026-07-03
 20313277152,2026-02-09 12:55:58,PS_boton_presentar_y_generar_pago,Rio Negro Province,"$124.430,84",,1,,,2026-02-09,No,Sí,"915, 916",2026-06-15
 20313310532,2026-02-19 12:07:40,PS_boton_presentar_y_generar_pago,Buenos Aires,"$3.741,88",,1,vacio,,2026-02-19,No,Sí,"915, 916",2026-06-15
 20313310532,2026-03-18 15:19:10,PS_boton_presentar_y_salir,Neuquen Province,"$0,00",,1,5,,2026-03-18,No,Sí,"915, 916",2026-06-15
@@ -1627,7 +1630,7 @@
 20352152057,2026-03-12 19:47:20,PS_boton_presentar_y_salir,State of Espirito Santo,"$0,00",,1,,,2026-03-12,No,Sí,"917, 921",2026-06-15
 20352152057,2026-04-16 11:33:59,PS_boton_presentar_y_salir,State of Espirito Santo,"$0,00",,1,,,2026-04-16,No,Sí,"917, 921",2026-06-15
 20352152057,2026-04-16 11:33:36,PS_boton_presentar_y_salir,State of Espirito Santo,"$0,00",,1,,,2026-04-16,Sí,,,
-20352697703,2026-05-26 17:21:20,PS_boton_presentar_y_generar_pago,Buenos Aires,"$231.000,00",,1,5,,2026-05-26,No,Sí,,2026-07-02
+20352697703,2026-05-26 17:21:20,PS_boton_presentar_y_generar_pago,Buenos Aires,"$231.000,00",,1,5,,2026-05-26,No,Sí,,2026-07-03
 20352764761,2026-03-14 15:00:50,PS_boton_presentar_y_salir,Rio Negro Province,"$4.054,55",,1,5,,2026-03-14,No,Sí,"915, 916",2026-06-15
 20352764761,2026-03-14 15:00:41,PS_boton_presentar_y_salir,Rio Negro Province,"$4.054,55",,1,5,,2026-03-14,Sí,,,
 20353120019,2026-05-18 19:33:03,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,Muy practico.,2026-05-18,No,Sí,"915, 916",2026-06-19
@@ -1680,7 +1683,7 @@
 20366267337,2026-03-12 11:36:24,PS_boton_presentar_y_salir,Buenos Aires,"$0,00",,1,vacio,,2026-03-12,Sí,,,
 20366267337,2026-04-14 13:32:40,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-04-14,No,Sí,"915, 916",2026-06-15
 20366267337,2026-04-14 13:32:34,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-04-14,Sí,,,
-20368359735,2026-06-02 07:49:16,PS_boton_presentar_y_salir,Chaco Province,"$0,00",,1,5,,2026-06-02,No,Sí,"921, 906",2026-06-02
+20368359735,2026-06-02 07:49:16,PS_boton_presentar_y_salir,Chaco Province,"$0,00",,1,5,,2026-06-02,No,Sí,"921, 906",2026-07-03
 20368412326,2026-04-16 11:25:46,PS_boton_presentar_y_generar_pago,Rio Negro Province,"$334.472,59",,1,4,,2026-04-16,No,Sí,"915, 916",2026-06-15
 20368524949,2026-01-14 11:35:26,PS_boton_presentar_y_salir,Buenos Aires Province,"$376.974,00",,1,5,,2026-01-14,No,Sí,"904, 911",2026-06-15
 20368524949,2026-02-11 10:45:24,PS_boton_presentar_y_salir,Buenos Aires Province,"$393.001,20",,1,5,,2026-02-11,No,Sí,"904, 911",2026-06-15
@@ -1764,7 +1767,7 @@
 20393240033,2026-04-23 12:51:52,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,,2026-04-23,No,Sí,"904, 911",2026-06-15
 20393240033,2026-05-13 08:21:12,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,,2026-05-13,No,Sí,"904, 911",2026-06-15
 20393240033,2026-06-16 09:40:54,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,,2026-06-16,No,Sí,"904, 911",2026-06-16
-20394433463,2026-06-02 07:26:50,PS_boton_presentar_y_salir,Neuquen Province,"$0,00",,1,5,,2026-06-02,No,Sí,"915, 916",2026-06-02
+20394433463,2026-06-02 07:26:50,PS_boton_presentar_y_salir,Neuquen Province,"$0,00",,1,5,,2026-06-02,No,Sí,"915, 916",2026-07-03
 20395341635,2026-06-05 12:42:32,PS_boton_presentar_y_generar_pago,San Luis Province,"$63.609,13",,1,vacio,,2026-06-05,No,Sí,"913, 919",2026-06-08
 20395342070,2026-05-21 08:26:06,PS_boton_presentar_y_generar_pago,Mendoza Province,"$120.873,02",,1,vacio,,2026-05-21,No,Sí,"904, 913",2026-06-22
 20395342070,2026-05-21 08:25:19,PS_boton_presentar_y_generar_pago,Mendoza Province,"$120.873,02",,1,vacio,,2026-05-21,Sí,,,
@@ -2073,6 +2076,8 @@
 23076154139,2026-05-26 12:09:19,PS_boton_presentar_y_salir,Chubut Province,"$0,00",,1,vacio,,2026-05-26,No,Sí,"907, 920",2026-06-26
 23076154139,2026-05-26 12:09:12,PS_boton_presentar_y_salir,Chubut Province,"$0,00",,1,vacio,,2026-05-26,Sí,,,
 23078838809,2026-04-03 17:37:29,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,.,2026-04-03,No,Sí,"904, 921",2026-06-15
+23078838809,2026-07-02 20:05:57,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,.,2026-07-02,No,Sí,"904, 921",2026-07-03
+23078838809,2026-07-02 20:05:48,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,.,2026-07-02,Sí,,,
 23081551979,2026-01-17 13:25:38,PS_boton_presentar_y_generar_pago,Rio Negro Province,"$40.899,39",,1,vacio,Excelente,2026-01-17,No,Sí,"915, 916",2026-06-15
 23081551979,2026-03-26 20:37:37,PS_boton_presentar_y_salir,Neuquen Province,"$39.401,81",,1,5,,2026-03-26,No,Sí,"915, 916",2026-06-15
 23081551979,2026-04-20 19:46:04,PS_boton_presentar_y_generar_pago,Neuquen Province,"$18.468,09",,1,5,,2026-04-20,No,Sí,"915, 916",2026-06-15
@@ -2096,7 +2101,7 @@
 23112444904,2026-05-07 21:33:59,PS_boton_presentar_y_generar_pago,Cordoba Province,"$78.010,00",,1,5,,2026-05-07,No,Sí,"904, 921",2026-06-15
 23112444904,2026-06-02 17:53:51,PS_boton_presentar_y_generar_pago,Cordoba Province,"$78.010,00",,1,5,,2026-06-02,No,Sí,"904, 921",2026-06-03
 23115054864,2026-04-15 20:50:40,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,4,,2026-04-15,No,Sí,"904, 918",2026-06-15
-23120514229,2026-06-02 09:25:14,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,2,5,,2026-06-02,No,Sí,"904, 921, 922",2026-06-02
+23120514229,2026-06-02 09:25:14,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,2,5,,2026-06-02,No,Sí,"904, 921, 922",2026-07-03
 23121355949,2026-04-15 12:15:38,PS_boton_presentar_y_generar_pago,Cordoba Province,"$15.380,63",,1,5,excelente y rapido,2026-04-15,No,Sí,"904, 911",2026-06-15
 23121355949,2026-06-16 12:13:46,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,,,2026-06-16,No,Sí,"904, 911",2026-06-16
 23122192644,2026-05-15 19:46:33,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,,,2026-05-15,No,Sí,"904, 921",2026-06-18
@@ -2139,6 +2144,7 @@
 23145355834,2026-02-06 16:24:18,PS_boton_presentar_y_salir,Cordoba Province,"$9.410,00",,1,5,,2026-02-06,No,Sí,"904, 921",2026-06-15
 23145355834,2026-05-06 21:00:58,PS_boton_presentar_y_salir,Cordoba Province,"$18.750,00",,1,5,,2026-05-06,No,Sí,"904, 921",2026-06-15
 23145355834,2026-06-03 00:45:21,PS_boton_presentar_y_salir,Cordoba Province,"$18.391,05",,1,5,,2026-06-03,No,Sí,"904, 921",2026-06-03
+23145355834,2026-07-03 00:20:07,PS_boton_presentar_y_salir,Cordoba Province,"$18.750,00",,1,5,,2026-07-03,No,Sí,"904, 921",2026-07-03
 23146748279,2026-04-15 08:28:33,PS_boton_presentar_y_salir,Jakarta,"$0,00",,1,5,,2026-04-15,No,Sí,"904, 921",2026-06-15
 23146902359,2026-02-13 16:12:35,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,,,2026-02-13,No,Sí,"904, 922",2026-06-15
 23146902359,2026-03-13 14:47:24,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,,2026-03-13,No,Sí,"904, 922",2026-06-15
@@ -2336,7 +2342,7 @@
 23414206964,2026-06-16 18:46:42,PS_boton_presentar_y_salir,Neuquen Province,"$0,00",,1,vacio,,2026-06-16,No,Sí,"915, 916",2026-06-17
 23439470194,2026-01-14 12:02:44,PS_boton_presentar_y_generar_pago,Buenos Aires Province,"$41.054,97",,1,,,2026-01-14,No,Sí,"915, 916",2026-06-15
 23439470194,2026-02-15 12:47:16,PS_boton_presentar_y_generar_pago,Buenos Aires Province,"$37.286,53",,1,,,2026-02-15,No,Sí,"915, 916",2026-06-15
-23449186559,2026-06-01 17:24:20,PS_boton_presentar_y_generar_pago,Buenos Aires Province,"$87.340,00",,1,5,,2026-06-01,No,Sí,"921, 922",2026-06-02
+23449186559,2026-06-01 17:24:20,PS_boton_presentar_y_generar_pago,Buenos Aires Province,"$87.340,00",,1,5,,2026-06-01,No,Sí,"921, 922",2026-07-03
 23451386069,2026-05-21 17:43:29,PS_boton_presentar_y_generar_pago,La Pampa Province,"$8.889,60",,1,5,,2026-05-21,No,Sí,"913, 912",2026-06-22
 23451386069,2026-06-18 08:27:36,PS_boton_presentar_y_generar_pago,La Pampa Province,"$10.272,00",,1,5,,2026-06-18,No,Sí,"913, 912",2026-06-18
 23452091429,2026-05-16 14:11:44,PS_boton_presentar_y_salir,Buenos Aires Province,"$0,00",,1,,,2026-05-16,No,Sí,"915, 916",2026-06-18
@@ -2451,6 +2457,7 @@
 27046392030,2026-01-05 13:25:28,PS_boton_presentar_y_salir,Cordoba Province,"$167.857,02",,1,5,,2026-01-05,No,Sí,"904, 921",2026-06-15
 27046392030,2026-02-06 13:10:48,PS_boton_presentar_y_generar_pago,Cordoba Province,"$44.434,24",,1,,,2026-02-06,No,Sí,"904, 921",2026-06-15
 27046392030,2026-06-03 00:15:48,PS_boton_presentar_y_salir,Cordoba Province,"$46.356,68",,1,5,,2026-06-03,No,Sí,"904, 921",2026-06-03
+27046392030,2026-07-03 00:14:08,PS_boton_presentar_y_salir,Cordoba Province,"$57.944,92",,1,5,,2026-07-03,No,Sí,"904, 921",2026-07-03
 27046462594,2026-02-12 16:47:17,PS_boton_presentar_y_salir,Santa Fe Province,"$0,00",,1,5,,2026-02-12,No,Sí,"904, 919",2026-06-15
 27046462594,2026-03-12 10:16:02,PS_boton_presentar_y_salir,Cordoba Province,"$79.625,00",,1,5,,2026-03-12,No,Sí,"904, 919",2026-06-15
 27046462594,2026-03-12 10:15:58,PS_boton_presentar_y_generar_pago,Cordoba Province,"$79.625,00",,1,5,,2026-03-12,Sí,,,
@@ -2473,6 +2480,7 @@
 27047583360,2026-05-05 23:24:44,PS_boton_presentar_y_salir,Cordoba Province,"$35.840,48",,1,5,,2026-05-05,No,Sí,"904, 921",2026-06-15
 27047583360,2026-05-05 23:24:32,PS_boton_presentar_y_salir,Cordoba Province,"$35.840,48",,1,5,,2026-05-05,Sí,,,
 27047583360,2026-06-03 00:31:11,PS_boton_presentar_y_generar_pago,Cordoba Province,"$37.510,00",,1,,,2026-06-03,No,Sí,"904, 921",2026-06-03
+27047583360,2026-07-03 00:44:39,PS_boton_presentar_y_salir,Cordoba Province,"$37.510,00",,1,5,,2026-07-03,No,Sí,"904, 921",2026-07-03
 27047765620,2026-03-13 13:07:46,PS_boton_presentar_y_generar_pago,Neuquen Province,"$147.245,20",,1,,,2026-03-13,No,Sí,"915, 916",2026-06-15
 27048209888,2026-01-14 12:02:49,PS_boton_presentar_y_generar_pago,Cordoba Province,"$14.514,00",,1,5,,2026-01-14,No,Sí,"904, 911",2026-06-15
 27048209888,2026-02-13 14:17:13,PS_boton_presentar_y_salir,Cordoba Province,"$14.514,00",,1,5,,2026-02-13,No,Sí,"904, 911",2026-06-15
@@ -2878,7 +2886,7 @@
 27128441137,2026-05-08 18:09:24,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,,,2026-05-08,No,Sí,"904, 922",2026-06-15
 27128441137,2026-06-12 17:02:58,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,,,2026-06-12,No,Sí,"904, 922",2026-06-15
 27128472628,2026-05-07 12:24:04,PS_boton_presentar_y_salir,Cordoba Province,"$6.909,20",,1,,,2026-05-07,No,Sí,"904, 921",2026-06-15
-27128472628,2026-06-02 11:56:21,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,vacio,,2026-06-02,No,Sí,"904, 921",2026-06-02
+27128472628,2026-06-02 11:56:21,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,vacio,,2026-06-02,No,Sí,"904, 921",2026-07-03
 27128472628,2026-07-02 09:10:50,PS_boton_presentar_y_generar_pago,Cordoba Province,"$3.886,50",,1,5,,2026-07-02,No,Sí,"904, 921",2026-07-02
 27128792851,2026-01-13 11:38:17,PS_boton_presentar_y_generar_pago,Neuquen Province,"$71.014,53",,1,5,,2026-01-13,No,Sí,"915, 916",2026-06-15
 27128792851,2026-02-12 11:23:05,PS_boton_presentar_y_generar_pago,Neuquen Province,"$35.457,59",,1,5,,2026-02-12,No,Sí,"915, 916",2026-06-15
@@ -2919,7 +2927,7 @@
 27131662535,2026-03-15 12:01:58,PS_boton_presentar_y_salir,Buenos Aires,"$0,00",,1,5,,2026-03-15,Sí,,,
 27131662535,2026-04-15 10:15:08,PS_boton_presentar_y_salir,Florida,"$0,00",,1,5,,2026-04-15,No,Sí,"904, 908",2026-06-15
 27131662535,2026-04-15 10:15:00,PS_boton_presentar_y_salir,Florida,"$0,00",,1,5,,2026-04-15,Sí,,,
-27131662535,2026-06-02 09:34:53,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,vacio,,2026-06-02,No,Sí,"904, 908",2026-06-02
+27131662535,2026-06-02 09:34:53,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,vacio,,2026-06-02,No,Sí,"904, 908",2026-07-03
 27131690032,2026-04-07 14:49:50,PS_boton_presentar_y_generar_pago,Santa Fe Province,"$452.545,17",,1,4,,2026-04-07,No,Sí,"904, 921",2026-06-15
 27131690032,2026-05-13 12:21:34,PS_boton_presentar_y_generar_pago,Santa Fe Province,"$404.365,46",,1,5,,2026-05-13,No,Sí,"904, 921",2026-06-15
 27131690032,2026-06-08 15:31:07,PS_boton_presentar_y_salir,Santa Fe Province,"$0,00",,1,5,,2026-06-08,No,Sí,"904, 921",2026-06-09
@@ -2933,7 +2941,7 @@
 27132020588,2026-05-13 15:01:19,PS_boton_presentar_y_generar_pago,Cordoba Province,"$64.490,00",,1,,,2026-05-13,No,Sí,"904, 921",2026-06-15
 27132020588,2026-06-04 09:03:48,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,,,2026-06-04,No,Sí,"904, 921",2026-06-04
 27132316231,2026-06-10 08:17:28,PS_boton_presentar_y_salir,Chaco Province,"$0,00",,1,5,,2026-06-10,No,Sí,"921, 906",2026-06-10
-27132568958,2026-05-20 15:42:14,PS_boton_presentar_y_salir,Buenos Aires Province,"$0,00",,1,vacio,,2026-05-20,No,Sí,,2026-07-02
+27132568958,2026-05-20 15:42:14,PS_boton_presentar_y_salir,Buenos Aires Province,"$0,00",,1,vacio,,2026-05-20,No,Sí,,2026-07-03
 27132568958,2026-05-20 15:42:08,PS_boton_presentar_y_salir,Buenos Aires Province,"$0,00",,1,vacio,,2026-05-20,Sí,,,
 27133012805,2026-01-15 08:41:40,PS_boton_presentar_y_salir,Santa Fe Province,"$0,00",,1,vacio,quiero saber como recobrar el saldo a favor en entre rios,2026-01-15,No,Sí,"908, 921",2026-06-15
 27133012805,2026-03-18 08:39:08,PS_boton_presentar_y_salir,Santa Fe Province,"$0,00",,1,vacio,,2026-03-18,No,Sí,"908, 921",2026-06-15
@@ -3303,7 +3311,7 @@
 27216200964,2026-05-19 05:15:31,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-05-19,No,Sí,"915, 916",2026-06-19
 27216200964,2026-06-10 07:42:16,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-06-10,No,Sí,"915, 916",2026-06-10
 27216928224,2026-05-07 13:28:29,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,vacio,,2026-05-07,No,Sí,"904, 921",2026-06-15
-27216928224,2026-06-02 10:40:57,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,vacio,,2026-06-02,No,Sí,"904, 921",2026-06-02
+27216928224,2026-06-02 10:40:57,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,vacio,,2026-06-02,No,Sí,"904, 921",2026-07-03
 27216928224,2026-07-02 08:25:50,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,,2026-07-02,No,Sí,"904, 921",2026-07-02
 27216943150,2026-02-18 09:18:04,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,,,2026-02-18,No,Sí,"904, 921",2026-06-15
 27216943150,2026-03-13 11:39:51,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,,,2026-03-13,No,Sí,"904, 921",2026-06-15
@@ -3385,7 +3393,8 @@
 27234634890,2026-01-08 09:41:46,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-01-08,No,Sí,"915, 916",2026-06-15
 27234634890,2026-02-09 10:48:09,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-02-09,No,Sí,"915, 916",2026-06-15
 27234634890,2026-03-03 11:39:48,PS_boton_presentar_y_salir,Rio Negro Province,"$18.641,25",,1,5,,2026-03-03,No,Sí,"915, 916",2026-06-15
-27234634890,2026-06-02 09:11:25,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-06-02,No,Sí,"915, 916",2026-06-02
+27234634890,2026-06-02 09:11:25,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-06-02,No,Sí,"915, 916",2026-07-03
+27234634890,2026-07-02 18:21:19,PS_boton_presentar_y_salir,Rio Negro Province,"$49.693,50",,1,5,,2026-07-02,No,Sí,"915, 916",2026-07-03
 27234941300,2026-01-13 17:14:26,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-01-13,No,Sí,"915, 916",2026-06-15
 27234941300,2026-02-13 15:41:24,PS_boton_presentar_y_generar_pago,Buenos Aires,"$34.249,54",,1,,,2026-02-13,No,Sí,"915, 916",2026-06-15
 27235057439,2026-02-18 11:42:16,PS_boton_presentar_y_generar_pago,Neuquen Province,"$2.814,47",,1,5,,2026-02-18,No,Sí,"915, 916",2026-06-15
@@ -3619,6 +3628,7 @@
 27278700068,2026-02-14 19:53:28,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,excelente,2026-02-14,No,Sí,"904, 921",2026-06-15
 27278700068,2026-02-14 19:53:15,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,excelente,2026-02-14,Sí,,,
 27278700068,2026-04-03 17:05:44,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,.,2026-04-03,No,Sí,"904, 921",2026-06-15
+27278700068,2026-07-02 20:00:15,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,.,2026-07-02,No,Sí,"904, 921",2026-07-03
 27278841796,2026-05-17 22:35:43,PS_boton_presentar_y_salir,Rio Negro Province,"$16.800,00",,1,5,Gracias por facilitar la presentación.,2026-05-17,No,Sí,"915, 916",2026-06-18
 27279470198,2026-04-14 14:09:17,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,,,2026-04-14,No,Sí,"904, 921",2026-06-15
 27279470198,2026-05-13 15:21:54,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,,,2026-05-13,No,Sí,"904, 921",2026-06-15
@@ -3650,7 +3660,7 @@
 27287184196,2026-01-07 19:06:17,PS_boton_presentar_y_salir,Rio Negro Province,"$31.245,20",,1,5,,2026-01-07,No,Sí,"915, 916",2026-06-15
 27287184196,2026-02-04 13:49:45,PS_boton_presentar_y_generar_pago,Rio Negro Province,"$14.417,48",,1,5,,2026-02-04,No,Sí,"915, 916",2026-06-15
 27287184196,2026-03-04 16:54:40,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-03-04,No,Sí,"915, 916",2026-06-15
-27287184196,2026-06-01 17:28:12,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-06-01,No,Sí,"915, 916",2026-06-02
+27287184196,2026-06-01 17:28:12,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-06-01,No,Sí,"915, 916",2026-07-03
 27287184196,2026-07-01 11:37:14,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-07-01,No,Sí,"915, 916",2026-07-01
 27288398009,2026-01-14 18:08:23,PS_boton_presentar_y_generar_pago,Neuquen Province,"$18.848,64",,1,4,,2026-01-14,No,Sí,"915, 916",2026-06-15
 27290458531,2026-04-15 10:33:25,PS_boton_presentar_y_generar_pago,Neuquen Province,"$97.182,88",,1,,,2026-04-15,No,Sí,"915, 916",2026-06-15
@@ -3765,7 +3775,7 @@ Saludos :)",2026-05-19,No,Sí,"902, 920",2026-06-22
 27333425713,2026-07-01 23:03:43,PS_boton_presentar_y_generar_pago,Rio Negro Province,"$10.661,09",,1,5,,2026-07-01,No,Sí,"915, 916",2026-07-02
 27333785906,2026-04-20 12:58:28,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,,2026-04-20,No,Sí,"904, 917",2026-06-15
 27333785906,2026-05-19 19:10:02,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,2,5,,2026-05-19,No,Sí,"904, 917",2026-06-22
-27333785906,2026-06-02 08:56:20,PS_boton_presentar_y_generar_pago,Cordoba Province,"$19.587,01",,1,5,,2026-06-02,No,Sí,"904, 917",2026-06-02
+27333785906,2026-06-02 08:56:20,PS_boton_presentar_y_generar_pago,Cordoba Province,"$19.587,01",,1,5,,2026-06-02,No,Sí,"904, 917",2026-07-03
 27334139218,2026-03-17 23:14:48,PS_boton_presentar_y_generar_pago,Rio Negro Province,"$7.486,80",,1,vacio,,2026-03-17,No,Sí,"915, 916",2026-06-15
 27334139218,2026-05-20 20:12:37,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,vacio,,2026-05-20,No,Sí,"915, 916",2026-06-22
 27335261939,2026-01-15 14:45:51,PS_boton_presentar_y_salir,Buenos Aires,"$23.286,15",,1,5,muy simple,2026-01-15,No,Sí,"904, 911",2026-06-15
@@ -3946,11 +3956,12 @@ Saludos :)",2026-05-19,No,Sí,"902, 920",2026-06-22
 27387914930,2026-01-08 11:52:32,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-01-08,No,Sí,"915, 916",2026-06-15
 27387914930,2026-02-11 11:45:44,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-02-11,No,Sí,"915, 916",2026-06-15
 27387914930,2026-03-04 17:14:29,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-03-04,No,Sí,"915, 916",2026-06-15
-27387914930,2026-06-02 10:09:55,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-06-02,No,Sí,"915, 916",2026-06-02
+27387914930,2026-06-02 10:09:55,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-06-02,No,Sí,"915, 916",2026-07-03
 27387914930,2026-07-01 16:35:51,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-07-01,No,Sí,"915, 916",2026-07-02
 27389230893,2026-04-28 11:17:36,PS_boton_presentar_y_salir,Buenos Aires Province,"$0,00",,1,5,,2026-04-28,No,Sí,"915, 916",2026-06-15
 27389230893,2026-06-24 11:03:03,PS_boton_presentar_y_salir,Buenos Aires,"$0,00",,1,5,,2026-06-24,No,Sí,"915, 916",2026-06-25
 27389757662,2026-04-21 09:02:45,PS_boton_presentar_y_salir,Jujuy Province,"$78.854,22",,1,,,2026-04-21,No,Sí,"910, 917",2026-06-15
+27389771312,2026-07-02 12:03:52,PS_boton_presentar_y_salir,Salta Province,"$0,00",,1,3,,2026-07-02,No,Sí,"910, 917",2026-07-03
 27390065642,2026-05-17 19:40:55,PS_boton_presentar_y_salir,Salta Province,"$0,00",,1,5,,2026-05-17,No,Sí,"910, 917",2026-06-18
 27390065642,2026-06-24 18:40:59,PS_boton_presentar_y_salir,Salta Province,"$0,00",,1,5,muy intuitivo y rápido,2026-06-24,No,Sí,"910, 917",2026-06-25
 27391675517,2026-05-21 18:56:42,PS_boton_presentar_y_generar_pago,Cordoba Province,"$20.850,00",,1,,,2026-05-21,No,Sí,"904, 922",2026-06-22
@@ -4340,7 +4351,7 @@ Saludos :)",2026-05-19,No,Sí,"902, 920",2026-06-22
 30711269114,2026-06-16 16:07:07,PS_boton_presentar_y_generar_pago,Mendoza Province,"$485.433,27",,1,5,,2026-06-16,No,Sí,"913, 918",2026-06-17
 30711269114,2026-06-16 16:06:46,PS_boton_presentar_y_generar_pago,Mendoza Province,"$485.433,27",,1,5,,2026-06-16,Sí,,,
 30711269114,2026-06-16 16:06:46,PS_boton_presentar_y_salir,Mendoza Province,"$485.433,27",,1,5,,2026-06-16,Sí,,,
-30711284736,2026-06-12 14:01:50,PS_boton_presentar_y_generar_pago,Buenos Aires Province,"$153.409,22",,1,4,"un poco mas ameno, sin tantas solapas, aunque esta dj que realice es bastante sencilla. Me gusta mas",2026-06-12,No,No,,2026-07-02
+30711284736,2026-06-12 14:01:50,PS_boton_presentar_y_generar_pago,Buenos Aires Province,"$153.409,22",,1,4,"un poco mas ameno, sin tantas solapas, aunque esta dj que realice es bastante sencilla. Me gusta mas",2026-06-12,No,No,,2026-07-03
 30711287961,2026-01-12 10:40:14,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,,2026-01-12,No,Sí,"904, 921",2026-06-15
 30711287961,2026-01-12 10:40:07,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,,2026-01-12,Sí,,,
 30711287961,2026-02-11 12:33:48,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,,,2026-02-11,No,Sí,"904, 921",2026-06-15
@@ -4353,6 +4364,7 @@ Saludos :)",2026-05-19,No,Sí,"902, 920",2026-06-22
 30711546568,2026-01-05 13:45:22,PS_boton_presentar_y_salir,Cordoba Province,"$28.602,41",,1,5,,2026-01-05,No,Sí,"904, 921",2026-06-15
 30711546568,2026-02-05 20:48:27,PS_boton_presentar_y_generar_pago,Cordoba Province,"$29.222,46",,1,,,2026-02-05,No,Sí,"904, 921",2026-06-15
 30711546568,2026-06-03 13:21:43,PS_boton_presentar_y_salir,Cordoba Province,"$28.065,42",,1,5,,2026-06-03,No,Sí,"904, 921",2026-06-04
+30711546568,2026-07-02 23:50:58,PS_boton_presentar_y_salir,Cordoba Province,"$29.575,86",,1,5,,2026-07-02,No,Sí,"904, 921",2026-07-03
 30711552568,2026-05-18 17:28:37,PS_boton_presentar_y_salir,Santa Fe Province,"$0,00",,1,5,,2026-05-18,No,Sí,"904, 921",2026-06-19
 30711578729,2026-04-16 16:00:48,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,,,2026-04-16,No,Sí,"904, 921",2026-06-15
 30711578729,2026-05-18 12:43:40,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,,2026-05-18,No,Sí,"904, 921",2026-06-18
@@ -5210,7 +5222,7 @@ Saludos :)",2026-05-19,No,Sí,"902, 920",2026-06-22
 30719138868,2026-06-19 16:09:10,PS_boton_presentar_y_salir,Chubut Province,"$0,00",,1,5,,2026-06-19,No,Sí,"907, 920",2026-06-22
 30719140331,2026-06-16 18:41:00,PS_boton_presentar_y_salir,Rio Negro Province,"$0,00",,1,5,,2026-06-16,No,Sí,"915, 916",2026-06-17
 30719145465,2026-06-16 11:44:09,PS_boton_presentar_y_generar_pago,Neuquen Province,"$573.161,59",,1,,,2026-06-16,No,Sí,"915, 916",2026-06-16
-30719151597,2026-05-18 12:43:56,PS_boton_presentar_y_salir,Buenos Aires,"$0,00",,1,,,2026-05-18,No,Sí,,2026-07-02
+30719151597,2026-05-18 12:43:56,PS_boton_presentar_y_salir,Buenos Aires,"$0,00",,1,,,2026-05-18,No,Sí,,2026-07-03
 30719157145,2026-06-13 19:54:09,PS_boton_presentar_y_salir,Neuquen Province,"$0,00",,1,,,2026-06-13,No,Sí,"915, 916",2026-06-15
 30719161169,2026-05-15 15:16:23,PS_boton_presentar_y_generar_pago,Salta Province,"$8.288,55",,1,vacio,,2026-05-15,No,Sí,"910, 917",2026-06-18
 30719165652,2026-06-14 18:40:18,PS_boton_presentar_y_salir,Cordoba Province,"$91.071,75",,1,5,,2026-06-14,No,Sí,"904, 917",2026-06-15
@@ -5230,7 +5242,7 @@ Saludos :)",2026-05-19,No,Sí,"902, 920",2026-06-22
 30719224489,2026-05-19 10:54:42,PS_boton_presentar_y_generar_pago,Buenos Aires Province,"$36.539,45",,1,,,2026-05-19,No,Sí,"904, 915",2026-06-19
 30719224489,2026-06-25 11:20:56,PS_boton_presentar_y_generar_pago,Buenos Aires Province,"$120.619,98",,1,,,2026-06-25,No,Sí,"904, 915",2026-06-26
 30719229391,2026-05-15 14:39:06,PS_boton_presentar_y_salir,Salta Province,"$0,00",,1,vacio,,2026-05-15,No,Sí,"910, 917",2026-06-18
-30719237947,2026-05-18 17:21:07,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,,,2026-05-18,No,Sí,,2026-07-02
+30719237947,2026-05-18 17:21:07,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,,,2026-05-18,No,Sí,,2026-07-03
 30719265142,2026-06-10 09:56:37,PS_boton_presentar_y_generar_pago,Mendoza Province,"$68.549,76",,1,4,,2026-06-10,No,Sí,"913, 916",2026-06-10
 30719274605,2026-05-18 16:31:54,PS_boton_presentar_y_salir,Santa Fe Province,"$0,00",,1,3,,2026-05-18,No,Sí,"921, 906",2026-06-19
 30719274605,2026-06-17 10:58:23,PS_boton_presentar_y_salir,Santa Fe Province,"$0,00",,1,3,,2026-06-17,No,Sí,"921, 906",2026-06-17
@@ -5366,7 +5378,7 @@ Saludos :)",2026-05-19,No,Sí,"902, 920",2026-06-22
 33715044299,2026-03-05 11:43:31,PS_boton_presentar_y_salir,Cordoba Province,"$4.234,97",,1,5,un epetaculooo,2026-03-05,No,Sí,"904, 921",2026-06-15
 33715044299,2026-04-01 08:38:38,PS_boton_presentar_y_generar_pago,Cordoba Province,"$3.493,11",,1,5,muy bien!,2026-04-01,No,Sí,"904, 921",2026-06-15
 33715044299,2026-05-04 11:47:07,PS_boton_presentar_y_generar_pago,Cordoba Province,"$5.876,12",,1,5,todo más agil,2026-05-04,No,Sí,"904, 921",2026-06-15
-33715044299,2026-06-02 09:11:03,PS_boton_presentar_y_generar_pago,Cordoba Province,"$3.954,69",,1,5,excelente,2026-06-02,No,Sí,"904, 921",2026-06-02
+33715044299,2026-06-02 09:11:03,PS_boton_presentar_y_generar_pago,Cordoba Province,"$3.954,69",,1,5,excelente,2026-06-02,No,Sí,"904, 921",2026-07-03
 33715357009,2026-06-19 16:44:20,PS_boton_presentar_y_salir,Salta Province,"$0,00",,1,,,2026-06-19,No,Sí,"910, 917",2026-06-22
 33715357009,2026-06-19 16:42:06,PS_boton_presentar_y_salir,Salta Province,"$0,00",,1,,,2026-06-19,Sí,,,
 33715357009,2026-06-19 16:37:58,PS_boton_presentar_y_salir,Salta Province,"$0,00",,1,,,2026-06-19,Sí,,,
@@ -5413,7 +5425,7 @@ Saludos :)",2026-05-19,No,Sí,"902, 920",2026-06-22
 33717890529,2026-06-19 09:04:27,PS_boton_presentar_y_salir,Santa Fe Province,"$0,00",,1,5,,2026-06-19,No,Sí,"908, 921",2026-06-22
 33718000349,2026-05-19 11:57:47,PS_boton_presentar_y_salir,Buenos Aires Province,"$0,00",,1,,,2026-05-19,No,Sí,"901, 902",2026-06-22
 33718248219,2026-05-11 10:20:05,PS_boton_presentar_y_salir,Mendoza Province,"$0,00",,1,5,,2026-05-11,No,Sí,"913, 918",2026-06-15
-33718248219,2026-06-02 10:42:37,PS_boton_presentar_y_generar_pago,Mendoza Province,"$72.426,06",,1,5,,2026-06-02,No,Sí,"913, 918",2026-06-02
+33718248219,2026-06-02 10:42:37,PS_boton_presentar_y_generar_pago,Mendoza Province,"$72.426,06",,1,5,,2026-06-02,No,Sí,"913, 918",2026-07-03
 33718293109,2026-06-10 09:33:10,PS_boton_presentar_y_generar_pago,Entre Rios Province,"$2.956.962,07",,1,,,2026-06-10,No,No,"908, 910",2026-06-10
 33718293109,2026-06-10 09:33:10,PS_boton_presentar_y_salir,Entre Rios Province,"$2.956.962,07",,1,,,2026-06-10,Sí,,,
 33718739409,2026-06-16 11:09:09,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,,,2026-06-16,No,Sí,"904, 919",2026-06-16
