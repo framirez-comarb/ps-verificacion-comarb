@@ -172,6 +172,7 @@
 20217490554,2026-06-08 07:42:50,Neuquen Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 20217803390,2026-05-28 19:51:19,Rio Negro Province,"$165.000,00",Error Debes completar los datos del firmante para continuar.,2
 20217803390,2026-05-28 19:51:54,Rio Negro Province,"$165.000,00",Error El apellido del firmante posee caracteres no permitidos. Reingrese.,2
+20219272325,2026-07-07 11:08:21,Neuquen Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 20220122590,2026-05-11 07:38:35,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
 20220122590,2026-06-11 15:06:24,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
 20221108753,2026-06-12 17:47:09,Mendoza Province,"$0,00",Error Debes completar los datos del firmante para continuar.,2
@@ -229,6 +230,7 @@
 20293630632,2026-05-14 11:53:21,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 20300556117,2026-07-03 12:49:44,Mendoza Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 20301445602,2026-06-30 23:09:47,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
+20303024698,2026-07-07 12:20:53,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
 20315140863,2026-06-10 15:55:52,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
 20315933340,2026-05-21 22:51:45,Cordoba Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 20322442727,2026-06-17 13:01:31,Rio Negro Province,"$0,00",Error Error al validar DJ. Falla al validar datos de firmantes. El dato de apellido de firmante pose,2
@@ -402,6 +404,7 @@
 27379182122,2026-06-22 22:49:05,La Rioja Province,,Error El total distribuido debe ser igual a la base imponible,2
 27379182122,2026-06-22 22:49:11,La Rioja Province,,Error El total distribuido debe ser igual a la base imponible,2
 27381178779,2026-06-15 11:30:59,Buenos Aires,"$9.230,00",Error Debes completar los datos del firmante para continuar.,2
+27390544257,2026-07-07 11:50:25,Rio Negro Province,"$0,00",Error Debes completar los datos del firmante para continuar.,2
 27417289165,2026-06-15 16:22:28,Buenos Aires,"$0,00",Error Debes completar los datos del firmante para continuar.,2
 27422050863,2026-05-16 16:44:38,Misiones Province,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
 27422050863,2026-05-16 16:44:50,Misiones Province,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
