@@ -147,6 +147,7 @@
 20114182991,2026-07-08 08:01:03,Buenos Aires,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 20115155963,2026-06-12 18:05:00,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 20115350995,2026-07-08 16:49:37,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
+20116519497,2026-07-16 21:35:51,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
 20117968279,2026-06-16 18:30:34,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 20119770905,2026-07-13 11:16:49,La Rioja Province,,Error Problemas para obtener sus deducciones,2
 20121562430,2026-06-16 10:06:23,Cordoba Province,,Error Problemas para obtener sus deducciones,2
@@ -223,6 +224,7 @@
 20205778579,2026-05-20 17:32:22,Buenos Aires,,Error Problemas para obtener sus deducciones,2
 20205778579,2026-05-20 17:44:09,Buenos Aires,,Error Problemas para obtener sus deducciones,2
 20205778579,2026-06-27 19:19:07,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+20214190312,2026-07-16 16:10:18,Santa Fe Province,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
 20217490554,2026-06-08 07:42:46,Neuquen Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 20217490554,2026-06-08 07:42:50,Neuquen Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 20217803390,2026-05-28 19:51:19,Rio Negro Province,"$165.000,00",Error Debes completar los datos del firmante para continuar.,2
@@ -252,6 +254,7 @@
 20235345693,2026-05-12 14:04:11,Cordoba Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 20237107420,2026-06-11 16:03:54,Santiago del Estero Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 20240296382,2026-07-10 16:20:49,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
+20242918534,2026-07-16 11:15:37,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
 20245595906,2026-07-10 16:26:27,Misiones Province,,Error Problemas para obtener sus deducciones,2
 20245595906,2026-07-10 16:33:09,Misiones Province,,Error Problemas para obtener sus deducciones,2
 20245595906,2026-07-10 16:35:13,Misiones Province,,Error Problemas para obtener sus deducciones,2
@@ -267,6 +270,7 @@
 20260585860,2026-07-13 10:01:45,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 20261009774,2026-07-08 11:42:40,Buenos Aires,,Error Problemas para obtener sus deducciones,2
 20261937108,2026-06-23 12:48:25,Jujuy Province,,Error El total distribuido debe ser igual a la base imponible,2
+20265493875,2026-07-16 22:04:36,Cordoba Province,,Error Debe seleccionar un medio de pago,2
 20268179632,2026-05-12 14:42:29,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
 20270409602,2026-05-27 18:29:05,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 20270600035,2026-06-16 11:38:54,Chubut Province,"$44.913,36",Error Debes completar los datos del firmante para continuar.,2
@@ -320,6 +324,7 @@
 20300556117,2026-07-03 12:49:44,Mendoza Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 20301445602,2026-06-30 23:09:47,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
 20303024698,2026-07-07 12:20:53,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
+20304673967,2026-07-16 13:21:33,Neuquen Province,,Error Problemas para obtener sus deducciones,2
 20305260143,2026-07-15 18:55:04,Florida,,Error Problemas para obtener sus deducciones,2
 20307110270,2026-07-13 10:47:39,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
 20307308828,2026-07-08 10:44:42,San Luis Province,,Error Problemas para obtener sus deducciones,2
@@ -348,6 +353,7 @@
 20360025544,2026-05-14 12:34:44,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
 20364792396,2026-05-21 20:15:39,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 20371657666,2026-05-15 18:05:29,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+20371657666,2026-07-16 12:40:05,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 20374393996,2026-07-08 11:30:55,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 20377814801,2026-06-13 15:03:37,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
 20383285160,2026-05-15 07:34:41,Santa Fe Province,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
@@ -387,6 +393,7 @@
 20468810205,2026-07-10 12:18:02,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
 20928575072,2026-07-10 09:50:13,Buenos Aires Province,,Error Problemas para obtener sus deducciones,2
 20929610165,2026-07-10 11:20:32,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
+20941079149,2026-07-16 12:50:30,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,2
 20941612904,2026-06-16 10:29:51,Chaco Province,,Error Problemas para obtener sus deducciones,2
 20941982469,2026-07-10 11:39:37,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
 20942031573,2026-06-17 19:04:21,Cordoba Province,"$0,00",Error Debes completar los datos del firmante para continuar.,2
@@ -460,6 +467,7 @@
 23496218914,2026-07-13 14:39:00,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 23496218914,2026-07-13 14:39:43,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 23496218914,2026-07-13 14:40:51,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
+23924029234,2026-07-16 21:15:58,Rio Negro Province,"$173.172,20",Error Debes completar los datos del firmante para continuar.,2
 23941496784,2026-05-16 14:18:53,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,2
 24259517385,2026-07-13 21:01:10,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 24259517385,2026-07-13 21:01:24,Cordoba Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
@@ -520,7 +528,9 @@
 27104307596,2026-07-09 12:41:25,Cordoba Province,"$0,00",Error Error al validar DJ. Falla al validar datos de firmantes. El dato de nombre de firmante posee ,2
 27105107191,2026-07-13 12:29:57,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
 27109798636,2026-07-14 18:18:46,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
+27109798717,2026-07-16 13:30:12,Cordoba Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 27112294770,2026-06-15 19:05:08,Cordoba Province,,"Error Debe ingresar un monto válido, menor a 99,99",2
+27113097391,2026-07-16 16:15:59,Cordoba Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 27113649076,2026-07-09 09:45:29,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
 27114701780,2026-07-10 10:47:56,Cordoba Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 27119328980,2026-06-12 14:21:20,San Luis Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
@@ -554,6 +564,7 @@
 27143544090,2026-05-18 20:01:32,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
 27145068792,2026-07-08 11:47:38,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
 27145603973,2026-07-15 10:49:53,Cordoba Province,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
+27145679724,2026-07-16 11:40:44,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
 27145793667,2026-07-13 12:50:07,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 (invalido),2026-06-05 09:22:29,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
 (invalido),2026-07-10 08:44:17,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
@@ -598,6 +609,7 @@
 27277170359,2026-06-30 17:37:33,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 27277170359,2026-06-30 17:44:32,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 27277170359,2026-06-30 17:44:44,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+27280282346,2026-07-16 18:55:46,Valencian Community,,Error El total distribuido debe ser igual a la base imponible,2
 27281291667,2026-07-11 16:15:56,Neuquen Province,,Error Problemas para obtener sus deducciones,2
 27282272976,2026-05-19 17:25:47,Jujuy Province,,Error El total distribuido debe ser igual a la base imponible,2
 27282272976,2026-05-19 17:28:20,Jujuy Province,,Error Debe seleccionar un medio de pago,2
@@ -638,6 +650,7 @@
 27368540582,2026-06-30 12:28:23,Buenos Aires,,Error Problemas para obtener sus deducciones,2
 27371200563,2026-07-15 12:39:48,Neuquen Province,,Error Problemas para obtener sus deducciones,2
 27372150195,2026-07-11 12:08:13,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
+27374011761,2026-07-16 23:49:02,Rio Negro Province,"$0,00",Error Debes completar los datos del firmante para continuar.,2
 27379182122,2026-06-22 22:47:20,La Rioja Province,,Error El total distribuido debe ser igual a la base imponible,2
 27379182122,2026-06-22 22:47:48,La Rioja Province,,Error El total distribuido debe ser igual a la base imponible,2
 27379182122,2026-06-22 22:48:06,La Rioja Province,,Error El total distribuido debe ser igual a la base imponible,2
@@ -835,6 +848,7 @@
 30718199413,2026-05-14 11:20:21,Mendoza Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 30718199413,2026-06-10 12:05:22,Mendoza Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 30718213122,2026-06-10 18:03:13,Rio Negro Province,,Error Debe seleccionar un medio de pago,2
+30718249747,2026-07-16 19:14:55,Rio Negro Province,"$0,00",Error Debes completar los datos del firmante para continuar.,2
 30718374118,2026-06-16 23:41:36,Mendoza Province,,Error El total distribuido debe ser igual a la base imponible,2
 30718387198,2026-07-13 12:54:48,Neuquen Province,,Error Problemas para obtener sus deducciones,2
 30718423135,2026-05-18 09:57:27,Cordoba Province,"$467.147,80","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
@@ -864,6 +878,7 @@
 30718803183,2026-06-06 22:53:14,Mendoza Province,,Error Problemas para obtener sus deducciones,2
 30718835220,2026-06-30 20:07:05,Salta Province,,Error Problemas para obtener sus deducciones,2
 30718877403,2026-05-18 21:38:09,Buenos Aires,,Error El total distribuido debe ser igual a la base imponible,2
+30718877403,2026-07-16 15:47:57,Mendoza Province,,Error Problemas para obtener sus deducciones,2
 30718915941,2026-07-12 11:59:23,Chubut Province,,Error Problemas para obtener sus deducciones,2
 30718926447,2026-05-15 10:58:49,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 30718926447,2026-05-15 10:59:16,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
@@ -872,13 +887,19 @@
 30718926447,2026-05-15 11:00:14,Cordoba Province,,Error Debe completar los campos,2
 30718926447,2026-05-15 11:00:44,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 30718940660,2026-07-11 15:00:10,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
+30718979257,2026-07-16 19:39:43,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
+30718979257,2026-07-16 19:40:04,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
+30718979257,2026-07-16 19:42:16,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
+30718979257,2026-07-16 19:42:27,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
 30719011183,2026-05-18 18:47:02,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 30719011183,2026-06-17 10:31:41,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 30719011183,2026-07-15 09:34:42,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 30719039924,2026-07-13 09:54:40,Mendoza Province,,Error Problemas para obtener sus deducciones,2
 30719068762,2026-07-14 16:14:37,Rio Negro Province,"$0,00",Error Debes completar los datos del firmante para continuar.,2
+30719112737,2026-07-16 17:21:37,Buenos Aires,,Error Problemas para obtener sus deducciones,2
 30719118581,2026-07-15 19:06:04,Chubut Province,,Error Problemas para obtener sus deducciones,2
 30719121752,2026-06-18 09:48:25,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+30719128927,2026-07-16 11:30:58,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,2
 30719129117,2026-06-11 18:35:02,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,2
 30719140331,2026-07-16 11:26:37,Neuquen Province,,Error Problemas para obtener sus deducciones,2
 30719145465,2026-07-06 15:02:59,Neuquen Province,,Error Problemas para obtener sus deducciones,2
@@ -967,6 +988,7 @@
 (invalido),2026-07-10 16:26:50,Buenos Aires,,Error Problemas para obtener sus deducciones,2
 (invalido),2026-07-13 11:17:03,Baden-Wurttemberg,,Error Problemas para obtener sus deducciones,2
 (invalido),2026-07-13 11:18:44,Baden-Wurttemberg,,Error Problemas para obtener sus deducciones,2
+(invalido),2026-07-16 12:18:20,Florida,,Error Problemas para obtener sus deducciones,2
 20282405564,2026-04-15 13:45:14,Santa Fe Province,"$53.345,45",Error Falla al intentar cerrar DDJJ. Error al validar DJ. Falla al validar datos de firmantes. El da,1
 20282405564,2026-04-15 13:45:15,Santa Fe Province,"$53.345,45",Error Falla al intentar cerrar DDJJ. Error al validar DJ. Falla al validar datos de firmantes. El da,1
 27102738441,2026-04-15 20:01:55,Mendoza Province,,Error Debe seleccionar un medio de pago,1
