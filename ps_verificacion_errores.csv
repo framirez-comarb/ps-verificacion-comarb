@@ -376,6 +376,7 @@
 20301445602,2026-06-30 23:09:47,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
 20302075396,2026-07-20 19:34:34,Catamarca Province,,Error Problemas para obtener sus deducciones,2
 20303024698,2026-07-07 12:20:53,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
+20303024698,2026-08-12 09:11:05,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
 20304673967,2026-07-16 13:21:33,Neuquen Province,,Error Problemas para obtener sus deducciones,2
 20305260143,2026-07-15 18:55:04,Florida,,Error Problemas para obtener sus deducciones,2
 20306820630,2026-08-05 10:08:06,Buenos Aires,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
@@ -625,6 +626,7 @@
 27123888923,2026-06-17 15:02:30,Cordoba Province,,Error Debe seleccionar un medio de pago,2
 27123888923,2026-06-17 15:03:10,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 27124834894,2026-07-13 10:00:54,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
+27125477483,2026-08-12 08:31:18,Salta Province,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
 27126809005,2026-07-10 09:31:20,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
 27126809005,2026-07-10 09:31:43,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
 27130904241,2026-05-12 08:33:50,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
@@ -715,6 +717,8 @@
 27297036071,2026-07-31 11:26:40,Formosa Province,,Error El total distribuido debe ser igual a la base imponible,2
 27297361355,2026-06-12 06:25:58,Neuquen Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 27297361355,2026-07-11 08:32:28,Buenos Aires Province,,Error Problemas para obtener sus deducciones,2
+27305298471,2026-08-12 08:00:34,Buenos Aires,,Error DDJJ no se encuentra en estado BORRADOR. Imposible modificar.,2
+27305298471,2026-08-12 08:00:53,Buenos Aires,,Error DDJJ no se encuentra en estado BORRADOR. Imposible modificar.,2
 27305892098,2026-07-15 14:15:45,Neuquen Province,"$130.438,60","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 0,00 con el total ",2
 27306495505,2026-06-16 10:32:15,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 27315472526,2026-06-18 15:33:26,Rio Negro Province,"$11.002,50",Error Error al validar DJ. Falla al validar datos de firmantes. El dato de apellido de firmante pose,2
@@ -795,6 +799,7 @@
 30617544098,2026-07-08 13:20:16,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
 30644913259,2026-07-12 13:07:30,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 30672710436,2026-07-14 09:55:21,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
+30673041899,2026-08-12 09:37:58,Buenos Aires Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 30687234207,2026-07-10 08:48:08,Entre Rios Province,,Error Problemas para obtener sus deducciones,2
 30693650875,2026-07-15 12:34:28,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
 30693650875,2026-07-15 12:35:46,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
