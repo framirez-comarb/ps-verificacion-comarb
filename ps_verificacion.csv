@@ -6942,6 +6942,7 @@ Saludos :)",2026-05-19,No,Sí,"902, 920",2026-08-24
 30567231468,2026-06-19 16:06:59,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,,2026-06-19,No,Sí,"903, 904",2026-08-24
 30567231468,2026-08-16 19:17:40,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,,,2026-08-16,No,Sí,"903, 904",2026-08-17
 30582935595,2026-06-20 14:09:47,PS_boton_presentar_y_generar_pago,Neuquen Province,"$180.025,89",,1,5,,2026-06-20,No,Sí,"915, 916",2026-08-24
+30584714324,2026-08-25 07:38:52,PS_boton_presentar_y_salir,Cordoba Province,"$5.868.600,51",,1,,,2026-08-25,No,Sí,"904, 921",2026-08-25
 30586594903,2026-08-03 10:29:30,PS_boton_presentar_y_salir,Cordoba Province,"$0,00",,1,5,,2026-08-03,No,Sí,"904, 921",2026-08-04
 30592525441,2026-02-12 13:52:51,PS_boton_presentar_y_salir,Santa Fe Province,"$0,00",,1,4,,2026-02-12,No,Sí,"908, 921, 909",2026-08-17
 30592525441,2026-03-13 13:38:05,PS_boton_presentar_y_salir,Santa Fe Province,"$0,00",,1,,,2026-03-13,No,Sí,"908, 921, 909",2026-08-17
@@ -9145,6 +9146,8 @@ Poder cargar las deducciones sin tener que volver a la versión clásica. Ahorra
 33719426129,2026-07-15 11:18:36,PS_boton_presentar_y_salir,Mendoza Province,"$2.739,00",,1,,,2026-07-15,Sí,,,
 33719477629,2026-07-24 12:42:33,PS_boton_presentar_y_salir,Mendoza Province,"$0,00",,1,,,2026-07-24,No,Sí,"913, 918",2026-08-24
 33719477629,2026-07-24 12:41:43,PS_boton_presentar_y_salir,Mendoza Province,"$0,00",,1,,,2026-07-24,Sí,,,
+33719478579,2026-08-25 08:30:19,PS_boton_presentar_y_salir,Santa Fe Province,"$0,00",,1,,,2026-08-25,No,Sí,"908, 921",2026-08-25
+33719478579,2026-08-25 08:29:36,PS_boton_presentar_y_salir,Santa Fe Province,"$0,00",,1,,,2026-08-25,Sí,,,
 33719482819,2026-07-17 18:11:30,PS_boton_presentar_y_salir,Salta Province,"$0,00",,1,,,2026-07-17,No,Sí,"910, 917",2026-08-20
 33719482819,2026-07-17 18:11:25,PS_boton_presentar_y_salir,Salta Province,"$0,00",,1,,,2026-07-17,Sí,,,
 33719482819,2026-07-17 18:11:19,PS_boton_presentar_y_salir,Salta Province,"$0,00",,1,,,2026-07-17,Sí,,,
