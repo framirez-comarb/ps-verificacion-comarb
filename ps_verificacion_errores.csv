@@ -610,6 +610,10 @@
 23112444904,2026-09-07 18:39:39,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 23112444904,2026-09-07 18:39:46,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 23112444904,2026-09-07 18:39:57,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
+23112444904,2026-09-08 22:02:39,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
+23112444904,2026-09-08 22:02:58,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
+23112444904,2026-09-08 22:03:11,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
+23112444904,2026-09-08 22:10:48,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 23116457784,2026-07-08 11:34:08,Neuquen Province,,Error Problemas para obtener sus deducciones,2
 23124748704,2026-08-18 16:32:46,Santa Fe Province,"$38.637,76",Error Debes completar los datos del firmante para continuar.,2
 23129836873,2026-05-18 18:05:47,Mendoza Province,,Error Debe seleccionar un medio de pago,2
@@ -973,6 +977,7 @@
 27438119308,2026-05-15 15:51:22,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 27438119308,2026-05-15 15:51:24,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 27438119308,2026-05-15 15:51:37,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
+27441032035,2026-09-08 14:18:21,Neuquen Province,,Error El total distribuido debe ser igual a la base imponible,2
 27453759712,2026-09-03 09:33:12,Neuquen Province,"$0,00",Error Debes completar los datos del firmante para continuar.,2
 27462261212,2026-07-13 14:11:36,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 27467780765,2026-05-20 07:54:11,Formosa Province,"$0,00",Error Debes completar los datos del firmante para continuar.,2
@@ -1351,6 +1356,7 @@
 30719537096,2026-09-01 16:34:28,Neuquen Province,"$291.252,26",Error Debes completar los datos del firmante para continuar.,2
 30719537096,2026-09-01 16:34:33,Neuquen Province,"$291.252,26",Error Debes completar los datos del firmante para continuar.,2
 30719537096,2026-09-01 16:34:51,Neuquen Province,"$291.252,26",Error Debes completar los datos del firmante para continuar.,2
+30719558387,2026-09-08 14:06:03,San Luis Province,"$0,00",Error Debes completar los datos del firmante para continuar.,2
 33711127009,2026-05-19 23:27:34,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 33712816509,2026-07-08 15:05:04,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 33715357009,2026-06-19 16:29:21,Salta Province,"$0,00","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
