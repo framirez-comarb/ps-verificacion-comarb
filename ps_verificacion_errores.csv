@@ -392,6 +392,14 @@
 20252939777,2026-07-10 10:32:40,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
 20252939777,2026-07-10 10:33:55,Rio Negro Province,"$55.000,00",Error Debes completar los datos del firmante para continuar.,2
 20253665700,2026-07-15 09:50:59,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
+20253861186,2026-09-21 11:58:46,Buenos Aires Province,true,"Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 0,00 con el total ",2
+20253861186,2026-09-21 11:58:51,Buenos Aires Province,true,"Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 0,00 con el total ",2
+20253861186,2026-09-21 12:00:43,Buenos Aires Province,true,"Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 0,00 con el total ",2
+20253861186,2026-09-21 12:00:49,Buenos Aires Province,true,"Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 0,00 con el total ",2
+20253861186,2026-09-21 12:00:54,Buenos Aires Province,true,"Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 0,00 con el total ",2
+20253861186,2026-09-21 12:02:12,Buenos Aires Province,true,"Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 0,00 con el total ",2
+20253861186,2026-09-21 12:02:21,Buenos Aires Province,true,"Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 0,00 con el total ",2
+20253861186,2026-09-21 12:02:30,Buenos Aires Province,true,"Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 0,00 con el total ",2
 20257577822,2026-07-17 14:16:07,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 20257577822,2026-07-17 14:16:35,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 20257577822,2026-07-17 14:17:05,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
@@ -984,6 +992,11 @@
 27236486139,2026-07-17 10:40:48,Neuquen Province,,Error No se pudo conectar con el servidor,2
 27236486139,2026-07-17 10:40:51,Neuquen Province,,Error No se pudo conectar con el servidor,2
 27236486139,2026-07-17 10:41:09,Neuquen Province,,Error No se pudo conectar con el servidor,2
+27237326585,2026-09-21 13:09:45,La Rioja Province,true,Error Error al validar DJ. Falla al validar datos de firmantes. El dato de nombre de firmante posee ,2
+27237326585,2026-09-21 13:10:04,La Rioja Province,true,Error Error al validar DJ. Falla al validar datos de firmantes. El dato de nombre de firmante posee ,2
+27237326585,2026-09-21 13:10:10,La Rioja Province,true,Error Error al validar DJ. Falla al validar datos de firmantes. El dato de nombre de firmante posee ,2
+27237326585,2026-09-21 13:10:35,La Rioja Province,true,Error Error al validar DJ. Falla al validar datos de firmantes. El dato de nombre de firmante posee ,2
+27237326585,2026-09-21 13:10:39,La Rioja Province,true,Error Error al validar DJ. Falla al validar datos de firmantes. El dato de nombre de firmante posee ,2
 27237639001,2026-06-16 23:06:22,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
 27237639001,2026-09-15 19:00:14,Rio Negro Province,false,Error El total distribuido debe ser igual a la base imponible,2
 27237639001,2026-09-15 19:00:18,Rio Negro Province,false,Error El total distribuido debe ser igual a la base imponible,2
@@ -1610,6 +1623,7 @@
 30719555361,2026-09-16 07:02:31,Neuquen Province,true,Error Debes completar los datos del firmante para continuar.,2
 30719555361,2026-09-16 07:02:40,Neuquen Province,true,Error Debes completar los datos del firmante para continuar.,2
 30719558387,2026-09-08 14:06:03,San Luis Province,"$0,00",Error Debes completar los datos del firmante para continuar.,2
+30719563380,2026-09-21 10:56:51,Cordoba Province,false,Error Debes completar los datos del firmante para continuar.,2
 30719565995,2026-09-10 08:14:32,Santa Fe Province,"$0,00",Error Debes completar los datos del firmante para continuar.,2
 30719570085,2026-09-17 16:39:24,Santa Fe Province,false,Error Debes completar los datos del firmante para continuar.,2
 30719575052,2026-09-15 10:41:46,Mendoza Province,"$0,00",Error Debes completar los datos del firmante para continuar.,2
