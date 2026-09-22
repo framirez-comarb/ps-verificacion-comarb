@@ -327,6 +327,8 @@
 20203139056,2026-08-20 18:46:03,Jujuy Province,"$0,00","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
 20203139056,2026-08-20 18:46:59,Jujuy Province,"$0,00","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
 20203139056,2026-08-20 18:48:23,Jujuy Province,"$0,00","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+20203139056,2026-09-21 19:38:10,Jujuy Province,false,Error El total distribuido debe ser igual a la base imponible,2
+20203139056,2026-09-21 19:38:14,Jujuy Province,false,Error El total distribuido debe ser igual a la base imponible,2
 20203812117,2026-07-16 00:09:40,Buenos Aires,,Error Problemas para obtener sus deducciones,2
 20205778579,2026-05-20 17:32:10,Buenos Aires,,Error Problemas para obtener sus deducciones,2
 20205778579,2026-05-20 17:32:22,Buenos Aires,,Error Problemas para obtener sus deducciones,2
