@@ -235,6 +235,8 @@
 20142105110,2026-05-15 17:42:31,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 20142105110,2026-05-15 17:43:13,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 20142105110,2026-05-15 17:44:18,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
+20142656818,2026-09-22 10:19:29,Santa Fe Province,false,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
+20142656818,2026-09-22 10:25:54,Santa Fe Province,false,Error Debes completar los datos del firmante para continuar.,2
 20144116519,2026-06-18 11:52:30,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 20144175701,2026-09-16 09:58:14,Buenos Aires Province,false,Error El total distribuido debe ser igual a la base imponible,2
 20144175701,2026-09-16 09:58:42,Buenos Aires Province,false,Error El total distribuido debe ser igual a la base imponible,2
