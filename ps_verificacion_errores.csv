@@ -973,6 +973,7 @@
 27182796617,2026-09-15 17:19:25,Buenos Aires Province,false,Error El total distribuido debe ser igual a la base imponible,2
 27187692100,2026-09-04 18:25:47,Mendoza Province,,Error El total distribuido debe ser igual a la base imponible,2
 27200732915,2026-07-13 13:24:12,Cordoba Province,,Error Problemas para obtener sus deducciones,2
+27205240417,2026-09-22 13:03:53,Misiones Province,true,Error Debes completar los datos del firmante para continuar.,2
 27205611768,2026-08-20 09:26:55,La Pampa Province,,Error El total distribuido debe ser igual a la base imponible,2
 27205611768,2026-08-20 12:13:23,La Pampa Province,"$70.381,71",Error Debes completar los datos del firmante para continuar.,2
 27206124054,2026-07-01 18:27:15,Cordoba Province,,Error Problemas para obtener sus deducciones,2
@@ -1069,6 +1070,8 @@
 27297361355,2026-06-12 06:25:58,Neuquen Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 27297361355,2026-07-11 08:32:28,Buenos Aires Province,,Error Problemas para obtener sus deducciones,2
 27298267883,2026-08-15 11:30:22,La Pampa Province,"$0,00",Error Debes completar los datos del firmante para continuar.,2
+27305004427,2026-09-22 14:53:18,Rio Negro Province,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
+27305004427,2026-09-22 14:53:26,Rio Negro Province,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 27305298471,2026-08-12 08:00:34,Buenos Aires,,Error DDJJ no se encuentra en estado BORRADOR. Imposible modificar.,2
 27305298471,2026-08-12 08:00:53,Buenos Aires,,Error DDJJ no se encuentra en estado BORRADOR. Imposible modificar.,2
 27305892098,2026-07-15 14:15:45,Neuquen Province,"$130.438,60","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 0,00 con el total ",2
@@ -1161,6 +1164,10 @@
 27422703980,2026-06-10 19:51:16,Buenos Aires,"$0,00",Error Error al validar DJ. Imposible cerrar DDJJ. Deben existir al menos 2 jurisdicciones declaradas,2
 27422703980,2026-06-10 19:51:22,Buenos Aires,"$0,00",Error Error al validar DJ. Imposible cerrar DDJJ. Deben existir al menos 2 jurisdicciones declaradas,2
 27422703980,2026-06-10 20:11:38,Buenos Aires,"$0,00",Error Error al validar DJ. Imposible cerrar DDJJ. Deben existir al menos 2 jurisdicciones declaradas,2
+27426887245,2026-09-22 22:30:21,Buenos Aires,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
+27426887245,2026-09-22 22:30:29,Buenos Aires,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
+27426887245,2026-09-22 22:30:37,Buenos Aires,false,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
+27426887245,2026-09-22 22:30:43,Buenos Aires,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 27434338692,2026-05-18 06:25:17,Rio Negro Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 27434802828,2026-06-15 16:19:13,Buenos Aires,"$0,00",Error Debes completar los datos del firmante para continuar.,2
 27434802828,2026-06-15 16:20:58,Buenos Aires,"$0,00",Error Debes completar los datos del firmante para continuar.,2
@@ -1621,6 +1628,7 @@
 30719537096,2026-09-01 16:34:28,Neuquen Province,"$291.252,26",Error Debes completar los datos del firmante para continuar.,2
 30719537096,2026-09-01 16:34:33,Neuquen Province,"$291.252,26",Error Debes completar los datos del firmante para continuar.,2
 30719537096,2026-09-01 16:34:51,Neuquen Province,"$291.252,26",Error Debes completar los datos del firmante para continuar.,2
+30719539471,2026-09-22 16:44:07,Mendoza Province,false,Error Debes completar los datos del firmante para continuar.,2
 30719542537,2026-09-17 20:54:54,Rio Negro Province,false,Error Debes completar los datos del firmante para continuar.,2
 30719542650,2026-09-15 15:40:53,Rio Negro Province,false,Error Debes completar los datos del firmante para continuar.,2
 30719555361,2026-09-16 07:02:27,Neuquen Province,true,Error Debes completar los datos del firmante para continuar.,2
