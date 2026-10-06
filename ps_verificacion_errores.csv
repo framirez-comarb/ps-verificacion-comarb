@@ -142,6 +142,14 @@
 20066504949,2026-09-01 11:07:39,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 20066504949,2026-09-01 11:07:52,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 20066504949,2026-09-01 12:52:47,Cordoba Province,,Error Debe seleccionar un medio de pago,2
+20066504949,2026-10-05 19:47:36,Cordoba Province,false,Error Debe completar los campos,2
+20066504949,2026-10-05 19:50:58,Cordoba Province,false,Error El total distribuido debe ser igual a la base imponible,2
+20066504949,2026-10-05 20:05:38,Cordoba Province,false,Error El total distribuido debe ser igual a la base imponible,2
+20066504949,2026-10-05 20:05:45,Cordoba Province,false,Error El total distribuido debe ser igual a la base imponible,2
+20066504949,2026-10-05 20:06:07,Cordoba Province,false,Error Debe completar los campos,2
+20066504949,2026-10-05 20:06:09,Cordoba Province,false,Error Debe completar los campos,2
+20066504949,2026-10-05 20:09:44,Cordoba Province,false,Error El total distribuido debe ser igual a la base imponible,2
+20066504949,2026-10-05 20:09:51,Cordoba Province,false,Error El total distribuido debe ser igual a la base imponible,2
 20068179514,2026-06-17 10:07:47,San Luis Province,,Error Debe seleccionar un medio de pago,2
 20068791236,2026-10-04 12:35:12,Rio Negro Province,false,Error El total distribuido debe ser igual a la base imponible,2
 20068791236,2026-10-04 12:35:16,Rio Negro Province,false,Error El total distribuido debe ser igual a la base imponible,2
@@ -681,6 +689,7 @@
 20452468582,2026-07-13 10:12:36,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 20458394750,2026-06-12 13:05:06,Cordoba Province,"$0,00",Error Debes completar los datos del firmante para continuar.,2
 20458907448,2026-08-18 15:57:47,Buenos Aires,,Error El total distribuido debe ser igual a la base imponible,2
+20463340464,2026-10-05 15:14:19,Buenos Aires Province,false,Error Debes completar los datos del firmante para continuar.,2
 20464815784,2026-09-16 17:40:12,Buenos Aires,false,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
 20468397707,2026-09-16 09:31:48,Santa Fe Province,false,Error Debes completar los datos del firmante para continuar.,2
 20468810205,2026-07-10 12:14:01,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
