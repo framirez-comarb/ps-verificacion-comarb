@@ -267,6 +267,7 @@
 20148002623,2026-07-08 11:30:41,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
 20148002623,2026-07-08 11:32:34,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
 20148002623,2026-07-08 11:33:38,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
+20148280224,2026-10-07 20:03:00,Santa Fe Province,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 20148353825,2026-07-11 16:10:20,Neuquen Province,,Error Problemas para obtener sus deducciones,2
 20148353825,2026-07-11 16:10:46,Neuquen Province,,Error Problemas para obtener sus deducciones,2
 20149019333,2026-09-15 15:17:28,Buenos Aires,true,Error Debes completar los datos del firmante para continuar.,2
@@ -1036,6 +1037,7 @@
 27220499389,2026-09-17 12:58:10,Rio Negro Province,false,Error El total distribuido debe ser igual a la base imponible,2
 27224222136,2026-08-19 09:08:03,Santa Fe Province,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
 27224490734,2026-08-18 19:34:22,Buenos Aires,,Error El total distribuido debe ser igual a la base imponible,2
+27225289897,2026-10-07 18:24:15,Cordoba Province,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 27230079841,2026-06-30 21:53:49,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 27230807413,2026-05-14 09:08:18,Santa Fe Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 27230807413,2026-05-14 09:08:23,Santa Fe Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
