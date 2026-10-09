@@ -775,6 +775,8 @@
 23112444904,2026-10-06 18:34:25,Cordoba Province,false,Error El total distribuido debe ser igual a la base imponible,2
 23112444904,2026-10-06 18:36:01,Cordoba Province,false,Error El total distribuido debe ser igual a la base imponible,2
 23112444904,2026-10-06 18:36:11,Cordoba Province,false,Error El total distribuido debe ser igual a la base imponible,2
+23112444904,2026-10-08 20:29:58,Cordoba Province,false,Error El total distribuido debe ser igual a la base imponible,2
+23112444904,2026-10-08 20:30:20,Cordoba Province,false,Error El total distribuido debe ser igual a la base imponible,2
 23116457784,2026-07-08 11:34:08,Neuquen Province,,Error Problemas para obtener sus deducciones,2
 23124748704,2026-08-18 16:32:46,Santa Fe Province,"$38.637,76",Error Debes completar los datos del firmante para continuar.,2
 23129836873,2026-05-18 18:05:47,Mendoza Province,,Error Debe seleccionar un medio de pago,2
@@ -820,6 +822,7 @@
 23245593899,2026-07-10 17:18:34,Formosa Province,,Error Debe seleccionar un medio de pago,2
 23271495749,2026-05-22 07:42:22,Chaco Province,"$0,00",Error Debes completar los datos del firmante para continuar.,2
 23288197989,2026-07-16 08:56:04,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
+23301338414,2026-10-08 15:42:45,Buenos Aires,false,Error El total distribuido debe ser igual a la base imponible,2
 23303819339,2026-09-18 13:26:21,Santa Fe Province,false,Error El total distribuido debe ser igual a la base imponible,2
 23303819339,2026-09-18 13:26:28,Santa Fe Province,false,Error El total distribuido debe ser igual a la base imponible,2
 23326923389,2026-05-10 12:33:55,La Pampa Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
@@ -1814,6 +1817,8 @@
 20939603175,2026-10-08 13:54:55,Buenos Aires Province,false,Error El total distribuido debe ser igual a la base imponible,1
 23076862079,2026-06-29 09:37:43,Santa Fe Province,,Error Problemas para obtener sus deducciones,1
 23076862079,2026-06-29 09:37:44,Santa Fe Province,,Error Problemas para obtener sus deducciones,1
+23112444904,2026-10-08 20:30:02,Cordoba Province,false,Error El total distribuido debe ser igual a la base imponible,1
+23112444904,2026-10-08 20:30:03,Cordoba Province,false,Error El total distribuido debe ser igual a la base imponible,1
 23180589244,2026-06-16 12:01:53,Cordoba Province,,Error Problemas para obtener sus deducciones,1
 23180589244,2026-06-16 12:01:54,Cordoba Province,,Error Problemas para obtener sus deducciones,1
 23218700799,2026-06-10 17:14:18,Cordoba Province,,Error Problemas para obtener sus deducciones,1
