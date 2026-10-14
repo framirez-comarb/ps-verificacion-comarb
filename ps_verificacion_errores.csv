@@ -228,6 +228,8 @@
 20125650385,2026-10-13 18:12:41,Neuquen Province,false,Error El total distribuido debe ser igual a la base imponible,2
 20125650385,2026-10-13 18:28:05,Neuquen Province,false,Error El total distribuido debe ser igual a la base imponible,2
 20125650385,2026-10-13 18:29:15,Neuquen Province,false,Error El total distribuido debe ser igual a la base imponible,2
+20125650385,2026-10-14 10:17:03,Neuquen Province,false,Error El total distribuido debe ser igual a la base imponible,2
+20125650385,2026-10-14 10:18:00,Neuquen Province,false,Error El total distribuido debe ser igual a la base imponible,2
 20125725067,2026-05-15 11:11:22,Buenos Aires Province,"$22.668,70","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 0,00 con el total ",2
 20125725067,2026-05-15 11:11:33,Buenos Aires Province,"$22.668,70","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 0,00 con el total ",2
 20125725067,2026-05-15 11:12:23,Buenos Aires Province,"$22.668,70","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 0,00 con el total ",2
@@ -589,6 +591,7 @@
 20304673967,2026-07-16 13:21:33,Neuquen Province,,Error Problemas para obtener sus deducciones,2
 20305260143,2026-07-15 18:55:04,Florida,,Error Problemas para obtener sus deducciones,2
 20306820630,2026-08-05 10:08:06,Buenos Aires,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
+20306931181,2026-10-14 11:36:14,Rio Negro Province,false,Error El total distribuido debe ser igual a la base imponible,2
 20307110270,2026-07-13 10:47:39,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
 20307308828,2026-07-08 10:44:42,San Luis Province,,Error Problemas para obtener sus deducciones,2
 20313137644,2026-07-08 09:59:18,Cordoba Province,,Error Problemas para obtener sus deducciones,2
@@ -634,6 +637,7 @@
 20351916002,2026-08-08 14:07:36,Buenos Aires Province,"$0,00",Error Debes completar los datos del firmante para continuar.,2
 20353556895,2026-09-18 08:35:51,Buenos Aires,true,Error Debes completar los datos del firmante para continuar.,2
 20353556895,2026-09-18 08:36:05,Buenos Aires,true,Error Debes completar los datos del firmante para continuar.,2
+20353556895,2026-10-14 11:25:47,Cordoba Province,true,Error No se pudo conectar con el servidor,2
 20354760046,2026-05-18 17:55:23,Cordoba Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 20355145930,2026-08-19 10:38:25,Mendoza Province,"$52.500,00",Error Debes completar los datos del firmante para continuar.,2
 20355145930,2026-08-19 10:40:18,Mendoza Province,,Error Debe seleccionar un medio de pago,2
@@ -1027,6 +1031,7 @@
 27135368674,2026-05-13 09:17:52,Cordoba Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 27135368674,2026-06-11 10:18:02,Cordoba Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 27135368674,2026-07-09 09:41:59,Cordoba Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
+27135368674,2026-10-14 10:21:15,Cordoba Province,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 27135685068,2026-06-19 10:50:06,Santa Fe Province,"$0,00",Error Debes completar los datos del firmante para continuar.,2
 27135685262,2026-07-10 08:47:13,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
 27135765940,2026-10-13 14:28:12,Santa Fe Province,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
@@ -1047,6 +1052,7 @@
 27148227468,2026-08-14 10:45:46,Buenos Aires Province,"$329.184,52","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
 27148227468,2026-08-14 10:46:51,Buenos Aires Province,"$329.184,52","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
 27148227468,2026-08-14 10:48:40,Buenos Aires Province,,Error El total distribuido debe ser igual a la base imponible,2
+27148457692,2026-10-14 11:19:19,Rio Negro Province,false,Error El nombre del firmante posee caracteres no permitidos. Reingrese.,2
 27148999037,2026-09-16 20:09:18,Buenos Aires Province,false,Error Debes completar los datos del firmante para continuar.,2
 (invalido),2026-06-05 09:22:29,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
 (invalido),2026-07-10 08:44:17,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
@@ -1580,9 +1586,12 @@
 30717840344,2026-06-15 10:54:49,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 30717912922,2026-05-14 11:37:13,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
 30718008472,2026-07-15 10:17:54,Rio Negro Province,,Error Debe seleccionar un medio de pago,2
+30718100875,2026-10-14 10:17:17,Neuquen Province,false,Error El total distribuido debe ser igual a la base imponible,2
 30718111613,2026-05-19 09:23:03,Salta Province,,Error El total distribuido debe ser igual a la base imponible,2
 30718111613,2026-05-19 09:23:19,Salta Province,,Error El total distribuido debe ser igual a la base imponible,2
 30718111613,2026-06-19 10:40:47,Salta Province,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
+30718111613,2026-10-14 10:08:31,Salta Province,false,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
+30718111613,2026-10-14 10:08:45,Salta Province,false,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
 30718149203,2026-09-15 00:01:30,Buenos Aires,,Error El total distribuido debe ser igual a la base imponible,2
 30718185064,2026-05-28 09:33:23,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 30718199413,2026-05-14 11:20:21,Mendoza Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
@@ -1714,6 +1723,7 @@
 (invalido),2026-08-11 13:34:01,Buenos Aires Province,"$0,00",Error Error al validar DJ. Falla al validar datos de firmantes. El dato de nombre de firmante posee ,2
 (invalido),2026-08-11 13:34:35,Buenos Aires Province,"$0,00",Error Error al validar DJ. Falla al validar datos de firmantes. El dato de nombre de firmante posee ,2
 30719304083,2026-08-13 09:49:08,Salta Province,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
+30719304083,2026-10-14 09:40:35,Salta Province,false,Error El total distribuido debe ser igual a la base imponible,2
 30719305276,2026-07-13 10:34:08,Mendoza Province,,Error Problemas para obtener sus deducciones,2
 30719310113,2026-07-20 13:25:01,La Rioja Province,,Error Debe seleccionar un medio de pago,2
 30719348889,2026-08-13 09:41:23,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
@@ -1757,6 +1767,7 @@
 30719558387,2026-09-08 14:06:03,San Luis Province,"$0,00",Error Debes completar los datos del firmante para continuar.,2
 30719563380,2026-09-21 10:56:51,Cordoba Province,false,Error Debes completar los datos del firmante para continuar.,2
 30719565995,2026-09-10 08:14:32,Santa Fe Province,"$0,00",Error Debes completar los datos del firmante para continuar.,2
+30719567513,2026-10-14 09:27:28,Rio Negro Province,false,Error Debes completar los datos del firmante para continuar.,2
 30719570085,2026-09-17 16:39:24,Santa Fe Province,false,Error Debes completar los datos del firmante para continuar.,2
 30719575052,2026-09-15 10:41:46,Mendoza Province,"$0,00",Error Debes completar los datos del firmante para continuar.,2
 30719594553,2026-10-14 10:31:39,Canton of Bern,false,Error Debes completar los datos del firmante para continuar.,2
@@ -1855,6 +1866,7 @@
 (invalido),2026-07-20 09:38:55,San Luis Province,,Error Problemas para obtener sus deducciones,2
 (invalido),2026-07-20 09:40:03,San Luis Province,,Error Problemas para obtener sus deducciones,2
 (invalido),2026-09-11 12:25:08,Mendoza Province,,Error El total distribuido debe ser igual a la base imponible,2
+(invalido),2026-10-14 11:26:34,Mendoza Province,false,Error El total distribuido debe ser igual a la base imponible,2
 20282405564,2026-04-15 13:45:14,Santa Fe Province,"$53.345,45",Error Falla al intentar cerrar DDJJ. Error al validar DJ. Falla al validar datos de firmantes. El da,1
 20282405564,2026-04-15 13:45:15,Santa Fe Province,"$53.345,45",Error Falla al intentar cerrar DDJJ. Error al validar DJ. Falla al validar datos de firmantes. El da,1
 27102738441,2026-04-15 20:01:55,Mendoza Province,,Error Debe seleccionar un medio de pago,1
