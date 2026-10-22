@@ -546,6 +546,7 @@
 20276216512,2026-09-14 10:47:47,Chubut Province,,Error El total distribuido debe ser igual a la base imponible,2
 20276216512,2026-09-14 10:48:03,Chubut Province,,Error El total distribuido debe ser igual a la base imponible,2
 20276216512,2026-09-14 10:48:32,Chubut Province,,Error El total distribuido debe ser igual a la base imponible,2
+20276421469,2026-10-22 11:23:45,Buenos Aires Province,false,Error Debe completar los campos,2
 20277966752,2026-07-15 12:57:58,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
 20278842100,2026-05-12 08:58:06,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
 20278954952,2026-05-14 09:31:48,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
@@ -1148,6 +1149,7 @@
 27206124054,2026-07-01 18:27:15,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 27206547265,2026-06-16 15:00:42,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
 27214512055,2026-09-13 10:22:27,Buenos Aires Province,,Error El total distribuido debe ser igual a la base imponible,2
+27214512055,2026-10-22 10:50:07,Buenos Aires Province,false,Error El total distribuido debe ser igual a la base imponible,2
 27216928224,2026-06-02 10:40:08,Cordoba Province,,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
 27216943150,2026-07-13 09:50:00,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 27219440265,2026-07-09 09:32:53,Catamarca Province,,Error Problemas para obtener sus deducciones,2
@@ -1625,6 +1627,7 @@
 30716573970,2026-07-13 10:13:38,San Juan Province,,Error Problemas para obtener sus deducciones,2
 30716649357,2026-09-17 08:48:19,Buenos Aires,false,Error El total distribuido debe ser igual a la base imponible,2
 30716663511,2026-10-15 08:50:39,Mendoza Province,false,"Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 0,00 con el total ",2
+30716674866,2026-10-22 09:40:33,Mendoza Province,false,Error El total distribuido debe ser igual a la base imponible,2
 30716712105,2026-09-16 11:54:14,Buenos Aires Province,false,Error El total distribuido debe ser igual a la base imponible,2
 30716712105,2026-10-16 10:55:54,Buenos Aires Province,false,Error El total distribuido debe ser igual a la base imponible,2
 30716806665,2026-09-16 11:46:48,Mendoza Province,false,Error Debes completar los datos del firmante para continuar.,2
