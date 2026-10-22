@@ -383,6 +383,8 @@
 20203139056,2026-08-20 18:48:23,Jujuy Province,"$0,00","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
 20203139056,2026-09-21 19:38:10,Jujuy Province,false,Error El total distribuido debe ser igual a la base imponible,2
 20203139056,2026-09-21 19:38:14,Jujuy Province,false,Error El total distribuido debe ser igual a la base imponible,2
+20203139056,2026-10-21 21:43:10,Jujuy Province,false,"Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+20203139056,2026-10-21 21:44:19,Jujuy Province,false,"Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
 20203812117,2026-07-16 00:09:40,Buenos Aires,,Error Problemas para obtener sus deducciones,2
 20205428039,2026-10-16 09:39:08,Cordoba Province,false,Error El total distribuido debe ser igual a la base imponible,2
 20205428039,2026-10-16 09:40:36,Cordoba Province,false,Error El total distribuido debe ser igual a la base imponible,2
@@ -1446,6 +1448,17 @@
 30710025769,2026-07-21 10:06:20,Buenos Aires,,Error El total distribuido debe ser igual a la base imponible,2
 30710025769,2026-07-21 10:07:34,Buenos Aires,,Error El total distribuido debe ser igual a la base imponible,2
 30710025769,2026-07-21 10:09:20,Buenos Aires,,Error El total distribuido debe ser igual a la base imponible,2
+30710274505,2026-10-22 08:38:38,Mendoza Province,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
+30710274505,2026-10-22 08:38:46,Mendoza Province,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
+30710274505,2026-10-22 08:39:02,Mendoza Province,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
+30710274505,2026-10-22 08:49:50,Mendoza Province,true,"Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30710274505,2026-10-22 08:50:41,Mendoza Province,true,"Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30710274505,2026-10-22 08:51:33,Mendoza Province,true,"Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30710274505,2026-10-22 08:51:38,Mendoza Province,true,"Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30710274505,2026-10-22 08:52:17,Mendoza Province,false,Error El total distribuido debe ser igual a la base imponible,2
+30710274505,2026-10-22 08:52:48,Mendoza Province,true,"Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30710274505,2026-10-22 09:08:30,Mendoza Province,true,"Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
+30710274505,2026-10-22 09:08:37,Mendoza Province,true,"Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
 30710460333,2026-05-19 11:12:13,Jujuy Province,,Error El total distribuido debe ser igual a la base imponible,2
 30710491700,2026-10-15 19:21:00,Rio Negro Province,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 30710507151,2026-08-07 08:49:05,Buenos Aires,,Error Debe seleccionar un medio de pago,2
