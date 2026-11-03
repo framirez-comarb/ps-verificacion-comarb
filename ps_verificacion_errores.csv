@@ -157,6 +157,8 @@
 20066504949,2026-10-05 20:06:09,Cordoba Province,false,Error Debe completar los campos,2
 20066504949,2026-10-05 20:09:44,Cordoba Province,false,Error El total distribuido debe ser igual a la base imponible,2
 20066504949,2026-10-05 20:09:51,Cordoba Province,false,Error El total distribuido debe ser igual a la base imponible,2
+20066504949,2026-11-03 09:19:51,Cordoba Province,false,Error El total distribuido debe ser igual a la base imponible,2
+20066504949,2026-11-03 09:20:43,Cordoba Province,false,Error Debe seleccionar un medio de pago,2
 20068179514,2026-06-17 10:07:47,San Luis Province,,Error Debe seleccionar un medio de pago,2
 20068791236,2026-10-04 12:35:12,Rio Negro Province,false,Error El total distribuido debe ser igual a la base imponible,2
 20068791236,2026-10-04 12:35:16,Rio Negro Province,false,Error El total distribuido debe ser igual a la base imponible,2
@@ -405,6 +407,7 @@
 20217490554,2026-06-08 07:42:50,Neuquen Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 20217803390,2026-05-28 19:51:19,Rio Negro Province,"$165.000,00",Error Debes completar los datos del firmante para continuar.,2
 20217803390,2026-05-28 19:51:54,Rio Negro Province,"$165.000,00",Error El apellido del firmante posee caracteres no permitidos. Reingrese.,2
+20217882851,2026-11-03 12:29:25,Buenos Aires,false,Error El total distribuido debe ser igual a la base imponible,2
 20218694641,2026-07-13 10:42:47,Buenos Aires Province,,Error Problemas para obtener sus deducciones,2
 20219272325,2026-07-07 11:08:21,Neuquen Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 20220122590,2026-05-11 07:38:35,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
@@ -481,6 +484,7 @@
 20253861186,2026-09-21 12:02:12,Buenos Aires Province,true,"Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 0,00 con el total ",2
 20253861186,2026-09-21 12:02:21,Buenos Aires Province,true,"Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 0,00 con el total ",2
 20253861186,2026-09-21 12:02:30,Buenos Aires Province,true,"Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 0,00 con el total ",2
+20255306481,2026-11-03 11:27:51,Buenos Aires Province,false,Error El total distribuido debe ser igual a la base imponible,2
 20257121853,2026-10-13 09:47:33,Santa Fe Province,false,Error Debe seleccionar un medio de pago,2
 20257577822,2026-07-17 14:16:07,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
 20257577822,2026-07-17 14:16:35,Cordoba Province,,Error El total distribuido debe ser igual a la base imponible,2
