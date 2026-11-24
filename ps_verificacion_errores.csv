@@ -356,6 +356,7 @@
 20163929040,2026-09-14 09:19:24,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
 20163929040,2026-09-14 09:19:35,Rio Negro Province,,Error El total distribuido debe ser igual a la base imponible,2
 20164267181,2026-07-12 17:14:15,Rio Negro Province,,Error Problemas para obtener sus deducciones,2
+20165626967,2026-11-24 09:40:38,Buenos Aires Province,false,Error El total distribuido debe ser igual a la base imponible,2
 20166413304,2026-08-13 17:41:59,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
 20167522433,2026-07-02 11:09:01,Cordoba Province,,Error Problemas para obtener sus deducciones,2
 20167522433,2026-07-02 11:24:24,Cordoba Province,,Error Problemas para obtener sus deducciones,2
@@ -539,6 +540,7 @@
 20255648323,2026-11-19 14:24:08,Jujuy Province,false,Error Debes completar los datos del firmante para continuar.,2
 20256127351,2026-11-11 20:28:39,Buenos Aires,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 20256953324,2026-11-16 10:17:31,Buenos Aires,false,Error Debes completar los datos del firmante para continuar.,2
+20257010636,2026-11-24 09:43:23,Buenos Aires Province,false,Error El total distribuido debe ser igual a la base imponible,2
 20257053343,2026-11-14 16:04:43,Buenos Aires Province,false,Error El total distribuido debe ser igual a la base imponible,2
 20257121853,2026-10-13 09:47:33,Santa Fe Province,false,Error Debe seleccionar un medio de pago,2
 20257133800,2026-11-13 11:11:02,Buenos Aires Province,false,Error El total distribuido debe ser igual a la base imponible,2
@@ -577,6 +579,8 @@
 20258505655,2026-11-18 16:10:38,Buenos Aires Province,false,Error No se pudo conectar con el servidor,2
 20258505655,2026-11-18 16:10:55,Buenos Aires Province,false,Error No se pudo conectar con el servidor,2
 20258670869,2026-11-18 14:56:54,Buenos Aires,false,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
+20258670869,2026-11-24 11:12:27,Buenos Aires,false,Error El total distribuido debe ser igual a la base imponible,2
+20258670869,2026-11-24 11:12:29,Buenos Aires,false,Error El total distribuido debe ser igual a la base imponible,2
 20258707509,2026-07-20 11:59:53,San Luis Province,,Error Problemas para obtener sus deducciones,2
 20260355369,2026-07-10 12:06:00,Santa Fe Province,,Error El total distribuido debe ser igual a la base imponible,2
 20260355369,2026-07-10 12:08:59,Santa Fe Province,,Error Problemas para obtener sus deducciones,2
@@ -675,6 +679,7 @@
 20282701295,2026-11-14 20:27:15,Cordoba Province,false,Error Error al validar DJ. Falla al validar total de Bases Imponibles por Jurisdicciï¿½n vs. Totales,2
 20282701295,2026-11-14 20:27:20,Cordoba Province,false,Error Error al validar DJ. Falla al validar total de Bases Imponibles por Jurisdicciï¿½n vs. Totales,2
 20282701295,2026-11-14 20:27:23,Cordoba Province,false,Error Error al validar DJ. Falla al validar total de Bases Imponibles por Jurisdicciï¿½n vs. Totales,2
+20282798566,2026-11-23 21:06:45,Buenos Aires Province,false,Error 1,2
 20283953484,2026-08-07 15:52:22,Rio Negro Province,"$32.000,00",Error Debes completar los datos del firmante para continuar.,2
 20286360956,2026-05-21 17:05:37,Cordoba Province,,Error No se pudo conectar con el servidor,2
 20286360956,2026-05-21 17:05:55,Cordoba Province,,Error No se pudo conectar con el servidor,2
@@ -1740,6 +1745,10 @@
 27431559965,2026-11-02 22:12:48,Rio Negro Province,false,Error Debes completar los datos del firmante para continuar.,2
 27431559965,2026-11-02 22:15:12,Buenos Aires,false,Error El nombre del firmante posee caracteres no permitidos. Reingrese.,2
 (invalido),2026-11-12 11:28:52,Buenos Aires,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
+27433238899,2026-11-24 08:38:35,Buenos Aires Province,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
+27433238899,2026-11-24 08:38:40,Buenos Aires Province,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
+27433238899,2026-11-24 08:38:49,Buenos Aires Province,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
+27433238899,2026-11-24 08:38:57,Buenos Aires Province,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 27434338692,2026-05-18 06:25:17,Rio Negro Province,,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 27434802828,2026-06-15 16:19:13,Buenos Aires,"$0,00",Error Debes completar los datos del firmante para continuar.,2
 27434802828,2026-06-15 16:20:58,Buenos Aires,"$0,00",Error Debes completar los datos del firmante para continuar.,2
@@ -2225,6 +2234,9 @@
 30718714229,2026-10-19 09:23:02,Buenos Aires Province,false,Error El total distribuido debe ser igual a la base imponible,2
 30718714229,2026-10-19 09:41:56,Buenos Aires Province,false,Error El total distribuido debe ser igual a la base imponible,2
 30718730429,2026-08-19 11:13:15,Neuquen Province,"$729.120,38","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos Gravados: $ 5.921.454,76 con e",2
+30718739779,2026-11-24 13:04:55,Buenos Aires Province,false,Error Todas las Jurisdicciones deben tener Base Imponible mayor o igual a cero.,2
+30718739779,2026-11-24 13:04:59,Buenos Aires Province,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
+30718739779,2026-11-24 13:05:05,Buenos Aires Province,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
 30718794362,2026-08-14 09:10:07,Santa Cruz Province,"$715.701,13","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
 30718794362,2026-08-14 09:10:18,Santa Cruz Province,"$715.701,13","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
 30718794362,2026-08-14 09:10:36,Santa Cruz Province,"$715.701,13","Error Falla al intentar cerrar DDJJ. No coincide el total de Ingresos no Gravados: $ 0,00 con el tot",2
@@ -2394,6 +2406,7 @@
 30719634687,2026-11-11 09:39:50,Neuquen Province,false,Error El apellido del firmante posee caracteres no permitidos. Reingrese.,2
 30719634687,2026-11-11 09:39:51,Neuquen Province,false,Error Debes completar los datos del firmante para continuar.,2
 30719634687,2026-11-11 09:40:28,Neuquen Province,false,Error El apellido del firmante posee caracteres no permitidos. Reingrese.,2
+30719651956,2026-11-24 10:46:23,Buenos Aires,false,Error Debes completar los datos del firmante para continuar.,2
 30719655099,2026-11-20 19:14:22,Jujuy Province,false,Error Debes completar los datos del firmante para continuar.,2
 30719663237,2026-11-13 18:14:56,Entre Rios Province,false,Error Debes completar los datos del firmante para continuar.,2
 33612602129,2026-09-17 13:48:24,Buenos Aires Province,false,Error Debe ingresar 2 dígitos decimales después de la coma.,2
